@@ -10,6 +10,7 @@ CLAUDE.md 3번 "프로젝트 진행 관리" 규칙에서 쓰는 추적 파일들
 | `work.md` | 할 일 / 한 일 체크리스트 (미시 관점) |
 | `history.md` | 주간 아카이브 |
 | `troubleshooting.md` | 트러블슈팅 로그 (필요할 때만, `docs/` 에 복사해 사용) |
+| `retrospective.md` | 프로젝트 회고·총평 (마무리 단계, `docs/` 에 복사해 사용) |
 
 ## 새 프로젝트에서 사용
 
@@ -22,5 +23,6 @@ CLAUDE.md 3번 "프로젝트 진행 관리" 규칙에서 쓰는 추적 파일들
 `YYYY-MM-DD` 자리표시자를 실행 당일 날짜로 바꿔 루트로 복사하고 `docs/` 를 만듭니다.
 복사 후 **brainstorming.md 부터** 채우세요.
 
-`troubleshooting.md` 는 상시 추적 파일이 아니라 **필요할 때** 꺼내 쓰는 양식입니다.
-시간을 많이 쓴 문제가 생기면 `docs/YYYY-MM-DD_트러블슈팅-제목.md` 로 복사해 기록하세요.
+`troubleshooting.md` · `retrospective.md` 는 상시 추적 파일이 아니라 **필요할 때** 꺼내 쓰는 양식입니다.
+- 시간을 많이 쓴 문제: `docs/YYYY-MM-DD_트러블슈팅-제목.md` 로 복사해 기록
+- 프로젝트 마무리 회고: `docs/YYYY-MM-DD_회고.md` 로 복사해 작성 → 재사용 교훈은 CLAUDE.md 13번으로

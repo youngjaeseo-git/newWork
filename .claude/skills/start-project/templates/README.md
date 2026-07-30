@@ -11,6 +11,7 @@ CLAUDE.md 3번 "프로젝트 진행 관리" 규칙에서 쓰는 추적 파일들
 | `history.md` | 주간 아카이브 |
 | `troubleshooting.md` | 트러블슈팅 로그 (필요할 때만, `docs/` 에 복사해 사용) |
 | `retrospective.md` | 프로젝트 회고·총평 (마무리 단계, `docs/` 에 복사해 사용) |
+| `decision-log.md` | 결정·진행 로그 (긴 세션/중요 결정, `docs/` 에 복사해 사용) |
 
 ## 새 프로젝트에서 사용
 

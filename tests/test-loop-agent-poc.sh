@@ -36,11 +36,16 @@ case "$prompt" in
     ;;
   *"ROLE: implementer"*)
     role="implementer"
-    printf '%s\n' "LOOP POC OK" > "$workspace/result.txt"
-    {
-      printf '%s\n' "Implemented result.txt."
-      printf '%s\n' "IMPLEMENTATION: COMPLETE"
-    } > "$output"
+    implementer_runs="$(grep -c '^implementer:' "$workspace/calls.log" 2>/dev/null || true)"
+    if [[ "${FAKE_REVIEW_RETRY:-0}" == "1" && "$implementer_runs" == "0" ]]; then
+      printf '%s\n' "LOOP POC NEEDS REVIEW" > "$workspace/result.txt"
+      printf '%s\n' "Created provisional result." "IMPLEMENTATION: COMPLETE" > "$output"
+    elif [[ "${FAKE_REVIEW_RETRY:-0}" == "1" && "$prompt" != *"Reviewer feedback: replace provisional result."* ]]; then
+      printf '%s\n' "Review feedback was not forwarded." "IMPLEMENTATION: BLOCKED" > "$output"
+    else
+      printf '%s\n' "LOOP POC OK" > "$workspace/result.txt"
+      printf '%s\n' "Implemented result.txt." "IMPLEMENTATION: COMPLETE" > "$output"
+    fi
     ;;
   *"ROLE: reviewer"*)
     role="reviewer"
@@ -48,6 +53,8 @@ case "$prompt" in
       :
     elif [[ "${FAKE_REVIEW_FAIL:-0}" == "1" ]]; then
       printf '%s\n' "Forced review failure." "VERDICT: FAIL" > "$output"
+    elif [[ "${FAKE_REVIEW_RETRY:-0}" == "1" && "$(cat "$workspace/result.txt" 2>/dev/null || true)" == "LOOP POC NEEDS REVIEW" ]]; then
+      printf '%s\n' "Reviewer feedback: replace provisional result." "VERDICT: FAIL" > "$output"
     elif [[ "$(cat "$workspace/result.txt" 2>/dev/null || true)" == "LOOP POC OK" ]]; then
       printf '%s\n' "Review found the requested result." "VERDICT: PASS" > "$output"
     else
@@ -56,7 +63,9 @@ case "$prompt" in
     ;;
   *"ROLE: verifier"*)
     role="verifier"
-    if [[ "$prompt" != *"PLANNER OUTPUT:"* || "$prompt" != *"Plan: create result.txt with the requested content."* ]]; then
+    if [[ "${FAKE_VERIFY_FAIL:-0}" == "1" ]]; then
+      printf '%s\n' "Forced verification failure." "VERDICT: FAIL" > "$output"
+    elif [[ "$prompt" != *"PLANNER OUTPUT:"* || "$prompt" != *"Plan: create result.txt with the requested content."* ]]; then
       printf '%s\n' "Planner acceptance context was not forwarded." "VERDICT: FAIL" > "$output"
     elif [[ "$(cat "$workspace/result.txt" 2>/dev/null || true)" == "LOOP POC OK" ]]; then
       printf '%s\n' "Verified result.txt content." "VERDICT: PASS" > "$output"
@@ -92,6 +101,48 @@ actual="$(cat "$WORKSPACE/calls.log")"
 
 grep -qx 'VERDICT: PASS' "$RUN_DIR/reviewer.md"
 grep -qx 'VERDICT: PASS' "$RUN_DIR/verifier.md"
+grep -qx 'Planner runs: 1' "$RUN_DIR/summary.txt"
+grep -qx 'Implementer runs: 1' "$RUN_DIR/summary.txt"
+grep -qx 'Reviewer runs: 1' "$RUN_DIR/summary.txt"
+grep -qx 'Verifier runs: 1' "$RUN_DIR/summary.txt"
+grep -qx 'Reviewer retries: 0' "$RUN_DIR/summary.txt"
+grep -qx 'Final status: PASS' "$RUN_DIR/summary.txt"
+grep -Eq '^Start: [0-9]{4}-[0-9]{2}-[0-9]{2}T' "$RUN_DIR/summary.txt"
+grep -Eq '^End: [0-9]{4}-[0-9]{2}-[0-9]{2}T' "$RUN_DIR/summary.txt"
+grep -Eq '^Duration seconds: [0-9]+$' "$RUN_DIR/summary.txt"
+
+echo "[test] normal path PASS"
+
+RETRY_WORKSPACE="$TMP_ROOT/retry-workspace"
+RETRY_RUN_DIR="$TMP_ROOT/retry-run"
+mkdir -p "$RETRY_WORKSPACE" "$RETRY_RUN_DIR"
+
+FAKE_REVIEW_RETRY=1 \
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$RETRY_RUN_DIR" \
+  "$ROOT_DIR/run.sh" loop-poc "Create result.txt containing exactly LOOP POC OK" "$RETRY_WORKSPACE"
+
+[[ "$(cat "$RETRY_WORKSPACE/result.txt")" == "LOOP POC OK" ]]
+expected_retry=$(cat <<'EXPECTED_RETRY'
+planner:read-only
+implementer:workspace-write
+reviewer:read-only
+implementer:workspace-write
+reviewer:read-only
+verifier:read-only
+EXPECTED_RETRY
+)
+actual_retry="$(cat "$RETRY_WORKSPACE/calls.log")"
+[[ "$actual_retry" == "$expected_retry" ]]
+grep -qx 'Reviewer feedback: replace provisional result.' "$RETRY_RUN_DIR/reviewer-1.md"
+grep -qx 'VERDICT: PASS' "$RETRY_RUN_DIR/reviewer-2.md"
+grep -qx 'Implementer runs: 2' "$RETRY_RUN_DIR/summary.txt"
+grep -qx 'Reviewer runs: 2' "$RETRY_RUN_DIR/summary.txt"
+grep -qx 'Verifier runs: 1' "$RETRY_RUN_DIR/summary.txt"
+grep -qx 'Reviewer retries: 1' "$RETRY_RUN_DIR/summary.txt"
+grep -qx 'Final status: PASS' "$RETRY_RUN_DIR/summary.txt"
+
+echo "[test] reviewer retry path PASS"
 
 
 FAIL_WORKSPACE="$TMP_ROOT/fail-workspace"
@@ -112,13 +163,53 @@ expected_fail=$(cat <<'EXPECTED_FAIL'
 planner:read-only
 implementer:workspace-write
 reviewer:read-only
+implementer:workspace-write
+reviewer:read-only
+implementer:workspace-write
+reviewer:read-only
 EXPECTED_FAIL
 )
 actual_fail="$(cat "$FAIL_WORKSPACE/calls.log")"
 [[ "$actual_fail" == "$expected_fail" ]]
 [[ ! -e "$FAIL_RUN_DIR/verifier.md" ]]
+grep -qx 'Implementer runs: 3' "$FAIL_RUN_DIR/summary.txt"
+grep -qx 'Reviewer runs: 3' "$FAIL_RUN_DIR/summary.txt"
+grep -qx 'Reviewer retries: 2' "$FAIL_RUN_DIR/summary.txt"
+grep -qx 'Final status: FAIL' "$FAIL_RUN_DIR/summary.txt"
+grep -qx 'Failure stage: reviewer' "$FAIL_RUN_DIR/summary.txt"
+grep -qx 'Failure reason: reviewer rejected attempt 3 and maximum retries (2) were exhausted' "$FAIL_RUN_DIR/summary.txt"
 
-echo "[test] reviewer gate PASS"
+echo "[test] reviewer retry limit PASS"
+
+VERIFY_FAIL_WORKSPACE="$TMP_ROOT/verify-fail-workspace"
+VERIFY_FAIL_RUN_DIR="$TMP_ROOT/verify-fail-run"
+mkdir -p "$VERIFY_FAIL_WORKSPACE" "$VERIFY_FAIL_RUN_DIR"
+
+set +e
+FAKE_VERIFY_FAIL=1 \
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$VERIFY_FAIL_RUN_DIR" \
+  "$ROOT_DIR/run.sh" loop-poc "Create result.txt containing exactly LOOP POC OK" "$VERIFY_FAIL_WORKSPACE" \
+  >"$TMP_ROOT/verify-fail.out" 2>&1
+verify_fail_rc=$?
+set -e
+
+[[ "$verify_fail_rc" -ne 0 ]]
+expected_verify_fail=$(cat <<'EXPECTED_VERIFY_FAIL'
+planner:read-only
+implementer:workspace-write
+reviewer:read-only
+verifier:read-only
+EXPECTED_VERIFY_FAIL
+)
+actual_verify_fail="$(cat "$VERIFY_FAIL_WORKSPACE/calls.log")"
+[[ "$actual_verify_fail" == "$expected_verify_fail" ]]
+grep -qx 'Reviewer retries: 0' "$VERIFY_FAIL_RUN_DIR/summary.txt"
+grep -qx 'Final status: FAIL' "$VERIFY_FAIL_RUN_DIR/summary.txt"
+grep -qx 'Failure stage: verifier' "$VERIFY_FAIL_RUN_DIR/summary.txt"
+grep -qx 'Failure reason: verifier rejected the result' "$VERIFY_FAIL_RUN_DIR/summary.txt"
+
+echo "[test] verifier fail stops without retry PASS"
 
 STALE_WORKSPACE="$TMP_ROOT/stale-workspace"
 STALE_RUN_DIR="$TMP_ROOT/stale-run"

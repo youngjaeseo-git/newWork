@@ -78,7 +78,7 @@ cp -r .claude/skills/start-project ~/.claude/skills/
 ./run.sh test
 ```
 
-PoC는 네 개의 독립 Codex 세션을 순서대로 실행하며, reviewer/verifier가 PASS를 반환해야 완료된다. 자세한 내용은 `docs/2026-09-24_loop-agent-poc.md` 참고.
+PoC는 독립 Codex 세션으로 네 역할을 실행한다. reviewer FAIL은 기본 최대 2회 implementer 재작업으로 되돌리고, 실행 통계는 artifact의 `summary.txt`에 남긴다. reviewer/verifier가 PASS를 반환해야 완료된다. 자세한 내용은 `docs/2026-09-24_loop-agent-poc.md` 참고.
 
 ## 수정했을 때
 

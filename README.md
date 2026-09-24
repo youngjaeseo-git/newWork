@@ -12,6 +12,8 @@
 | `templates/` | 추적 파일 빈 양식 (brainstorming · plan · todo · work · history · troubleshooting) |
 | `scripts/init-project.sh` | 추적 파일 + `docs/` 를 현재 프로젝트에 생성 |
 | `scripts/sync-skill.sh` | 위 내용을 `start-project` 스킬 패키지로 동기화 |
+| `scripts/loop-agent-poc.sh` | planner → implementer → reviewer → verifier 최소 실행 PoC |
+| `tests/test-loop-agent-poc.sh` | PoC 순서·sandbox·gate 테스트 |
 | `.claude/skills/start-project/` | 호출형 스킬 — `/start-project` 로 킥오프 자동화 |
 
 ---
@@ -66,6 +68,17 @@ cp -r .claude/skills/start-project ~/.claude/skills/
 
 - **로컬에서 여러 프로젝트를 한다면**: ① (글로벌 규칙) + ② (스킬) 조합이 가장 편합니다.
 - **새 프로젝트를 깃 저장소로 시작한다면**: ③ 템플릿 저장소.
+
+## Loop Agent 최소 PoC
+
+현재 작업 원칙의 별도 에이전트 교차 검증을 실제 실행 흐름으로 확인하려면:
+
+```bash
+./run.sh loop-poc "할 일을 자연어로 작성"
+./run.sh test
+```
+
+PoC는 네 개의 독립 Codex 세션을 순서대로 실행하며, reviewer/verifier가 PASS를 반환해야 완료된다. 자세한 내용은 `docs/2026-09-24_loop-agent-poc.md` 참고.
 
 ## 수정했을 때
 

@@ -29,11 +29,23 @@ fi
 # fi
 
 # ── 실행 ──────────────────────────────────────────────────────────────────────
-# 아래에 실제 실행 명령을 넣으세요:
-# 예) node src/index.js
-# 예) python main.py
-# 예) go run ./cmd/server
-
-echo "run.sh: 실행 명령을 아래에 채워주세요."
-echo "  예) node src/index.js"
-echo "  예) python main.py"
+case "${1:-}" in
+  loop-poc)
+    shift
+    exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
+    ;;
+  test)
+    shift
+    exec "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    ;;
+  "")
+    echo "run.sh: 실행 명령을 아래에 채워주세요."
+    echo '  PoC: ./run.sh loop-poc "할 일" [workspace]'
+    echo "  테스트: ./run.sh test"
+    ;;
+  *)
+    echo "run.sh: 알 수 없는 명령: $1" >&2
+    echo "  지원: loop-poc, test" >&2
+    exit 2
+    ;;
+esac

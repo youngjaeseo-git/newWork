@@ -34,18 +34,24 @@ case "${1:-}" in
     shift
     exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
     ;;
+  memory)
+    shift
+    exec python3 "$SCRIPT_DIR/scripts/newwork-memory.py" --root "$SCRIPT_DIR" "$@"
+    ;;
   test)
     shift
-    exec "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    exec python3 "$SCRIPT_DIR/tests/test-newwork-memory.py"
     ;;
   "")
     echo "run.sh: 실행 명령을 아래에 채워주세요."
     echo '  PoC: ./run.sh loop-poc "할 일" [workspace]'
+    echo "  Memory: ./run.sh memory <init|start|end|reconcile|rebuild|...>"
     echo "  테스트: ./run.sh test"
     ;;
   *)
     echo "run.sh: 알 수 없는 명령: $1" >&2
-    echo "  지원: loop-poc, test" >&2
+    echo "  지원: loop-poc, memory, test" >&2
     exit 2
     ;;
 esac

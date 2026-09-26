@@ -1,0 +1,17 @@
+{
+  "event_seq": 6,
+  "items": {
+    "v2-spec-copy": {
+      "claim": "v2 설계 원문이 docs/newwork-v2-spec.md로 보관됨",
+      "evidence": [
+        {
+          "path": "docs/newwork-v2-spec.md",
+          "sha256": "e5f0e1cdd0619bd8f89d2a1223cf3778eed3fe76e89ad330130bf4faa8f366b6"
+        }
+      ],
+      "id": "v2-spec-copy",
+      "status": "EVIDENCE_FOUND"
+    }
+  },
+  "schema": 1
+}

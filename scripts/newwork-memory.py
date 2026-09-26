@@ -20,6 +20,7 @@ from pathlib import Path
 
 SCHEMA = 1
 STATUSES = {"UNVERIFIED", "EVIDENCE_FOUND", "PENDING_CONFIRMATION", "CONFIRMED", "REFUTED", "SUPERSEDED"}
+LESSON_EFFECTS = {"supported", "inconclusive", "contradicted"}
 INTERNAL_PROJECTIONS = (".newwork/events.jsonl", ".newwork/STATE.yaml",
                         ".newwork/FINDINGS.yaml", ".newwork/LESSONS.yaml")
 EXIT = {"ok": 0, "invalid_input": 2, "conflict": 10, "review_required": 11,
@@ -237,6 +238,22 @@ def project(events):
             state["pending_confirmations"].pop(data["id"], None)
         elif kind == "finding_recorded":
             findings["items"][data["id"]] = data
+        elif kind == "lesson_proposed":
+            lessons["items"][data["id"]] = {**data, "status": "candidate",
+                                            "reuse_policy": "live_freshness_check_required",
+                                            "proposed_event": event["seq"]}
+        elif kind in {"lesson_approved", "lesson_rejected", "lesson_withdrawn"}:
+            item = lessons["items"][data["id"]]
+            item["status"] = {"lesson_approved": "approved", "lesson_rejected": "rejected",
+                              "lesson_withdrawn": "withdrawn"}[kind]
+            item["decision_reason"] = data["reason"]
+            item["decision_event"] = event["seq"]
+        elif kind == "lesson_replaced":
+            old, new = lessons["items"][data["id"]], lessons["items"][data["replacement_id"]]
+            old.update(status="replaced", replaced_by=data["replacement_id"], decision_reason=data["reason"],
+                       decision_event=event["seq"])
+            new.update(status="approved", replaces=data["id"], decision_reason=data["reason"],
+                       decision_event=event["seq"])
         else:
             if kind != "initialized":
                 fail("ledger_corrupt", f"unknown event type: {kind}")
@@ -295,6 +312,51 @@ def stale_evidence(root, findings):
             if current["sha256"] != ref["sha256"]:
                 stale.append(ref["path"])
     return sorted(set(stale))
+
+
+def lesson_reference(root, supplied):
+    ref = evidence(root, supplied)
+    if ref["path"] in INTERNAL_PROJECTIONS or ref["path"] == ".newwork/.lock":
+        fail("invalid_evidence", "Memory ledger and snapshots cannot be lesson evidence")
+    return ref
+
+
+def lesson_references(item):
+    return [item["source"], *item["supporting"], *item["contradictory"]]
+
+
+def changed_lesson_references(root, item):
+    stale = []
+    for ref in lesson_references(item):
+        try:
+            current = lesson_reference(root, ref["path"])
+        except MemoryFailure:
+            stale.append(ref["path"])
+            continue
+        if current != ref:
+            stale.append(ref["path"])
+    return sorted(set(stale))
+
+
+def stale_lesson_evidence(root, lessons):
+    stale = []
+    for item in lessons["items"].values():
+        if item["status"] in {"candidate", "approved"}:
+            stale.extend(changed_lesson_references(root, item))
+    return sorted(set(stale))
+
+
+def require_fresh_lesson(root, item):
+    stale = changed_lesson_references(root, item)
+    if stale:
+        fail("review_required", "lesson source or evidence changed; candidate preserved", stale_evidence=stale)
+
+
+def lesson_support_is_recorded(ref, findings):
+    if any(ref in item["evidence"] for item in findings["items"].values()):
+        return True
+    parts = Path(ref["path"]).parts
+    return len(parts) >= 4 and parts[:2] == (".newwork", "runs")
 
 
 def require_session(state):
@@ -380,7 +442,18 @@ def execute(args):
             reply(path=str(base), event_seq=1)
             return
         events = read_events(base)
-        state, findings, _ = project(events)
+        state, findings, lessons = project(events)
+        if args.command == "lesson-check":
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            stale = changed_lesson_references(root, item)
+            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+                        and not stale)
+            status = "ok" if reusable else "review_required"
+            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+                  stale_evidence=stale)
+            return
         if args.command == "rebuild":
             projections(base, events)
             reply(event_seq=len(events))
@@ -390,12 +463,13 @@ def execute(args):
             current = git(root)
             drift = git_drift(root, events, state["last_git"], current)
             stale = stale_evidence(root, findings)
+            stale_lessons = stale_lesson_evidence(root, lessons)
             result = {"snapshot_mismatches": mismatches, "git_drift": drift,
                       "recorded_git": state["last_git"], "current_git": current,
                       "active_session": state["active_session"], "event_seq": len(events),
                       "pending_confirmations": state["pending_confirmations"],
-                      "stale_evidence": stale}
-            status = "review_required" if mismatches or drift or stale else "ok"
+                      "stale_evidence": stale, "stale_lesson_evidence": stale_lessons}
+            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
             reply(status, **result)
             if args.command == "reconcile" and status != "ok":
                 return EXIT[status]
@@ -489,6 +563,54 @@ def execute(args):
             append(base, events, "task_closed", {"id": args.id, "task_open_event": result["task_open_event"],
                                                  "result": ref, "run_id": result["run_id"],
                                                  "evidence": result["evidence"]})
+        elif args.command == "lesson-propose":
+            require_session(state)
+            if not args.id.strip() or not args.claim.strip() or not args.effect_note.strip():
+                fail("invalid_input", "lesson id, claim, and effect note must be non-empty")
+            if args.id in lessons["items"]:
+                fail("conflict", "lesson id already exists")
+            if not args.support:
+                fail("invalid_evidence", "a separate finding or run evidence file is required")
+            source = lesson_reference(root, args.source)
+            supporting = [lesson_reference(root, path) for path in args.support]
+            contradictory = [lesson_reference(root, path) for path in args.contradict]
+            if any(ref["path"] == source["path"] for ref in supporting):
+                fail("invalid_evidence", "source alone cannot support a lesson")
+            if not any(lesson_support_is_recorded(ref, findings) for ref in supporting):
+                fail("invalid_evidence", "at least one supporting reference must be a finding or run artifact")
+            append(base, events, "lesson_proposed", {"id": args.id, "scope": args.scope, "claim": args.claim,
+                                                     "source": source, "supporting": supporting,
+                                                     "contradictory": contradictory,
+                                                     "effect": {"status": args.effect, "note": args.effect_note}})
+        elif args.command == "lesson-decide":
+            require_session(state)
+            if not args.reason.strip():
+                fail("invalid_input", "lesson decision reason must be non-empty")
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            if args.action in {"approve", "reject"}:
+                if item["status"] != "candidate" or args.replacement:
+                    fail("conflict", "decision requires a candidate and no replacement id")
+                if args.action == "approve":
+                    if item["effect"]["status"] != "supported":
+                        fail("review_required", "effect is not supported; candidate preserved")
+                    require_fresh_lesson(root, item)
+                kind = "lesson_approved" if args.action == "approve" else "lesson_rejected"
+                append(base, events, kind, {"id": args.id, "reason": args.reason})
+            elif args.action == "withdraw":
+                if item["status"] != "approved" or args.replacement:
+                    fail("conflict", "withdrawal requires an approved lesson and no replacement id")
+                append(base, events, "lesson_withdrawn", {"id": args.id, "reason": args.reason})
+            elif args.action == "replace":
+                replacement = lessons["items"].get(args.replacement)
+                if item["status"] != "approved" or replacement is None or replacement["status"] != "candidate":
+                    fail("conflict", "replacement requires approved old and candidate new lessons")
+                if replacement["effect"]["status"] != "supported":
+                    fail("review_required", "replacement effect is not supported")
+                require_fresh_lesson(root, replacement)
+                append(base, events, "lesson_replaced", {"id": args.id, "replacement_id": args.replacement,
+                                                         "reason": args.reason})
         else:
             fail("invalid_input", "unsupported command")
         projections(base, events)
@@ -507,9 +629,10 @@ def main():
     parser.add_argument("--root", default=".")
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("init", "rebuild", "reconcile", "status", "accept-git", "start", "end", "interrupt", "request-confirmation",
-                 "resolve-confirmation", "finding", "open-task", "close-task"):
+                 "resolve-confirmation", "finding", "open-task", "close-task", "lesson-propose", "lesson-decide",
+                 "lesson-check"):
         cmd = sub.add_parser(name)
-        if name in ("start", "end", "interrupt", "request-confirmation", "resolve-confirmation", "finding", "open-task", "close-task"):
+        if name in ("start", "end", "interrupt", "request-confirmation", "resolve-confirmation", "finding", "open-task", "close-task", "lesson-propose", "lesson-decide", "lesson-check"):
             cmd.add_argument("id")
         if name == "end":
             cmd.add_argument("--next-start", required=True)
@@ -529,6 +652,18 @@ def main():
             cmd.add_argument("title")
         if name == "close-task":
             cmd.add_argument("--result", required=True)
+        if name == "lesson-propose":
+            cmd.add_argument("claim")
+            cmd.add_argument("--scope", choices=["project"], default="project")
+            cmd.add_argument("--source", required=True)
+            cmd.add_argument("--support", action="append", default=[])
+            cmd.add_argument("--contradict", action="append", default=[])
+            cmd.add_argument("--effect", choices=sorted(LESSON_EFFECTS), required=True)
+            cmd.add_argument("--effect-note", required=True)
+        if name == "lesson-decide":
+            cmd.add_argument("action", choices=["approve", "reject", "withdraw", "replace"])
+            cmd.add_argument("--reason", required=True)
+            cmd.add_argument("--replacement")
     try:
         args = parser.parse_args()
         return execute(args) or 0

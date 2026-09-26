@@ -43,6 +43,157 @@ class MemoryTests(unittest.TestCase):
     def state(self):
         return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
 
+    def lessons(self):
+        return json.loads((self.repo / ".newwork/LESSONS.yaml").read_text(encoding="utf-8"))["items"]
+
+    def lesson_fixture(self):
+        self.call("init")
+        self.call("start", "lesson-session")
+        (self.repo / "retrospective.md").write_text("Keep: verify changes.\n", encoding="utf-8")
+        self.call("finding", "proof", "README is proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+
+    def propose_lesson(self, lesson_id, effect="supported", *extra):
+        return self.call("lesson-propose", lesson_id, "Verify changes before closing work",
+                         "--source", "retrospective.md", "--support", "README.md",
+                         "--effect", effect, "--effect-note", "Reviewed the recorded result", *extra)
+
+    def check_lesson(self, lesson_id):
+        return json.loads(self.call("lesson-check", lesson_id).stdout)
+
+    def test_project_lesson_live_reuse_requires_current_references(self):
+        self.lesson_fixture()
+        contrary = self.repo / ".newwork/runs/contrary/log.txt"
+        contrary.parent.mkdir(parents=True)
+        contrary.write_text("Counterexample\n", encoding="utf-8")
+        self.propose_lesson("source", "supported", "--contradict", ".newwork/runs/contrary/log.txt")
+        self.call("lesson-decide", "source", "approve", "--reason", "Reviewed")
+        self.assertEqual(self.lessons()["source"]["reuse_policy"], "live_freshness_check_required")
+        self.assertTrue(self.check_lesson("source")["reusable"])
+        for path in (self.repo / "retrospective.md", self.repo / "README.md", contrary):
+            original = path.read_bytes()
+            path.write_bytes(original + b"changed\n")
+            result = self.check_lesson("source")
+            self.assertFalse(result["reusable"])
+            self.assertEqual(result["status"], "review_required")
+            self.assertEqual(self.lessons()["source"]["status"], "approved")
+            path.write_bytes(original)
+        contrary.unlink()
+        self.assertFalse(self.check_lesson("source")["reusable"])
+        contrary.write_text("Counterexample\n", encoding="utf-8")
+        self.assertTrue(self.check_lesson("source")["reusable"])
+
+    def test_project_lesson_replacement_reuse_chain(self):
+        self.lesson_fixture()
+        for lesson_id in ("withdrawn", "a", "b", "c"):
+            self.propose_lesson(lesson_id)
+        self.call("lesson-decide", "withdrawn", "approve", "--reason", "Reviewed")
+        self.call("lesson-decide", "withdrawn", "withdraw", "--reason", "Retired")
+        self.assertFalse(self.check_lesson("withdrawn")["reusable"])
+        self.call("lesson-decide", "a", "approve", "--reason", "Reviewed")
+        result = self.call("lesson-decide", "a", "replace", "--replacement", "a",
+                           "--reason", "Self", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "conflict")
+        self.call("lesson-decide", "a", "replace", "--replacement", "b", "--reason", "Better")
+        self.assertFalse(self.check_lesson("a")["reusable"])
+        self.assertTrue(self.check_lesson("b")["reusable"])
+        self.call("lesson-decide", "b", "replace", "--replacement", "c", "--reason", "Best")
+        self.assertEqual([self.check_lesson(item)["reusable"] for item in ("a", "b", "c")],
+                         [False, False, True])
+        (self.repo / "README.md").write_text("changed\n", encoding="utf-8")
+        self.assertFalse(self.check_lesson("c")["reusable"])
+
+    def test_project_lesson_lifecycle_and_projection_rebuild(self):
+        self.lesson_fixture()
+        before = self.state()["event_seq"]
+        result = self.call("lesson-propose", "source-only", "Claim", "--source", "retrospective.md",
+                           "--effect", "supported", "--effect-note", "one recollection", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "invalid_evidence")
+        self.assertEqual(self.state()["event_seq"], before)
+        self.propose_lesson("uncertain", "inconclusive")
+        self.assertEqual(self.lessons()["uncertain"]["status"], "candidate")
+        result = self.call("lesson-decide", "uncertain", "approve", "--reason", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertEqual(self.lessons()["uncertain"]["status"], "candidate")
+        self.call("lesson-decide", "uncertain", "reject", "--reason", "Effect unproven")
+        self.assertEqual(self.lessons()["uncertain"]["status"], "rejected")
+        (self.repo / ".newwork/runs/observation").mkdir()
+        (self.repo / ".newwork/runs/observation/summary.txt").write_text("Observed pass\n", encoding="utf-8")
+        self.propose_lesson("first", "supported", "--contradict", ".newwork/runs/observation/summary.txt")
+        candidate = self.lessons()["first"]
+        self.assertEqual((candidate["scope"], candidate["status"], candidate["effect"]["status"]),
+                         ("project", "candidate", "supported"))
+        self.assertEqual(len(candidate["supporting"]), 1)
+        self.assertEqual(len(candidate["contradictory"]), 1)
+        self.call("lesson-decide", "first", "approve", "--reason", "Contrary observation reviewed")
+        self.assertEqual(self.lessons()["first"]["status"], "approved")
+        self.call("lesson-decide", "first", "withdraw", "--reason", "Later evidence changed")
+        self.assertEqual(self.lessons()["first"]["status"], "withdrawn")
+        self.propose_lesson("old")
+        self.call("lesson-decide", "old", "approve", "--reason", "Reviewed")
+        self.propose_lesson("replacement")
+        self.call("lesson-decide", "old", "replace", "--replacement", "replacement", "--reason", "More precise")
+        self.assertEqual(self.lessons()["old"]["status"], "replaced")
+        self.assertEqual(self.lessons()["old"]["replaced_by"], "replacement")
+        self.assertEqual(self.lessons()["replacement"]["status"], "approved")
+        self.call("lesson-propose", "run-supported", "Use run evidence", "--source", "retrospective.md",
+                  "--support", ".newwork/runs/observation/summary.txt", "--effect", "supported",
+                  "--effect-note", "Run output reviewed")
+        self.assertEqual(self.lessons()["run-supported"]["status"], "candidate")
+        before_rebuild = self.lessons()
+        (self.repo / ".newwork/LESSONS.yaml").write_text("{}\n", encoding="utf-8")
+        self.call("rebuild")
+        self.assertEqual(self.lessons(), before_rebuild)
+
+    def test_project_lesson_stale_references_and_scope_fail_closed(self):
+        self.lesson_fixture()
+        result = self.call("lesson-propose", "global", "Claim", "--scope", "global",
+                           "--source", "retrospective.md", "--support", "README.md",
+                           "--effect", "supported", "--effect-note", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "invalid_input")
+        (self.repo / "other.md").write_text("Unrecorded\n", encoding="utf-8")
+        result = self.call("lesson-propose", "unrecorded", "Claim", "--source", "retrospective.md",
+                           "--support", "other.md", "--effect", "supported", "--effect-note", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "invalid_evidence")
+        self.propose_lesson("stale")
+        source = self.repo / "retrospective.md"
+        source.write_text("Changed\n", encoding="utf-8")
+        result = self.call("lesson-decide", "stale", "approve", "--reason", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertEqual(self.lessons()["stale"]["status"], "candidate")
+        (self.repo / "README.md").write_text("proof\n", encoding="utf-8")
+        (self.repo / ".newwork/runs/contrary").mkdir()
+        counterproof = self.repo / ".newwork/runs/contrary/log.txt"
+        counterproof.write_text("Counterexample\n", encoding="utf-8")
+        self.propose_lesson("stale-contrary", "supported", "--contradict", ".newwork/runs/contrary/log.txt")
+        counterproof.write_text("Changed counterexample\n", encoding="utf-8")
+        result = self.call("lesson-decide", "stale-contrary", "approve", "--reason", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertIn(".newwork/runs/contrary/log.txt", json.loads(self.call("reconcile", ok=False).stdout)["stale_lesson_evidence"])
+        self.assertIn("retrospective.md", json.loads(self.call("status").stdout)["stale_lesson_evidence"])
+        source.write_text("Keep: verify changes.\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("Changed proof\n", encoding="utf-8")
+        result = self.call("lesson-decide", "stale", "approve", "--reason", "Review", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertEqual(self.lessons()["stale"]["status"], "candidate")
+
+    def test_project_lesson_same_contract_across_callers(self):
+        def caller(name, *command):
+            result = subprocess.run([str(self.repo / "run.sh"), "memory", *command], cwd=self.repo,
+                                    env={**os.environ, "NEWWORK_TEST_CALLER": name},
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout)
+            return json.loads(result.stdout)
+
+        caller("codex", "init")
+        caller("codex", "start", "lesson-session")
+        (self.repo / "retrospective.md").write_text("Keep: verify changes.\n", encoding="utf-8")
+        caller("codex", "finding", "proof", "README is proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+        caller("codex", "lesson-propose", "shared", "Verify changes", "--source", "retrospective.md",
+               "--support", "README.md", "--effect", "supported", "--effect-note", "Reviewed")
+        caller("claude", "lesson-decide", "shared", "approve", "--reason", "Human approved")
+        self.assertEqual(self.lessons()["shared"]["status"], "approved")
+        self.assertNotIn("caller", (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8"))
+
     def result(self, task_id="task-1", open_event=None, run_id="run-1", verdict="PASS",
                evidence_path=None, evidence_hash=None, verifier_text="VERDICT: PASS\n"):
         folder = self.repo / ".newwork/runs" / run_id

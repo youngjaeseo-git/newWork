@@ -1,6 +1,21 @@
 {
-  "event_seq": 9,
+  "event_seq": 14,
   "items": {
+    "contract-review-regressions-20260927": {
+      "claim": "회귀 테스트는 오래된 replay, Git checkpoint transition, verifier JSON/artifact 불일치, 승인 후 stale Lesson 재사용 경계를 검증하며 계약 문서는 해당 의미를 설명한다. 테스트 통과 이전의 발견 시점과 정량적 효과는 별도로 입증되지 않았다.",
+      "evidence": [
+        {
+          "path": "docs/newwork-v2-session-contract.md",
+          "sha256": "5eeef1084bc018c9adbfeeb69e3d5a4c76a5f002e29f81fd707fdeb42d406c9f"
+        },
+        {
+          "path": "docs/newwork-v2-project-lesson-contract.md",
+          "sha256": "8aaf1e31c1cc93fb27546bf1360bba335c027caf97ed6c28e8b7ab9217a01471"
+        }
+      ],
+      "id": "contract-review-regressions-20260927",
+      "status": "EVIDENCE_FOUND"
+    },
     "v2-spec-copy": {
       "claim": "v2 설계 원문이 docs/newwork-v2-spec.md로 보관됨",
       "evidence": [

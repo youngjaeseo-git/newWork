@@ -18,6 +18,8 @@ Environment:
   LOOP_AGENT_POC_CODEX_BIN  Override codex executable (used by tests)
   LOOP_AGENT_POC_RUN_DIR    Preserve role outputs in this directory
   LOOP_AGENT_POC_MAX_RETRIES  Maximum reviewer-triggered rework attempts (default: 2)
+  LOOP_AGENT_POC_TASK_ID and LOOP_AGENT_POC_TASK_OPEN_EVENT  Together enable an optional
+    verification-result.json in LOOP_AGENT_POC_RUN_DIR under workspace/.newwork/runs/<run-id>
 USAGE
 }
 
@@ -48,6 +50,31 @@ fi
 if ! command -v "$CODEX_BIN" >/dev/null 2>&1 && [[ ! -x "$CODEX_BIN" ]]; then
   echo "[loop-poc] codex executable not found: $CODEX_BIN" >&2
   exit 127
+fi
+
+RESULT_TASK_ID="${LOOP_AGENT_POC_TASK_ID:-}"
+RESULT_OPEN_EVENT="${LOOP_AGENT_POC_TASK_OPEN_EVENT:-}"
+WRITE_RESULT=0
+if [[ -n "$RESULT_TASK_ID" || -n "$RESULT_OPEN_EVENT" ]]; then
+  if [[ -z "$RESULT_TASK_ID" || ! "$RESULT_OPEN_EVENT" =~ ^[1-9][0-9]*$ || -z "${LOOP_AGENT_POC_RUN_DIR:-}" ]]; then
+    echo "[loop-poc] optional result requires task ID, positive open event, and run directory" >&2
+    exit 2
+  fi
+  if [[ ! -d "$(dirname "$LOOP_AGENT_POC_RUN_DIR")" ]]; then
+    echo "[loop-poc] result run parent directory does not exist" >&2
+    exit 2
+  fi
+  LOOP_AGENT_POC_RUN_DIR="$(cd "$(dirname "$LOOP_AGENT_POC_RUN_DIR")" && pwd)/$(basename "$LOOP_AGENT_POC_RUN_DIR")"
+  RUN_ID="${LOOP_AGENT_POC_RUN_DIR#"$WORKSPACE/.newwork/runs/"}"
+  if [[ "$RUN_ID" == "$LOOP_AGENT_POC_RUN_DIR" || ! "$RUN_ID" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]]; then
+    echo "[loop-poc] result run directory must be workspace/.newwork/runs/<run-id>" >&2
+    exit 2
+  fi
+  if [[ -e "$LOOP_AGENT_POC_RUN_DIR" ]]; then
+    echo "[loop-poc] result run directory already exists; use a new run ID" >&2
+    exit 2
+  fi
+  WRITE_RESULT=1
 fi
 
 if [[ -n "${LOOP_AGENT_POC_RUN_DIR:-}" ]]; then
@@ -268,6 +295,27 @@ if ! last_line_equals "VERDICT: PASS" "$RUN_DIR/verifier.md"; then
   FAILURE_REASON="verifier rejected the result"
   echo "[loop-poc] verifier rejected the result" >&2
   exit 1
+fi
+
+if [[ "$WRITE_RESULT" == "1" ]]; then
+  python3 - "$RUN_DIR" "$RUN_ID" "$RESULT_TASK_ID" "$RESULT_OPEN_EVENT" <<'PY'
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+folder, run_id, task_id, open_event = Path(sys.argv[1]), sys.argv[2], sys.argv[3], int(sys.argv[4])
+proof = folder / "verifier.md"
+proof_hash = hashlib.sha256(proof.read_bytes()).hexdigest()
+result = {"schema_version": 1, "run_id": run_id, "task_id": task_id,
+          "task_open_event": open_event, "verdict": "PASS",
+          "evidence": [{"path": f".newwork/runs/{run_id}/verifier.md",
+                        "sha256": proof_hash}],
+          "verifier_artifact": {"path": f".newwork/runs/{run_id}/verifier.md", "sha256": proof_hash}}
+with (folder / "verification-result.json").open("x", encoding="utf-8") as handle:
+    json.dump(result, handle, sort_keys=True)
+    handle.write("\n")
+PY
 fi
 
 FINAL_STATUS="PASS"

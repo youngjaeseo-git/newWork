@@ -27,7 +27,17 @@
 | `rebuild` | 없음 | 없음 | event_seq | 반복 가능 | 손상된 원장은 12; 원장 수정 없음 |
 | `accept-git REASON` | 사람 검토 이유 | 없음 | event_seq | 매 호출은 새 수락 사건 | 관찰한 Git 상태와 검토한 파일 tree identity를 기록; 근거 의미는 수락하지 않음 |
 
-기존 `request-confirmation`, `resolve-confirmation`, `open-task`, `close-task`는 유지한다. `init`은 기존 파일을 덮어쓰지 않는다. 명령별 출력의 `event_seq`는 성공 시 기록한 사건 번호이며 replay 시 원래 사건 번호다.
+기존 `request-confirmation`, `resolve-confirmation`, `open-task`, `close-task`는 유지한다. Phase 3부터 `close-task ID --result PATH`에는 아래 완료 근거가 필수다. `init`은 기존 파일을 덮어쓰지 않는다. 명령별 출력의 `event_seq`는 성공 시 기록한 사건 번호이며 replay 시 원래 사건 번호다.
+
+## Phase 3 — 최소 completion gate
+
+Memory는 열린 task의 `task_opened` event 번호를 `STATE.open_tasks[ID].open_event`로 투영한다. 이는 별도 저장 상태가 아니라 `events.jsonl`에서 재생성 가능한 lifecycle identity다. Loop는 기존 역할 순서·retry 정책을 그대로 유지하며, verifier가 `VERDICT: PASS`로 끝난 경우에만 선택적으로 `.newwork/runs/<run-id>/verification-result.json`을 쓴다. 사용 시 `LOOP_AGENT_POC_RUN_DIR`을 해당 새 run 디렉터리로 지정하고 `LOOP_AGENT_POC_TASK_ID`, `LOOP_AGENT_POC_TASK_OPEN_EVENT`를 함께 제공한다. 재사용 run 디렉터리는 거부한다. 옵션을 주지 않으면 기존 PoC 출력 방식이 그대로 동작한다.
+
+```json
+{"schema_version":1,"run_id":"run-1","task_id":"task-1","task_open_event":3,"verdict":"PASS","evidence":[{"path":".newwork/runs/run-1/verifier.md","sha256":"<실제 SHA-256>"}],"verifier_artifact":{"path":".newwork/runs/run-1/verifier.md","sha256":"<실제 SHA-256>"}}
+```
+
+`./run.sh memory close-task ID --result .newwork/runs/<run-id>/verification-result.json`은 현재 열린 ID와 `open_event`, JSON의 정확한 `PASS`, 같은 run 아래 존재하는 증거 파일과 SHA-256, 아직 소비되지 않은 result 경로를 검사한 뒤에만 `task_closed` event를 기록한다. `verifier_artifact`도 필수이며 해석된 경로가 같은 run 내부의 regular file이어야 하고 SHA-256 및 마지막 non-empty line `VERDICT: PASS`가 일치해야 한다. result 경로는 저장소 안의 정확한 run 위치여야 하며, 성공 event는 result 경로·해시와 증거 참조를 보존한다. 실패 시 새 event 없이 task를 열린 채 유지한다. `FAIL` 및 retry 한도 초과는 Loop artifact만 남기고 Memory의 retry 상태를 늘리지 않는다. run artifact는 Git 변경으로 간주될 수 있으므로 session 종료·checkpoint의 기존 Git 검토 계약은 계속 적용된다. 이 gate는 stale artifact, 우발적 변경, 부분 변조, JSON/verifier/evidence 불일치를 검출한다. 저장소의 모든 파일을 수정할 수 있는 악의적 주체에 대한 암호학적 출처 증명은 제공하지 않는다. backend 이름은 완료 판정 필수가 아니다.
 
 ## 단일 멱등성 규칙
 
@@ -47,4 +57,4 @@
 
 ## 완료 기준과 제한
 
-결정적 임시 Git 저장소 테스트에서 정상 start/end, 중복 및 오래된 replay, crash 후 `status`로 active 확인과 `interrupt`, open session reconcile, stale STATE rebuild, HEAD/evidence 변경 후 동일 end 재시도, Codex→Claude가 같은 `./run.sh memory` CLI를 호출하는 경우를 통과해야 한다. native hook·Phase 3 Inner Loop·Outer Learning Loop·router·새 MCP·dependency는 포함하지 않는다. `CLAUDE.md`와 Loop Agent는 수정하지 않는다.
+Phase 2.5 완료 기준은 결정적 임시 Git 저장소 테스트에서 정상 start/end, 중복 및 오래된 replay, crash 후 `status`로 active 확인과 `interrupt`, open session reconcile, stale STATE rebuild, HEAD/evidence 변경 후 동일 end 재시도, Codex→Claude가 같은 `./run.sh memory` CLI를 호출하는 경우다. 당시 native hook·Phase 3 Inner Loop·Outer Learning Loop·router·새 MCP·dependency는 범위 밖이었고 `CLAUDE.md`와 Loop Agent는 변경하지 않았다. 위 Phase 3 최소 gate는 이번 별도 승인 범위다.

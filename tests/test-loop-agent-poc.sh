@@ -234,4 +234,54 @@ set -e
 
 echo "[test] stale artifact gate PASS"
 
+BOUND_WORKSPACE="$TMP_ROOT/bound-workspace"
+mkdir -p "$BOUND_WORKSPACE"
+git -C "$BOUND_WORKSPACE" init -q
+git -C "$BOUND_WORKSPACE" config user.name Test
+git -C "$BOUND_WORKSPACE" config user.email test@example.invalid
+printf '%s\n' baseline > "$BOUND_WORKSPACE/README.md"
+git -C "$BOUND_WORKSPACE" add README.md
+git -C "$BOUND_WORKSPACE" commit -qm baseline
+MEMORY=(python3 "$ROOT_DIR/scripts/newwork-memory.py" --root "$BOUND_WORKSPACE")
+"${MEMORY[@]}" init > /dev/null
+"${MEMORY[@]}" start session-1 > /dev/null
+open_json="$("${MEMORY[@]}" open-task task-1 'Verify result')"
+open_event="$(printf '%s' "$open_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+BOUND_RUN="$BOUND_WORKSPACE/.newwork/runs/run-1"
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE"
+[[ -f "$BOUND_RUN/verification-result.json" ]]
+"${MEMORY[@]}" close-task task-1 --result .newwork/runs/run-1/verification-result.json > /dev/null
+
+"${MEMORY[@]}" open-task task-2 'Retry exhausted' > /dev/null
+open_event_2="$("${MEMORY[@]}" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+BOUND_FAIL_RUN="$BOUND_WORKSPACE/.newwork/runs/run-2"
+set +e
+FAKE_REVIEW_FAIL=1 LOOP_AGENT_POC_MAX_RETRIES=0 \
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_FAIL_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-2 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event_2" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE" > /dev/null 2>&1
+bound_fail_rc=$?
+set -e
+[[ "$bound_fail_rc" -ne 0 ]]
+[[ -f "$BOUND_FAIL_RUN/summary.txt" ]]
+[[ ! -e "$BOUND_FAIL_RUN/verification-result.json" ]]
+set +e
+"${MEMORY[@]}" close-task task-2 --result .newwork/runs/run-2/verification-result.json > "$TMP_ROOT/no-result.json"
+close_fail_rc=$?
+set -e
+[[ "$close_fail_rc" -eq 13 ]]
+[[ "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["status"])' "$TMP_ROOT/no-result.json")" == "invalid_evidence" ]]
+python3 - "$BOUND_WORKSPACE/.newwork/STATE.yaml" <<'PY'
+import json, sys
+state = json.load(open(sys.argv[1], encoding="utf-8"))
+assert "task-2" in state["open_tasks"]
+PY
+echo "[test] optional verification result and retry-limit gate PASS"
+
 echo "[test] loop-agent PoC PASS"

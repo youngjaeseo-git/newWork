@@ -31,7 +31,7 @@
 - `./run.sh memory start ID`가 Git 브랜치, HEAD, `.newwork` 이외 작업 트리 지문을 확인하고 세션을 연다. 이전 세션과 달라졌으면 자동 덮어쓰기 없이 중단한다.
 - `./run.sh memory request-confirmation ID "질문"`과 `resolve-confirmation ID "답"`은 열린 확인을 event와 STATE에 동시 반영한다.
 - `./run.sh memory finding ID "주장" STATUS --evidence 상대경로`는 파일 존재·저장소 내부 여부를 확인하고 SHA-256으로 근거를 연결한다. `CONFIRMED`·`REFUTED`·`EVIDENCE_FOUND`는 근거 파일이 필수다.
-- `./run.sh memory open-task ID "제목"`, `close-task ID`로 열린 작업을 추적한다.
+- `./run.sh memory open-task ID "제목"`으로 열린 작업을 추적한다. Phase 3부터 완료 시에는 현재 task instance와 결속된 PASS 결과물을 `./run.sh memory close-task ID --result .newwork/runs/<run-id>/verification-result.json`에 제공한다. 상세 검증 계약은 [session contract](newwork-v2-session-contract.md)에 기록했다.
 - Phase 2.5부터 `./run.sh memory end ID --next-start "다음 시작점"`이 세션을 닫는다. `reconcile`은 현재 snapshot과 event, Git 상태를 비교하고 `rebuild`는 event에서 snapshot을 재생성한다. 검토된 Git 변경은 열린 세션 중에도 `accept-git "이유"`로 원장에 기록한 뒤 기준 상태로 받아들인다. 상세 계약은 [newwork-v2-session-contract.md](newwork-v2-session-contract.md)를 따른다.
 - JSON 문법은 YAML 1.2의 하위집합이므로 `.yaml`은 별도 패키지 없이 JSON으로 기록한다. 사람이 YAML 문법으로 직접 편집한 파일은 이 CLI가 읽지 못한다.
 

@@ -226,7 +226,7 @@ def project(events):
         elif kind == "session_interrupted":
             state["active_session"] = None
         elif kind == "task_opened":
-            state["open_tasks"][data["id"]] = data
+            state["open_tasks"][data["id"]] = {**data, "open_event": event["seq"]}
         elif kind == "task_closed":
             state["open_tasks"].pop(data["id"], None)
         elif kind == "git_reconciled":
@@ -300,6 +300,59 @@ def stale_evidence(root, findings):
 def require_session(state):
     if state["active_session"] is None:
         fail("conflict", "start a session first")
+
+
+def verification_result(root, events, supplied, task_id, open_event):
+    ref = evidence(root, supplied)
+    parts = Path(ref["path"]).parts
+    if len(parts) != 4 or parts[:2] != (".newwork", "runs") or parts[3] != "verification-result.json":
+        fail("invalid_evidence", "result must be under .newwork/runs/<run-id>/verification-result.json")
+    if any(item["type"] == "task_closed" and item["data"].get("result", {}).get("path") == ref["path"]
+           for item in events):
+        fail("conflict", "verification result was already consumed")
+    try:
+        content = (root / ref["path"]).read_bytes()
+        result = json.loads(content.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeError):
+        fail("invalid_evidence", "verification result is not valid JSON")
+    ref["sha256"] = hashlib.sha256(content).hexdigest()
+    if not isinstance(result, dict) or type(result.get("schema_version")) is not int or result["schema_version"] != 1:
+        fail("invalid_evidence", "unsupported verification result schema")
+    if result.get("run_id") != parts[2] or not parts[2] or result.get("task_id") != task_id:
+        fail("conflict", "verification result belongs to another run or task")
+    if type(result.get("task_open_event")) is not int or result["task_open_event"] != open_event:
+        fail("conflict", "verification result belongs to another task lifecycle")
+    if result.get("verdict") != "PASS":
+        fail("conflict", "verification verdict is not PASS")
+    run_folder = Path(".newwork/runs") / parts[2]
+    proofs = result.get("evidence")
+    if not isinstance(proofs, list) or not proofs:
+        fail("invalid_evidence", "verification result requires evidence")
+    for proof in proofs:
+        if not isinstance(proof, dict) or not isinstance(proof.get("path"), str) or not isinstance(proof.get("sha256"), str):
+            fail("invalid_evidence", "invalid verification evidence entry")
+        current = evidence(root, proof["path"])
+        if not Path(current["path"]).is_relative_to(run_folder) or current["path"] == ref["path"]:
+            fail("invalid_evidence", "verification evidence must belong to the same run")
+        if current["sha256"] != proof["sha256"]:
+            fail("invalid_evidence", "verification evidence hash changed", path=proof["path"])
+    artifact = result.get("verifier_artifact")
+    if not isinstance(artifact, dict) or not isinstance(artifact.get("path"), str) or not isinstance(artifact.get("sha256"), str):
+        fail("invalid_evidence", "verification result requires a verifier artifact")
+    verifier = evidence(root, artifact["path"])
+    if not Path(verifier["path"]).is_relative_to(run_folder) or verifier["path"] == ref["path"]:
+        fail("invalid_evidence", "verifier artifact must belong to the same run")
+    try:
+        verifier_bytes = (root / verifier["path"]).read_bytes()
+        lines = verifier_bytes.decode("utf-8").splitlines()
+    except UnicodeError:
+        fail("invalid_evidence", "verifier artifact is not UTF-8 text")
+    if hashlib.sha256(verifier_bytes).hexdigest() != artifact["sha256"]:
+        fail("invalid_evidence", "verifier artifact hash changed", path=artifact["path"])
+    last = next((line for line in reversed(lines) if line.strip()), None)
+    if last != "VERDICT: PASS":
+        fail("conflict", "verifier artifact verdict is not PASS")
+    return ref, result
 
 
 def execute(args):
@@ -431,7 +484,11 @@ def execute(args):
             require_session(state)
             if args.id not in state["open_tasks"]:
                 fail("invalid_input", "task id is not open")
-            append(base, events, "task_closed", {"id": args.id})
+            ref, result = verification_result(root, events, args.result, args.id,
+                                              state["open_tasks"][args.id]["open_event"])
+            append(base, events, "task_closed", {"id": args.id, "task_open_event": result["task_open_event"],
+                                                 "result": ref, "run_id": result["run_id"],
+                                                 "evidence": result["evidence"]})
         else:
             fail("invalid_input", "unsupported command")
         projections(base, events)
@@ -470,6 +527,8 @@ def main():
             cmd.add_argument("--evidence", action="append", default=[])
         if name == "open-task":
             cmd.add_argument("title")
+        if name == "close-task":
+            cmd.add_argument("--result", required=True)
     try:
         args = parser.parse_args()
         return execute(args) or 0

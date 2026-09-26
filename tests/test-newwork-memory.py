@@ -43,6 +43,138 @@ class MemoryTests(unittest.TestCase):
     def state(self):
         return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
 
+    def result(self, task_id="task-1", open_event=None, run_id="run-1", verdict="PASS",
+               evidence_path=None, evidence_hash=None, verifier_text="VERDICT: PASS\n"):
+        folder = self.repo / ".newwork/runs" / run_id
+        folder.mkdir(parents=True, exist_ok=True)
+        proof = folder / "verifier.md"
+        proof.write_text(verifier_text, encoding="utf-8")
+        rel = evidence_path or f".newwork/runs/{run_id}/verifier.md"
+        proof_hash = hashlib.sha256(proof.read_bytes()).hexdigest()
+        result = {"schema_version": 1, "run_id": run_id, "task_id": task_id,
+                  "task_open_event": open_event if open_event is not None else self.state()["open_tasks"][task_id]["open_event"],
+                  "verdict": verdict, "evidence": [{"path": rel,
+                  "sha256": evidence_hash or proof_hash}],
+                  "verifier_artifact": {"path": f".newwork/runs/{run_id}/verifier.md", "sha256": proof_hash}}
+        path = folder / "verification-result.json"
+        path.write_text(json.dumps(result), encoding="utf-8")
+        return path.relative_to(self.repo).as_posix()
+
+    def assert_close_rejected(self, expected, path):
+        before = self.state()["event_seq"]
+        response = self.call("close-task", "task-1", "--result", path, ok=False)
+        self.assertEqual(json.loads(response.stdout)["status"], expected)
+        self.assertIn("task-1", self.state()["open_tasks"])
+        self.assertEqual(self.state()["event_seq"], before)
+
+    def test_verifier_artifact_consistency_gate(self):
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("open-task", "task-1", "Verify")
+        self.assert_close_rejected("conflict", self.result(run_id="json-pass-verifier-fail",
+                                                           verifier_text="Details\nVERDICT: FAIL\n"))
+        self.assert_close_rejected("conflict", self.result(run_id="json-fail-verifier-pass", verdict="FAIL"))
+        tampered = self.result(run_id="tampered-hash")
+        verifier = self.repo / ".newwork/runs/tampered-hash/verifier.md"
+        verifier.write_text("Details changed\nVERDICT: PASS\n", encoding="utf-8")
+        body = json.loads((self.repo / tampered).read_text(encoding="utf-8"))
+        body["evidence"][0]["sha256"] = hashlib.sha256(verifier.read_bytes()).hexdigest()
+        (self.repo / tampered).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", tampered)
+        other = self.result(run_id="other-run")
+        wrong_run = self.result(run_id="wrong-run")
+        body = json.loads((self.repo / wrong_run).read_text(encoding="utf-8"))
+        body["verifier_artifact"] = json.loads((self.repo / other).read_text(encoding="utf-8"))["verifier_artifact"]
+        (self.repo / wrong_run).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", wrong_run)
+        escaped = self.result(run_id="escaped")
+        body = json.loads((self.repo / escaped).read_text(encoding="utf-8"))
+        body["verifier_artifact"]["path"] = ".newwork/runs/escaped/../../DECISIONS.md"
+        (self.repo / escaped).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", escaped)
+        symlinked = self.result(run_id="symlinked")
+        alias = self.repo / ".newwork/runs/symlinked/alias.md"
+        alias.symlink_to(self.repo / ".newwork/runs/other-run/verifier.md")
+        body = json.loads((self.repo / symlinked).read_text(encoding="utf-8"))
+        body["verifier_artifact"]["path"] = ".newwork/runs/symlinked/alias.md"
+        (self.repo / symlinked).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", symlinked)
+        omitted = self.result(run_id="omitted-verifier")
+        body = json.loads((self.repo / omitted).read_text(encoding="utf-8"))
+        body.pop("verifier_artifact")
+        (self.repo / omitted).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", omitted)
+        missing = self.result(run_id="missing-verifier")
+        body = json.loads((self.repo / missing).read_text(encoding="utf-8"))
+        separate_proof = self.repo / ".newwork/runs/missing-verifier/reviewer.md"
+        separate_proof.write_text("Review passed\n", encoding="utf-8")
+        body["evidence"] = [{"path": ".newwork/runs/missing-verifier/reviewer.md",
+                             "sha256": hashlib.sha256(separate_proof.read_bytes()).hexdigest()}]
+        (self.repo / missing).write_text(json.dumps(body), encoding="utf-8")
+        (self.repo / ".newwork/runs/missing-verifier/verifier.md").unlink()
+        self.assert_close_rejected("invalid_evidence", missing)
+        good = self.result(run_id="valid-verifier", verifier_text="Details\n\nVERDICT: PASS\n\n")
+        self.call("close-task", "task-1", "--result", good)
+
+    def test_completion_gate_rejections_preserve_open_task(self):
+        self.call("init")
+        self.call("start", "session-1")
+        opened = self.call("open-task", "task-1", "Verify").stdout
+        seq = json.loads(opened)["event_seq"]
+        self.assertEqual(self.state()["open_tasks"]["task-1"]["open_event"], seq)
+        self.assert_close_rejected("invalid_evidence", ".newwork/runs/missing/verification-result.json")
+        self.assert_close_rejected("conflict", self.result(run_id="fail", verdict="FAIL"))
+        path = self.result(run_id="missing-proof")
+        (self.repo / ".newwork/runs/missing-proof/verifier.md").unlink()
+        self.assert_close_rejected("invalid_evidence", path)
+        self.assert_close_rejected("invalid_evidence", self.result(run_id="bad-hash", evidence_hash="0" * 64))
+        self.assert_close_rejected("conflict", self.result(task_id="other", open_event=seq, run_id="wrong-task"))
+        self.assert_close_rejected("conflict", self.result(run_id="wrong-generation", open_event=seq - 1))
+        self.assert_close_rejected("invalid_evidence", "../outside/verification-result.json")
+        self.assert_close_rejected("invalid_evidence", self.result(run_id="outside-proof", evidence_path="../outside"))
+        outside = self.repo / "result.json"
+        outside.write_text("{}", encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", "result.json")
+        good = self.result(run_id="good")
+        closed = self.call("close-task", "task-1", "--result", good)
+        self.assertEqual(json.loads(closed.stdout)["status"], "ok")
+        self.assertNotIn("task-1", self.state()["open_tasks"])
+        self.call("rebuild")
+        self.assertNotIn("task-1", self.state()["open_tasks"])
+
+    def test_completion_gate_rejects_old_and_consumed_run(self):
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("open-task", "task-1", "First")
+        old = self.result(run_id="old")
+        self.call("close-task", "task-1", "--result", old)
+        self.call("open-task", "task-1", "Second")
+        self.assert_close_rejected("conflict", old)
+        rewritten = json.loads((self.repo / old).read_text(encoding="utf-8"))
+        rewritten["task_open_event"] = self.state()["open_tasks"]["task-1"]["open_event"]
+        (self.repo / old).write_text(json.dumps(rewritten), encoding="utf-8")
+        self.assert_close_rejected("conflict", old)
+
+    def test_completion_gate_survives_crash_and_is_caller_independent(self):
+        def caller(name, *command):
+            result = subprocess.run([str(self.repo / "run.sh"), "memory", *command], cwd=self.repo,
+                                    env={**os.environ, "NEWWORK_TEST_CALLER": name},
+                                    capture_output=True, text=True)
+            return result.returncode, json.loads(result.stdout)
+
+        self.assertEqual(caller("codex", "init")[0], 0)
+        self.assertEqual(caller("codex", "start", "session-1")[0], 0)
+        self.assertEqual(caller("codex", "open-task", "task-1", "Crash recovery")[0], 0)
+        generation = self.state()["open_tasks"]["task-1"]["open_event"]
+        self.assertEqual(caller("codex", "interrupt", "session-1", "crash")[0], 0)
+        self.assertEqual(caller("claude", "start", "session-2")[0], 0)
+        self.assertEqual(self.state()["open_tasks"]["task-1"]["open_event"], generation)
+        proof = self.result(run_id="recovered")
+        rc, body = caller("claude", "close-task", "task-1", "--result", proof)
+        self.assertEqual((rc, body["status"]), (0, "ok"))
+        self.assertNotIn("caller", (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8"))
+        self.assertNotIn("caller", json.dumps(self.state()))
+
     def git(self, *args):
         return subprocess.run(["git", "-C", str(self.repo), *args], check=True,
                               capture_output=True, text=True).stdout.strip()
@@ -75,7 +207,7 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual(self.state()["next_start"], "Review choice-1")
         self.call("start", "session-2")
         self.call("resolve-confirmation", "choice-1", "Approved")
-        self.call("close-task", "task-1")
+        self.call("close-task", "task-1", "--result", self.result())
         self.call("end", "session-2", "--next-start", "Continue")
         self.assertFalse(self.state()["pending_confirmations"])
         self.call("reconcile")

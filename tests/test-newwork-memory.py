@@ -43,6 +43,23 @@ class MemoryTests(unittest.TestCase):
     def state(self):
         return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
 
+    def git(self, *args):
+        return subprocess.run(["git", "-C", str(self.repo), *args], check=True,
+                              capture_output=True, text=True).stdout.strip()
+
+    def checkpoint_ready(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("approved change\n", encoding="utf-8")
+        parent = self.git("rev-parse", "HEAD")
+        self.call("accept-git", "Reviewed checkpoint files")
+        return parent
+
+    def assert_reconcile_status(self, expected):
+        result = self.call("reconcile", ok=expected == "ok")
+        self.assertEqual(json.loads(result.stdout)["status"], expected)
+        self.assertEqual(result.returncode, 0 if expected == "ok" else 11)
+
     def test_session_rebuild_confirmation_and_evidence(self):
         self.call("init")
         self.call("start", "session-1")
@@ -197,6 +214,123 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual({p.name for p in (self.repo / ".newwork").iterdir()},
                          {".lock", "DECISIONS.md", "events.jsonl", "STATE.yaml", "FINDINGS.yaml",
                           "LESSONS.yaml", "incidents", "runs"})
+
+    def test_checkpoint_accepted_tree_direct_child_and_internal_record(self):
+        parent = self.checkpoint_ready()
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint")
+        self.assertEqual(self.git("rev-parse", "HEAD^"), parent)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assert_reconcile_status("ok")
+        self.assertEqual(json.loads(self.call("status").stdout)["git_drift"], False)
+        self.assertEqual(self.git("show", "HEAD:.newwork/events.jsonl"),
+                         (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8").strip())
+        self.call("start", "after-checkpoint")
+
+    def test_checkpoint_during_active_session_allows_end(self):
+        self.call("init")
+        self.call("start", "active")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("reviewed in session\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed active session changes")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint in session")
+        self.call("end", "active", "--next-start", "Next")
+        self.assertIsNone(self.state()["active_session"])
+
+    def test_checkpoint_rejects_extra_edit(self):
+        self.checkpoint_ready()
+        (self.repo / "README.md").write_text("unapproved edit\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "unapproved")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unapproved_extra_file(self):
+        self.checkpoint_ready()
+        (self.repo / "extra.txt").write_text("unapproved\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "extra file")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_partial_commit(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("approved\n", encoding="utf-8")
+        (self.repo / "second.txt").write_text("approved too\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed both files")
+        self.git("add", "README.md")
+        self.git("commit", "-qm", "partial")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_branch_change_and_unrelated_commit(self):
+        self.checkpoint_ready()
+        self.git("switch", "-q", "-c", "unexpected")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unrelated_or_multi_commit(self):
+        self.checkpoint_ready()
+        self.git("commit", "--allow-empty", "-qm", "unrelated")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "approved files later")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unrelated_parent_with_matching_files(self):
+        self.checkpoint_ready()
+        self.git("add", "-A")
+        tree = self.git("write-tree")
+        unrelated = self.git("commit-tree", tree, "-m", "unrelated root")
+        branch = self.git("branch", "--show-current")
+        self.git("update-ref", f"refs/heads/{branch}", unrelated)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit(self):
+        self.checkpoint_ready()
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint")
+        (self.repo / "README.md").write_text("post-commit change\n", encoding="utf-8")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unapproved_human_memory_edit(self):
+        self.checkpoint_ready()
+        (self.repo / ".newwork/DECISIONS.md").write_text("# Unapproved decision\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "memory change")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_accepts_reviewed_human_memory_edit(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / ".newwork/DECISIONS.md").write_text("# Reviewed decision\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed decision")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "reviewed memory file")
+        self.assert_reconcile_status("ok")
+
+    def test_legacy_acceptance_without_identity_is_not_retroactive(self):
+        self.checkpoint_ready()
+        ledger = self.repo / ".newwork/events.jsonl"
+        lines = ledger.read_text(encoding="utf-8").splitlines()
+        last = json.loads(lines[-1])
+        last["data"].pop("accepted_change_identity")
+        last.pop("hash")
+        last["hash"] = hashlib.sha256(json.dumps(last, ensure_ascii=False, sort_keys=True,
+                                                  separators=(",", ":")).encode("utf-8")).hexdigest()
+        lines[-1] = json.dumps(last, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        ledger.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "legacy acceptance")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_without_acceptance_remains_review_required(self):
+        self.call("init")
+        self.call("start", "baseline")
+        self.call("end", "baseline", "--next-start", "Next")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("not reviewed\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "unaccepted")
+        self.assert_reconcile_status("review_required")
 
 
 if __name__ == "__main__":

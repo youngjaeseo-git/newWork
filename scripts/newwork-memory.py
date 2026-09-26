@@ -20,6 +20,8 @@ from pathlib import Path
 
 SCHEMA = 1
 STATUSES = {"UNVERIFIED", "EVIDENCE_FOUND", "PENDING_CONFIRMATION", "CONFIRMED", "REFUTED", "SUPERSEDED"}
+INTERNAL_PROJECTIONS = (".newwork/events.jsonl", ".newwork/STATE.yaml",
+                        ".newwork/FINDINGS.yaml", ".newwork/LESSONS.yaml")
 EXIT = {"ok": 0, "invalid_input": 2, "conflict": 10, "review_required": 11,
         "ledger_corrupt": 12, "invalid_evidence": 13, "io_error": 14}
 RETRY_EVENTS = {"start": "session_started", "end": "session_ended", "finding": "finding_recorded",
@@ -82,9 +84,10 @@ def git(root):
         result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True, check=True)
         return result.stdout.strip()
 
+    excluded = [f":(exclude){name}" for name in (*INTERNAL_PROJECTIONS, ".newwork/.lock")]
     tracked = subprocess.run(["git", "-C", str(root), "diff", "HEAD", "--binary", "--", ".",
-                              ":(exclude).newwork"], capture_output=True, check=True).stdout
-    untracked = run("ls-files", "--others", "--exclude-standard", "--", ".", ":(exclude).newwork").splitlines()
+                              *excluded], capture_output=True, check=True).stdout
+    untracked = run("ls-files", "--others", "--exclude-standard", "--", ".", *excluded).splitlines()
     fingerprint = hashlib.sha256(tracked)
     for name in untracked:
         path = root / name
@@ -93,6 +96,63 @@ def git(root):
             fingerprint.update(hashlib.sha256(path.read_bytes()).digest())
     return {"branch": run("branch", "--show-current"), "head": run("rev-parse", "HEAD"),
             "dirty": bool(tracked or untracked), "worktree_sha256": fingerprint.hexdigest()}
+
+
+def tree_identity(root, tree):
+    listing = subprocess.run(["git", "-C", str(root), "ls-tree", "-rz", "--full-tree", tree],
+                             capture_output=True, check=True).stdout
+    excluded = {name.encode("utf-8") for name in INTERNAL_PROJECTIONS}
+    fingerprint = hashlib.sha256()
+    for entry in listing.split(b"\0"):
+        if entry and entry.split(b"\t", 1)[1] not in excluded:
+            fingerprint.update(entry + b"\0")
+    return fingerprint.hexdigest()
+
+
+def accepted_tree_identity(root):
+    # A temporary index observes the complete worktree, including untracked files,
+    # without changing the user's staging area.
+    with tempfile.TemporaryDirectory() as directory:
+        environment = {**os.environ, "GIT_INDEX_FILE": str(Path(directory) / "index")}
+        def run(*args):
+            return subprocess.run(["git", "-C", str(root), *args], env=environment,
+                                  capture_output=True, text=True, check=True).stdout.strip()
+        run("read-tree", "HEAD")
+        run("add", "-A", "--", ".")
+        return tree_identity(root, run("write-tree"))
+
+
+def checkpoint_transition(root, events, recorded, current):
+    if recorded is None or current["branch"] != recorded["branch"] or not current["branch"]:
+        return False
+    acceptance = next((event for event in reversed(events) if event["type"] == "git_reconciled"
+                       and event["data"].get("accepted_change_identity")
+                       and event["data"]["git"] == recorded), None)
+    if acceptance is None or current["head"] == recorded["head"]:
+        return False
+    parents = subprocess.run(["git", "-C", str(root), "rev-list", "--parents", "-n", "1", "HEAD"],
+                             capture_output=True, text=True, check=True).stdout.split()
+    if len(parents) != 2 or parents[1] != recorded["head"]:
+        return False
+    if subprocess.run(["git", "-C", str(root), "status", "--porcelain=v1", "--untracked-files=all"],
+                      capture_output=True, check=True).stdout:
+        return False
+    if tree_identity(root, "HEAD") != acceptance["data"]["accepted_change_identity"]:
+        return False
+    for name in INTERNAL_PROJECTIONS:
+        committed = subprocess.run(["git", "-C", str(root), "show", f"HEAD:{name}"],
+                                   capture_output=True)
+        try:
+            current_bytes = (root / name).read_bytes()
+        except OSError:
+            return False
+        if committed.returncode or committed.stdout != current_bytes:
+            return False
+    return True
+
+
+def git_drift(root, events, recorded, current):
+    return recorded is not None and recorded != current and not checkpoint_transition(root, events, recorded, current)
 
 
 def root_for(path):
@@ -275,7 +335,7 @@ def execute(args):
         if args.command in ("reconcile", "status"):
             mismatches = consistency(base, events)
             current = git(root)
-            drift = state["last_git"] is not None and state["last_git"] != current
+            drift = git_drift(root, events, state["last_git"], current)
             stale = stale_evidence(root, findings)
             result = {"snapshot_mismatches": mismatches, "git_drift": drift,
                       "recorded_git": state["last_git"], "current_git": current,
@@ -290,7 +350,12 @@ def execute(args):
         if consistency(base, events):
             fail("review_required", "snapshot differs from ledger; run rebuild before recording new events")
         if args.command == "accept-git":
-            append(base, events, "git_reconciled", {"git": git(root), "reason": args.reason})
+            observed = git(root)
+            identity = accepted_tree_identity(root)
+            if git(root) != observed:
+                fail("review_required", "Git worktree changed while recording acceptance")
+            append(base, events, "git_reconciled", {"git": observed, "reason": args.reason,
+                                                    "accepted_change_identity": identity})
         elif args.command == "start":
             request = {"id": args.id}
             prior, fingerprint = retry(events, state, findings, "start", request)
@@ -300,7 +365,7 @@ def execute(args):
             if state["active_session"] is not None:
                 fail("conflict", "session already active", active_session=state["active_session"])
             current = git(root)
-            if state["last_git"] is not None and state["last_git"] != current:
+            if git_drift(root, events, state["last_git"], current):
                 fail("review_required", "Git state differs from last session; run reconcile and review before start")
             append(base, events, "session_started", {"id": args.id, "git": current}, fingerprint)
         elif args.command == "end":
@@ -313,7 +378,9 @@ def execute(args):
             if state["active_session"] != args.id:
                 fail("conflict", "end session id does not match active session")
             current = git(root)
-            head_changed = (current["branch"], current["head"]) != (state["last_git"]["branch"], state["last_git"]["head"])
+            head_changed = ((current["branch"], current["head"]) !=
+                            (state["last_git"]["branch"], state["last_git"]["head"]) and
+                            not checkpoint_transition(root, events, state["last_git"], current))
             stale = stale_evidence(root, findings)
             if head_changed or stale:
                 fail("review_required", "Git HEAD or evidence changed; active session preserved",

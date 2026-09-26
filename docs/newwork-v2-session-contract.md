@@ -25,7 +25,7 @@
 | `interrupt ID REASON` | active ID, 이유 | 없음 | event_seq, active_session=null | 동일 요청은 replay | ID 불일치는 10; pending 작업/확인 보존 |
 | `reconcile` | 없음 | 없음 | snapshot/Git/근거 차이 | 읽기 전용 | 차이가 있으면 11; 자동 수락·삭제 없음 |
 | `rebuild` | 없음 | 없음 | event_seq | 반복 가능 | 손상된 원장은 12; 원장 수정 없음 |
-| `accept-git REASON` | 사람 검토 이유 | 없음 | event_seq | 매 호출은 새 수락 사건 | 현재 Git 기준만 갱신; 근거 의미는 수락하지 않음 |
+| `accept-git REASON` | 사람 검토 이유 | 없음 | event_seq | 매 호출은 새 수락 사건 | 관찰한 Git 상태와 검토한 파일 tree identity를 기록; 근거 의미는 수락하지 않음 |
 
 기존 `request-confirmation`, `resolve-confirmation`, `open-task`, `close-task`는 유지한다. `init`은 기존 파일을 덮어쓰지 않는다. 명령별 출력의 `event_seq`는 성공 시 기록한 사건 번호이며 replay 시 원래 사건 번호다.
 
@@ -38,6 +38,8 @@
 정상 흐름: `status` → `start` → 열린 상태/미해결 확인 → 작업과 `finding`·확인 기록 → 검증 → `end` → `reconcile`. 기존 세션이 end 없이 멈추면 `status`로 active ID를 찾고 같은 세션에서 작업을 계속한다. 별도 `resume` 명령은 복구 상태를 바꾸지 않고 고유 정보도 제공하지 않아 제거했다. 의도적으로 중단할 때만 `interrupt`하며 pending 확인과 작업은 지우지 않는다. 중복 start/end는 현재 상태가 여전히 맞을 때만 fingerprint replay다. agent crash나 projection 쓰기 중단 후에는 `rebuild`로 원장을 STATE/FINDINGS/LESSONS에 재투영한다. 원장이 손상되면 자동 절단·수정하지 않고 `ledger_corrupt`로 멈춘다.
 
 세션 중 HEAD가 바뀌거나 기록된 근거 SHA가 바뀌면 `end`는 `review_required`를 반환하고 active 상태를 유지한다. HEAD 변경은 사람이 diff를 검토한 뒤 `accept-git "검토 이유"`로 기준을 갱신한다. 근거 변경은 의미를 확인한 뒤 같은 finding ID로 현재 근거를 다시 기록한다. 그 후 원래 `end` 요청을 재실행한다. `accept-git`은 evidence를 승인하지 않는다. 일반 작업 트리 변경은 end를 막지 않지만 `reconcile`에서 차이로 보일 수 있다. Git 원격 최신성은 이 계약이 증명하지 않는다.
+
+`accept-git` 이후 한 번의 checkpoint commit으로 HEAD가 바뀌어도, 같은 branch의 직접 자식 commit이고 승인 당시 파일 tree identity가 정확히 일치하며 전체 Git 작업 트리가 clean일 때만 정상 transition으로 인정한다. identity는 경로·mode·blob을 포함한다. 원장 `events.jsonl`과 재생성 가능한 STATE/FINDINGS/LESSONS만 identity 계산에서 제외하며, `DECISIONS.md`와 incidents/runs 등 사람이 수정 가능한 파일은 포함한다. 제외한 내부 네 파일도 유효한 원장·snapshot이어야 하고 commit된 내용과 현재 내용이 같아야 한다. branch 이동, merge/rebase/multi-commit, 부분·추가 commit, commit 후 변경은 `review_required`다. 이전 `git_reconciled` 사건에 identity가 없으면 소급 승인하지 않는다.
 
 ## 구성요소 정리 판단
 

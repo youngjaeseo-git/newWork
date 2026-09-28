@@ -1,5 +1,5 @@
 {
-  "event_seq": 23,
+  "event_seq": 24,
   "items": {
     "contract-review-before-checkpoint-v1": {
       "claim": "새 phase나 핵심 계약을 checkpoint하기 전에, 테스트 통과와 별도로 의미·상태 전이·신뢰 경계를 검토하는 최종 contract review를 수행한다. 테스트 PASS만으로 완료를 판단하지 않는다.",

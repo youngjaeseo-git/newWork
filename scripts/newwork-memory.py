@@ -166,10 +166,17 @@ def root_for(path):
 
 
 @contextmanager
-def locked(base):
-    base.mkdir(exist_ok=True)
-    with (base / ".lock").open("a+b") as handle:
-        fcntl.flock(handle, fcntl.LOCK_EX)
+def locked(base, shared=False):
+    lock = base / ".lock"
+    if shared:
+        if not lock.is_file():
+            fail("invalid_input", "Memory Foundation not initialized; run init")
+        mode, operation = "rb", fcntl.LOCK_SH
+    else:
+        base.mkdir(exist_ok=True)
+        mode, operation = "a+b", fcntl.LOCK_EX
+    with lock.open(mode) as handle:
+        fcntl.flock(handle, operation)
         yield
 
 
@@ -420,7 +427,7 @@ def verification_result(root, events, supplied, task_id, open_event):
 def execute(args):
     root = root_for(args.root)
     base = root / ".newwork"
-    with locked(base):
+    with locked(base, shared=args.command == "status"):
         if args.command == "init":
             if (base / "events.jsonl").exists():
                 fail("conflict", "already initialized; existing ledger preserved")

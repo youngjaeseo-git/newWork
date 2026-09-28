@@ -2,6 +2,7 @@
 """Memory Foundation acceptance tests in disposable Git repositories."""
 
 import hashlib
+import fcntl
 import json
 import os
 import shutil
@@ -458,6 +459,62 @@ class MemoryTests(unittest.TestCase):
             handle.write("broken\n")
         corrupt = self.call("status", ok=False)
         self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+
+    def test_status_uses_read_only_shared_lock_without_writing_memory(self):
+        self.call("init")
+        base = self.repo / ".newwork"
+        lock = base / ".lock"
+        observed = {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()}
+        lock.chmod(0o444)
+        try:
+            result = json.loads(self.call("status").stdout)
+        finally:
+            lock.chmod(0o644)
+        self.assertEqual(result["status"], "ok")
+        self.assertEqual(observed, {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()})
+
+    def test_uninitialized_status_does_not_create_memory_files(self):
+        result = self.call("status", ok=False)
+        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+        self.assertFalse((self.repo / ".newwork").exists())
+
+    def test_status_waits_for_exclusive_writer_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("a+b") as handle:
+            fcntl.flock(handle, fcntl.LOCK_EX)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "status"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "status bypassed the writer lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["status"], "ok")
+
+    def test_mutation_waits_for_shared_status_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("rb") as handle:
+            fcntl.flock(handle, fcntl.LOCK_SH)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "start", "blocked-writer"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "mutation no longer requires the exclusive lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["active_session"], "blocked-writer")
 
     def test_ordinary_errors_are_not_ledger_corruption(self):
         self.call("init")

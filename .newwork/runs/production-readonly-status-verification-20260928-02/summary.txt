@@ -1,0 +1,11 @@
+Start: 2026-09-28T04:45:03Z
+End: 2026-09-28T04:45:06Z
+Duration seconds: 3
+Planner runs: 1
+Implementer runs: 0
+Reviewer runs: 0
+Verifier runs: 0
+Reviewer retries: 0
+Final status: FAIL
+Failure stage: planner
+Failure reason: planner command failed; see /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only/.newwork/runs/production-readonly-status-verification-20260928-02/planner.log

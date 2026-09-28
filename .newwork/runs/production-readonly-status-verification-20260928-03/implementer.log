@@ -1,0 +1,788 @@
+Reading additional input from stdin...
+2026-09-28T06:10:12.582873Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:10:12.582943Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:10:12.618689Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.622329Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.625249Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.628154Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.631046Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.634050Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.637044Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.640011Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.642979Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.646052Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.648953Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.651899Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.654912Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.657958Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.660761Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.663538Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.666283Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.669223Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.672480Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.675586Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.678769Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.682791Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+OpenAI Codex v0.151.0
+--------
+workdir: /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+model: chatgpt-web/gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a0e6a2-9fc7-7741-a909-a55b8cfa845f
+--------
+user
+ROLE: implementer
+TASK:
+Verify the EXISTING read-only status patch and test isolation fix only. This disposable checkout excludes the separate legacy-init patch. Do NOT edit source files, Memory ledger, or existing artifacts. No commit/push, login, credential, configuration or security changes. Implementer should verify the already implemented code, not reimplement it. Acceptance: status opens existing .lock rb with LOCK_SH, no persistent writes, uninitialized status creates nothing, mutation retains LOCK_EX; four lock tests; test suite clears inherited task ID/open-event/run env and explicit task-bound tests still work. Run ./run.sh test where allowed; test temporary files are permitted. Reviewer independently inspect contracts and tests, verifier independently run acceptance tests. Do not treat previous fake suites as actual E2E. Report concrete commands and results. Honor the required final protocol line exactly.
+
+PLANNER OUTPUT:
+<planner>
+Existing patch is present; no source changes are needed.
+
+Implementation/verification plan:
+
+1. Verify scripts/newwork-memory.py only:
+   
+   - status requires an existing .newwork/.lock, opens it rb, and takes LOCK\_SH.
+   - mutation path remains a+b + LOCK\_EX.
+   - confirm status performs no persistent writes and uninitialized status creates no .newwork.
+2. Run the four focused lock tests in tests/test-newwork-memory.py:
+   
+   - test\_status\_uses\_read\_only\_shared\_lock\_without\_writing\_memory
+   - test\_uninitialized\_status\_does\_not\_create\_memory\_files
+   - test\_status\_waits\_for\_exclusive\_writer\_lock
+   - test\_mutation\_waits\_for\_shared\_status\_lock
+3. Verify test isolation in tests/test-loop-agent-poc.sh:
+   
+   - inherited LOOP\_AGENT\_POC\_TASK\_ID, LOOP\_AGENT\_POC\_TASK\_OPEN\_EVENT, and LOOP\_AGENT\_POC\_RUN\_DIR are unset at suite start.
+   - explicit task-bound cases later set all required values and still exercise valid/invalid result paths.
+4. Implementer should not reimplement anything. Run:  
+   env LOOP\_AGENT\_POC\_TASK\_ID=parent-task LOOP\_AGENT\_POC\_TASK\_OPEN\_EVENT=999 LOOP\_AGENT\_POC\_RUN\_DIR=/tmp/parent-run ./run.sh test  
+   in a write-capable temporary-file environment, then confirm git diff is empty.
+5. Reviewer independently inspect the lock/write contracts and tests. Verifier independently rerun the focused acceptance tests plus full ./run.sh test. Fake-Codex suite success must not be reported as real-model E2E.
+
+Observed here:
+
+- git diff for the scoped files is empty.
+- Only three pre-existing untracked .newwork/runs/production-readonly-status-verification-\* directories are present.
+- Full test execution could not start because this planner sandbox forbids temporary-directory creation: mktemp ... Operation not permitted, both with the default macOS temp directory and TMPDIR=/tmp. Repository state remained unchanged.
+
+Material risks: do not accidentally include the separate legacy-init change, do not treat the existing untracked run artifacts as new evidence, and distinguish sandbox inability to create temp files from a test/code failure.
+</planner>
+
+REVIEW FEEDBACK FROM PREVIOUS ATTEMPT:
+<review-feedback>
+None. This is the first implementation attempt.
+</review-feedback>
+
+Implement the task with the smallest reasonable change inside the workspace.
+If review feedback is present, address that feedback before reporting completion.
+Follow repository rules. Run focused checks if possible.
+Do not commit or push.
+End with exactly one of these lines:
+IMPLEMENTATION: COMPLETE
+IMPLEMENTATION: BLOCKED
+2026-09-28T06:10:12.687425Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.692288Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.696662Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.704203Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.711541Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.715959Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.719956Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.723547Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.727261Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.730770Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.734315Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.737614Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.740565Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.743416Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.746505Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.749462Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.752513Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.755557Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.758628Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.761609Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.764617Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.767538Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.770461Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.773343Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.776247Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.779173Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:12.782097Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:10:13.177522Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-28T06:10:13.177656Z  WARN codex_core::client: falling back to HTTP
+2026-09-28T06:10:13.667283Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:10:13.667327Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+exec
+/bin/zsh -lc "git status --short --branch
+git diff -- scripts/newwork-memory.py tests/test-newwork-memory.py tests/test-loop-agent-poc.sh
+rg -n \"LOCK_SH|LOCK_EX|open\\(|def .*status|status\" scripts/newwork-memory.py
+rg -n \"test_status_uses_read_only_shared_lock_without_writing_memory|test_uninitialized_status_does_not_create_memory_files|test_status_waits_for_exclusive_writer_lock|test_mutation_waits_for_shared_status_lock\" tests/test-newwork-memory.py
+rg -n \"LOOP_AGENT_POC_TASK_ID|LOOP_AGENT_POC_TASK_OPEN_EVENT|LOOP_AGENT_POC_RUN_DIR\" tests/test-loop-agent-poc.sh
+rg -n \"newWork|status-only|LOCK_SH|test isolation|task ID\" /Users/youngjaeseo/.codex/memories/MEMORY.md" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+## main
+?? .newwork/runs/production-readonly-status-verification-20260928-01/
+?? .newwork/runs/production-readonly-status-verification-20260928-02/
+?? .newwork/runs/production-readonly-status-verification-20260928-03/
+34:    def __init__(self, status, message, **details):
+36:        self.status, self.details = status, details
+39:def fail(status, message, **details):
+40:    raise MemoryFailure(status, message, **details)
+43:def reply(status="ok", **fields):
+44:    print(canonical({"status": status, **fields}))
+138:    if subprocess.run(["git", "-C", str(root), "status", "--porcelain=v1", "--untracked-files=all"],
+174:        mode, operation = "rb", fcntl.LOCK_SH
+177:        mode, operation = "a+b", fcntl.LOCK_EX
+178:    with lock.open(mode) as handle:
+189:    with path.open(encoding="utf-8") as handle:
+212:    with (base / "events.jsonl").open("a", encoding="utf-8") as handle:
+249:            lessons["items"][data["id"]] = {**data, "status": "candidate",
+254:            item["status"] = {"lesson_approved": "approved", "lesson_rejected": "rejected",
+260:            old.update(status="replaced", replaced_by=data["replacement_id"], decision_reason=data["reason"],
+262:            new.update(status="approved", replaces=data["id"], decision_reason=data["reason"],
+351:        if item["status"] in {"candidate", "approved"}:
+430:    with locked(base, shared=args.command == "status"):
+458:            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+460:            status = "ok" if reusable else "review_required"
+461:            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+468:        if args.command in ("reconcile", "status"):
+479:            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+480:            reply(status, **result)
+481:            if args.command == "reconcile" and status != "ok":
+482:                return EXIT[status]
+547:                       "status": args.status, "evidence": refs}
+553:            if args.status not in STATUSES:
+554:                fail("invalid_input", "unknown finding status")
+555:            if args.status in {"EVIDENCE_FOUND", "CONFIRMED", "REFUTED"} and not refs:
+556:                fail("invalid_evidence", "this status requires at least one evidence file")
+558:                                                     "status": args.status, "evidence": refs}, fingerprint)
+591:                                                     "effect": {"status": args.effect, "note": args.effect_note}})
+600:                if item["status"] != "candidate" or args.replacement:
+603:                    if item["effect"]["status"] != "supported":
+609:                if item["status"] != "approved" or args.replacement:
+614:                if item["status"] != "approved" or replacement is None or replacement["status"] != "candidate":
+616:                if replacement["effect"]["status"] != "supported":
+638:    for name in ("init", "rebuild", "reconcile", "status", "accept-git", "start", "end", "interrupt", "request-confirmation",
+656:            cmd.add_argument("status", choices=sorted(STATUSES))
+678:        reply(exc.status, message=str(exc), **exc.details)
+679:        return EXIT[exc.status]
+463:    def test_status_uses_read_only_shared_lock_without_writing_memory(self):
+476:    def test_uninitialized_status_does_not_create_memory_files(self):
+481:    def test_status_waits_for_exclusive_writer_lock(self):
+500:    def test_mutation_waits_for_shared_status_lock(self):
+5:unset LOOP_AGENT_POC_TASK_ID LOOP_AGENT_POC_TASK_OPEN_EVENT LOOP_AGENT_POC_RUN_DIR
+90:LOOP_AGENT_POC_RUN_DIR="$RUN_DIR" \
+125:LOOP_AGENT_POC_RUN_DIR="$RETRY_RUN_DIR" \
+158:LOOP_AGENT_POC_RUN_DIR="$FAIL_RUN_DIR" \
+194:LOOP_AGENT_POC_RUN_DIR="$VERIFY_FAIL_RUN_DIR" \
+227:LOOP_AGENT_POC_RUN_DIR="$STALE_RUN_DIR" \
+255:LOOP_AGENT_POC_RUN_DIR="$TMP_ROOT/invalid-bound-run" \
+256:LOOP_AGENT_POC_TASK_ID=task-1 \
+257:LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+269:LOOP_AGENT_POC_RUN_DIR="$BOUND_RUN" \
+270:LOOP_AGENT_POC_TASK_ID=task-1 \
+271:LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+282:LOOP_AGENT_POC_RUN_DIR="$BOUND_FAIL_RUN" \
+283:LOOP_AGENT_POC_TASK_ID=task-2 \
+284:LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event_2" \
+123:## Task 2: publication readiness and newWork material intake, partial
+131:- AI 딸깍의 마법은 없었다, 출간전_통합실행체크리스트, 10장, 11장, Writing GPT, newWork, build_book.py, Pretendard, RIDIBatang, NDA
+150:- “newWork라는 내 레포에서 부터 무언가 글이 추가 될 거니까 그거 할일에 더 해줘” -> make it a formal intake item, but do not assign a chapter before receiving the text. [Task 2]
+161:- Do not make app release the book’s sole completion condition. Record each app’s release/non-release judgment in chapters 10/11 and separate the book’s ending from app success. `newWork` intake must preserve original text/date/source, split fact from interpretation, check overlap and identifiable company/colleague/customer/system details, then propose insert/separate item/hold for author approval. [Task 2]
+171:- Do not place a `newWork` contribution while it has no content; assess actual text, structure, and factuality first. [Task 2]
+481:# Task Group: newWork read-only architecture and memory/session contract audit
+483:scope: Audit actual newWork implementation, Git state, Loop Agent, and memory/session contracts without edits or Git mutations.
+484:applies_to: cwd=/Users/youngjaeseo/work/newWork (source rollout cwd=/Users/youngjaeseo/Documents/Codex/2026-09-27/newwork-gpt-web-codex-native2-local); reuse_rule=Reconfirm branch, HEAD, sandbox authority, and live state; test evidence is not production-backend evidence.
+494:- newWork, loop-agent-poc, planner, implementer, reviewer, verifier, VERDICT: PASS, stale-artifact, completion-gate, accepted-checkpoint, memory-session, retry, telemetry, reconcile
+504:- Observed repository `/Users/youngjaeseo/work/newWork` tracked `origin/claude/loving-newton-BjOEj` at `1d58f3d337dbbb522e1d0c11d50d94ac0e117015`; `run.sh` exposes `loop-poc`, `memory`, and `test`. Reconfirm this time-specific state before acting. [Task 1]
+511:- `./run.sh memory status` failed with `Operation not permitted: '/Users/youngjaeseo/work/newWork/.newwork/.lock'` under the sandbox; do not call this an implementation failure. From a write-capable environment rerun `memory status` and `reconcile`, especially because `.newwork/STATE.yaml` may still reference `c38f6d5` rather than observed HEAD. [Task 1]
+514:# Task Group: newWork Phase 4A Project Lesson Contract checkpoint
+517:applies_to: cwd=/Users/youngjaeseo/work/newWork (source rollout cwd=/Users/youngjaeseo/Documents/Codex/2026-09-23/d); reuse_rule=Commit/SHA status is time-specific; reuse the event/projection lifecycle and fail-closed freshness rule.
+527:- newWork, Phase 4A, Project Lesson Contract, events.jsonl, LESSONS.yaml, lesson-check, live_freshness_check_required, accept-git, c38f6d5, git_drift, reconcile
+545:# Task Group: newWork v2 Phase 4 Outer Learning Loop design
+548:applies_to: cwd=/Users/youngjaeseo/work/newWork (source rollout cwd=/Users/youngjaeseo/work/mybooks); reuse_rule=Use only while `docs/newwork-v2-spec.md` remains the source of truth; recheck current contracts before implementation.
+558:- newWork, Phase 4, Outer Learning Loop, docs/newwork-v2-spec.md, LESSONS.yaml, lesson candidate, approval, retraction, Completion Gate, Operation not permitted, .newwork/.lock
+573:- `./run.sh memory status` and `reconcile` hit `Operation not permitted: '/Users/youngjaeseo/work/newWork/.newwork/.lock'`; report this as static Git/spec/code review, not runtime status confirmation. [Task 1]
+675:# Task Group: newWork Loop Agent PoC, retry telemetry, and real closed-loop E2E
+678:applies_to: cwd=/Users/youngjaeseo/work/newWork (source rollout cwd=/Users/youngjaeseo/Documents/Codex/2026-09-24/codex-native2-mcp-pwd-5); reuse_rule=Reconfirm current source/commit and sandbox authority; real E2E must not change the source tree.
+688:- newWork, loop-agent-poc, scripts/loop-agent-poc.sh, LOOP_AGENT_POC_MAX_RETRIES, planner, implementer, reviewer, verifier, stale-artifact, summary.txt, d02bf32
+
+codex
+기존 패치를 수정 없이 검증하겠습니다. 먼저 실제 코드·테스트 계약과 현재 diff를 확인한 뒤, 4개 집중 테스트와 상속 환경변수를 넣은 전체 ./run.sh test를 실행해 결과를 분리해 보고하겠습니다.
+exec
+/bin/zsh -lc "sed -n '155,190p' scripts/newwork-memory.py
+sed -n '420,490p' scripts/newwork-memory.py
+sed -n '1,40p' tests/test-newwork-memory.py
+sed -n '450,525p' tests/test-newwork-memory.py
+sed -n '1,20p' tests/test-loop-agent-poc.sh
+sed -n '235,295p' tests/test-loop-agent-poc.sh
+sed -n '481,514p' /Users/youngjaeseo/.codex/memories/MEMORY.md" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+def git_drift(root, events, recorded, current):
+    return recorded is not None and recorded != current and not checkpoint_transition(root, events, recorded, current)
+
+
+def root_for(path):
+    root = Path(path).resolve()
+    result = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                            capture_output=True, text=True, check=True)
+    if root != Path(result.stdout.strip()).resolve():
+        fail("invalid_input", "--root must be the Git repository root")
+    return root
+
+
+@contextmanager
+def locked(base, shared=False):
+    lock = base / ".lock"
+    if shared:
+        if not lock.is_file():
+            fail("invalid_input", "Memory Foundation not initialized; run init")
+        mode, operation = "rb", fcntl.LOCK_SH
+    else:
+        base.mkdir(exist_ok=True)
+        mode, operation = "a+b", fcntl.LOCK_EX
+    with lock.open(mode) as handle:
+        fcntl.flock(handle, operation)
+        yield
+
+
+def read_events(base):
+    path = base / "events.jsonl"
+    if not path.exists():
+        fail("invalid_input", "Memory Foundation not initialized; run init")
+    events = []
+    previous = "0" * 64
+    with path.open(encoding="utf-8") as handle:
+        for number, line in enumerate(handle, 1):
+        fail("invalid_evidence", "verifier artifact hash changed", path=artifact["path"])
+    last = next((line for line in reversed(lines) if line.strip()), None)
+    if last != "VERDICT: PASS":
+        fail("conflict", "verifier artifact verdict is not PASS")
+    return ref, result
+
+
+def execute(args):
+    root = root_for(args.root)
+    base = root / ".newwork"
+    with locked(base, shared=args.command == "status"):
+        if args.command == "init":
+            if (base / "events.jsonl").exists():
+                fail("conflict", "already initialized; existing ledger preserved")
+            existing = [name for name in ("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml", "DECISIONS.md")
+                        if (base / name).exists()]
+            if existing:
+                fail("conflict", "existing Memory Foundation files: " + ", ".join(existing))
+            (base / "incidents").mkdir(exist_ok=True)
+            (base / "runs").mkdir(exist_ok=True)
+            for folder in ("incidents", "runs"):
+                marker = base / folder / ".gitkeep"
+                if not marker.exists():
+                    marker.touch()
+            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet. See docs/decision-log.md for legacy history.\n", encoding="utf-8")
+            (base / "events.jsonl").touch(exist_ok=False)
+            events = []
+            append(base, events, "initialized", {"schema": SCHEMA})
+            projections(base, events)
+            reply(path=str(base), event_seq=1)
+            return
+        events = read_events(base)
+        state, findings, lessons = project(events)
+        if args.command == "lesson-check":
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            stale = changed_lesson_references(root, item)
+            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+                        and not stale)
+            status = "ok" if reusable else "review_required"
+            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+                  stale_evidence=stale)
+            return
+        if args.command == "rebuild":
+            projections(base, events)
+            reply(event_seq=len(events))
+            return
+        if args.command in ("reconcile", "status"):
+            mismatches = consistency(base, events)
+            current = git(root)
+            drift = git_drift(root, events, state["last_git"], current)
+            stale = stale_evidence(root, findings)
+            stale_lessons = stale_lesson_evidence(root, lessons)
+            result = {"snapshot_mismatches": mismatches, "git_drift": drift,
+                      "recorded_git": state["last_git"], "current_git": current,
+                      "active_session": state["active_session"], "event_seq": len(events),
+                      "pending_confirmations": state["pending_confirmations"],
+                      "stale_evidence": stale, "stale_lesson_evidence": stale_lessons}
+            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+            reply(status, **result)
+            if args.command == "reconcile" and status != "ok":
+                return EXIT[status]
+            return
+        if consistency(base, events):
+            fail("review_required", "snapshot differs from ledger; run rebuild before recording new events")
+        if args.command == "accept-git":
+            observed = git(root)
+            identity = accepted_tree_identity(root)
+            if git(root) != observed:
+                fail("review_required", "Git worktree changed while recording acceptance")
+#!/usr/bin/env python3
+"""Memory Foundation acceptance tests in disposable Git repositories."""
+
+import hashlib
+import fcntl
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "newwork-memory.py"
+RUN = SCRIPT.parents[1] / "run.sh"
+
+
+class MemoryTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.repo = Path(self.tmp.name)
+        subprocess.run(["git", "init", "-q", str(self.repo)], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.name", "Test"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.email", "test@example.invalid"], check=True)
+        (self.repo / "README.md").write_text("proof\n", encoding="utf-8")
+        (self.repo / "scripts").mkdir()
+        shutil.copy2(SCRIPT, self.repo / "scripts/newwork-memory.py")
+        shutil.copy2(RUN, self.repo / "run.sh")
+        subprocess.run(["git", "-C", str(self.repo), "add", "README.md", "run.sh", "scripts/newwork-memory.py"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "commit", "-qm", "initial"], check=True)
+
+    def call(self, *args, ok=True):
+        result = subprocess.run([sys.executable, str(SCRIPT), "--root", str(self.repo), *args],
+                                capture_output=True, text=True)
+        if ok:
+            self.assertEqual(result.returncode, 0, result.stderr)
+        else:
+    def test_status_codes_and_backend_independent_contract(self):
+        self.call("init")
+        self.call("start", "same-session")  # Codex and Claude both use this command.
+        self.assertEqual(json.loads(self.call("start", "other", ok=False).stdout)["status"], "conflict")
+        invalid = self.call("finding", "f", "claim", "CONFIRMED", ok=False)
+        self.assertEqual((invalid.returncode, json.loads(invalid.stdout)["status"]), (13, "invalid_evidence"))
+        self.assertEqual(json.loads(self.call("status").stdout)["active_session"], "same-session")
+        ledger = self.repo / ".newwork/events.jsonl"
+        with ledger.open("a", encoding="utf-8") as handle:
+            handle.write("broken\n")
+        corrupt = self.call("status", ok=False)
+        self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+
+    def test_status_uses_read_only_shared_lock_without_writing_memory(self):
+        self.call("init")
+        base = self.repo / ".newwork"
+        lock = base / ".lock"
+        observed = {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()}
+        lock.chmod(0o444)
+        try:
+            result = json.loads(self.call("status").stdout)
+        finally:
+            lock.chmod(0o644)
+        self.assertEqual(result["status"], "ok")
+        self.assertEqual(observed, {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()})
+
+    def test_uninitialized_status_does_not_create_memory_files(self):
+        result = self.call("status", ok=False)
+        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+        self.assertFalse((self.repo / ".newwork").exists())
+
+    def test_status_waits_for_exclusive_writer_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("a+b") as handle:
+            fcntl.flock(handle, fcntl.LOCK_EX)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "status"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "status bypassed the writer lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["status"], "ok")
+
+    def test_mutation_waits_for_shared_status_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("rb") as handle:
+            fcntl.flock(handle, fcntl.LOCK_SH)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "start", "blocked-writer"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "mutation no longer requires the exclusive lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["active_session"], "blocked-writer")
+
+    def test_ordinary_errors_are_not_ledger_corruption(self):
+        self.call("init")
+        self.call("start", "s1")
+        cases = (("request-confirmation", "q1", "Question?"),
+                 ("open-task", "t1", "Task"))
+        for command in cases:
+            self.call(*command)
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Each test supplies its own optional result context, never the parent Loop's.
+unset LOOP_AGENT_POC_TASK_ID LOOP_AGENT_POC_TASK_OPEN_EVENT LOOP_AGENT_POC_RUN_DIR
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/newwork-loop-agent-test.XXXXXX")"
+trap 'rm -rf "$TMP_ROOT"' EXIT
+
+WORKSPACE="$TMP_ROOT/workspace"
+RUN_DIR="$TMP_ROOT/run"
+FAKE_CODEX="$TMP_ROOT/fake-codex"
+mkdir -p "$WORKSPACE" "$RUN_DIR"
+
+cat > "$FAKE_CODEX" <<'FAKE'
+#!/usr/bin/env bash
+set -euo pipefail
+
+sandbox=""
+[[ ! -e "$STALE_RUN_DIR/verifier.md" ]]
+[[ ! -e "$STALE_RUN_DIR/verifier.log" ]]
+
+echo "[test] stale artifact gate PASS"
+
+BOUND_WORKSPACE="$TMP_ROOT/bound-workspace"
+mkdir -p "$BOUND_WORKSPACE"
+git -C "$BOUND_WORKSPACE" init -q
+git -C "$BOUND_WORKSPACE" config user.name Test
+git -C "$BOUND_WORKSPACE" config user.email test@example.invalid
+printf '%s\n' baseline > "$BOUND_WORKSPACE/README.md"
+git -C "$BOUND_WORKSPACE" add README.md
+git -C "$BOUND_WORKSPACE" commit -qm baseline
+MEMORY=(python3 "$ROOT_DIR/scripts/newwork-memory.py" --root "$BOUND_WORKSPACE")
+"${MEMORY[@]}" init > /dev/null
+"${MEMORY[@]}" start session-1 > /dev/null
+open_json="$("${MEMORY[@]}" open-task task-1 'Verify result')"
+open_event="$(printf '%s' "$open_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+set +e
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$TMP_ROOT/invalid-bound-run" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Reject result outside the task workspace' "$BOUND_WORKSPACE" \
+  >"$TMP_ROOT/invalid-bound-path.out" 2>&1
+invalid_bound_rc=$?
+set -e
+[[ "$invalid_bound_rc" -eq 2 ]]
+grep -qx '\[loop-poc\] result run directory must be workspace/.newwork/runs/<run-id>' "$TMP_ROOT/invalid-bound-path.out"
+[[ ! -e "$TMP_ROOT/invalid-bound-run" ]]
+[[ ! -e "$BOUND_WORKSPACE/calls.log" ]]
+echo "[test] invalid task-bound production path rejected PASS"
+BOUND_RUN="$BOUND_WORKSPACE/.newwork/runs/run-1"
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE"
+[[ -f "$BOUND_RUN/verification-result.json" ]]
+"${MEMORY[@]}" close-task task-1 --result .newwork/runs/run-1/verification-result.json > /dev/null
+
+"${MEMORY[@]}" open-task task-2 'Retry exhausted' > /dev/null
+open_event_2="$("${MEMORY[@]}" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+BOUND_FAIL_RUN="$BOUND_WORKSPACE/.newwork/runs/run-2"
+set +e
+FAKE_REVIEW_FAIL=1 LOOP_AGENT_POC_MAX_RETRIES=0 \
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_FAIL_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-2 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event_2" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE" > /dev/null 2>&1
+bound_fail_rc=$?
+set -e
+[[ "$bound_fail_rc" -ne 0 ]]
+[[ -f "$BOUND_FAIL_RUN/summary.txt" ]]
+[[ ! -e "$BOUND_FAIL_RUN/verification-result.json" ]]
+set +e
+"${MEMORY[@]}" close-task task-2 --result .newwork/runs/run-2/verification-result.json > "$TMP_ROOT/no-result.json"
+close_fail_rc=$?
+set -e
+[[ "$close_fail_rc" -eq 13 ]]
+# Task Group: newWork read-only architecture and memory/session contract audit
+
+scope: Audit actual newWork implementation, Git state, Loop Agent, and memory/session contracts without edits or Git mutations.
+applies_to: cwd=/Users/youngjaeseo/work/newWork (source rollout cwd=/Users/youngjaeseo/Documents/Codex/2026-09-27/newwork-gpt-web-codex-native2-local); reuse_rule=Reconfirm branch, HEAD, sandbox authority, and live state; test evidence is not production-backend evidence.
+
+## Task 1: read-only repository, Loop Agent, and Memory audit, success
+
+### rollout_summary_files
+
+- rollout_summaries/2026-09-27T13-56-12-kwTo-newwork_readonly_architecture_and_memory_loop_verification.md (cwd=/Users/youngjaeseo/Documents/Codex/2026-09-27/newwork-gpt-web-codex-native2-local, rollout_path=/Users/youngjaeseo/.codex/sessions/2026/09/27/rollout-2026-09-27T22-56-12-01a0e326-e5eb-7951-b281-b2b9efda3a4a.jsonl, updated_at=2026-09-27T13:59:36+00:00, thread_id=01a0e326-e5eb-7951-b281-b2b9efda3a4a, read-only code/history audit and tests; live reconcile blocked)
+
+### keywords
+
+- newWork, loop-agent-poc, planner, implementer, reviewer, verifier, VERDICT: PASS, stale-artifact, completion-gate, accepted-checkpoint, memory-session, retry, telemetry, reconcile
+
+## User preferences
+
+- when investigating a repository, “추측하지 말고 실제 코드와 git history를 근거로 판단하라” -> inspect commands, source, history, and tests before architectural claims. [Task 1]
+- “이번 단계에서는 아직 파일을 수정하지 마라” and no `commit / push / pull / reset / checkout` -> keep discovery read-only and explicitly verify the tree stays clean. [Task 1]
+- for an audit, report Repository, Branch, Working tree, HEAD, architecture, verified/missing features, tests, risks, and next task, with the conclusion first in Korean. [Task 1]
+
+## Reusable knowledge
+
+- Observed repository `/Users/youngjaeseo/work/newWork` tracked `origin/claude/loving-newton-BjOEj` at `1d58f3d337dbbb522e1d0c11d50d94ac0e117015`; `run.sh` exposes `loop-poc`, `memory`, and `test`. Reconfirm this time-specific state before acting. [Task 1]
+- Loop roles are planner/read-only → implementer/workspace-write → reviewer/read-only → verifier/read-only. Reviewer `FAIL` retries the implementer up to default 2; verifier `FAIL` stops. Reviewer/verifier require exact final `VERDICT: PASS`; startup clears role artifacts to prevent stale PASS reuse. [Task 1]
+- `.newwork/events.jsonl` is source of truth; `STATE.yaml`, `FINDINGS.yaml`, and `LESSONS.yaml` are projections. Completion closes a task only after task/open-event linkage, new run directory, evidence hashes, verifier-artifact consistency, and PASS. Checkpoint acceptance requires same branch, direct-child single commit, exact approved tree, clean worktree, and unchanged projections. [Task 1]
+- `./run.sh test` passed Loop scenarios and 31 Memory tests; they use disposable Git repositories and a fake Codex backend. The candidate lesson `contract-review-before-checkpoint-v1` has `inconclusive` effect and is not approved reusable knowledge. [Task 1]
+
+## Failures and how to do differently
+
+- `./run.sh memory status` failed with `Operation not permitted: '/Users/youngjaeseo/work/newWork/.newwork/.lock'` under the sandbox; do not call this an implementation failure. From a write-capable environment rerun `memory status` and `reconcile`, especially because `.newwork/STATE.yaml` may still reference `c38f6d5` rather than observed HEAD. [Task 1]
+- Orchestration tests are not production-model quality proof. The minimal loop also lacks planner re-planning, verifier-failure auto-recovery, and dynamic role addition; it connects to Memory only when the task/open-event/run-dir environment variables are supplied. [Task 1]
+
+# Task Group: newWork Phase 4A Project Lesson Contract checkpoint
+
+exec
+/bin/zsh -lc 'python3 tests/test-newwork-memory.py   MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory   MemoryTests.test_uninitialized_status_does_not_create_memory_files   MemoryTests.test_status_waits_for_exclusive_writer_lock   MemoryTests.test_mutation_waits_for_shared_status_lock
+
+env LOOP_AGENT_POC_TASK_ID=parent-task LOOP_AGENT_POC_TASK_OPEN_EVENT=999 LOOP_AGENT_POC_RUN_DIR=/tmp/parent-run ./run.sh test' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+codex
+현재 확인상 scoped diff는 비어 있고, 기존 3개 untracked 검증 디렉터리만 있습니다. 코드에는 status → rb + LOCK_SH, mutation → a+b + LOCK_EX, 테스트 스크립트 시작부의 3개 환경변수 unset이 실제로 존재합니다. 이제 해당 계약이 테스트에서 어떻게 검증되는지 본문을 읽고 실행하겠습니다.
+ succeeded in 46906ms:
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.783s
+
+OK
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.7qh6fo/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.7qh6fo/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.7qh6fo/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 42.276s
+
+OK
+
+codex
+집중 4개 lock 테스트는 모두 통과했습니다. 상위 프로세스에 잘못된 task ID/open-event/run-dir을 일부러 넣은 전체 테스트도 진행 중이며, Loop 테스트에서는 상속값이 누수되지 않고 정상·retry·verifier-fail·task-bound 경로가 통과한 상태입니다.
+exec
+/bin/zsh -lc "set -e
+rg -n 'mode, operation = \"rb\", fcntl\\.LOCK_SH' scripts/newwork-memory.py
+rg -n 'mode, operation = \"a\\+b\", fcntl\\.LOCK_EX' scripts/newwork-memory.py
+rg -n 'with locked\\(base, shared=args\\.command == \"status\"\\)' scripts/newwork-memory.py
+rg -n '"'^unset LOOP_AGENT_POC_TASK_ID LOOP_AGENT_POC_TASK_OPEN_EVENT LOOP_AGENT_POC_RUN_DIR$'"' tests/test-loop-agent-poc.sh
+rg -n 'LOOP_AGENT_POC_TASK_ID=task-[12]|LOOP_AGENT_POC_TASK_OPEN_EVENT=' tests/test-loop-agent-poc.sh
+
+python3 tests/test-newwork-memory.py   MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory   MemoryTests.test_uninitialized_status_does_not_create_memory_files   MemoryTests.test_status_waits_for_exclusive_writer_lock   MemoryTests.test_mutation_waits_for_shared_status_lock
+
+env LOOP_AGENT_POC_TASK_ID=parent-task LOOP_AGENT_POC_TASK_OPEN_EVENT=999 LOOP_AGENT_POC_RUN_DIR=/tmp/parent-run ./run.sh test" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 46732ms:
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.829s
+
+OK
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.UtyaEg/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.UtyaEg/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.UtyaEg/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 41.747s
+
+OK
+
+exec
+/bin/zsh -lc 'git diff --exit-code
+git status --short --branch
+git rev-parse --short HEAD' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+## main
+?? .newwork/runs/production-readonly-status-verification-20260928-01/
+?? .newwork/runs/production-readonly-status-verification-20260928-02/
+?? .newwork/runs/production-readonly-status-verification-20260928-03/
+137226b
+
+codex
+기존 패치 검증 완료. 소스 수정은 하지 않았습니다.
+
+- status: .lock을 rb + LOCK\_SH로 열고, mutation은 a+b + LOCK\_EX 유지 확인.
+- 4개 lock acceptance test: 모두 PASS.
+- 테스트 시작 시 LOOP\_AGENT\_POC\_TASK\_ID, ...OPEN\_EVENT, ...RUN\_DIR unset 확인. 명시적 task-bound 테스트는 별도로 값을 설정해 정상 동작 확인.
+- 상속 환경변수를 의도적으로 넣고 실행한 ./run.sh test: Loop 테스트 PASS, Memory 테스트 35개 전부 OK.
+- 이 Loop 테스트는 fake Codex 기반 테스트이며 실제 모델 E2E로 간주하지 않음.
+- 최종 git diff --exit-code: clean.
+- 현재 HEAD: 137226b.
+- 기존 untracked production-readonly-status-verification-\* 3개만 그대로 존재하며 새 artifact는 남기지 않음.
+- 별도 legacy-init 변경은 포함하지 않음.
+
+Reviewer/verifier의 독립 단계에서는 같은 계약을 별도로 재검증하면 됩니다.
+
+IMPLEMENTATION: COMPLETE
+tokens used
+264,486
+기존 패치 검증 완료. 소스 수정은 하지 않았습니다.
+
+- status: .lock을 rb + LOCK\_SH로 열고, mutation은 a+b + LOCK\_EX 유지 확인.
+- 4개 lock acceptance test: 모두 PASS.
+- 테스트 시작 시 LOOP\_AGENT\_POC\_TASK\_ID, ...OPEN\_EVENT, ...RUN\_DIR unset 확인. 명시적 task-bound 테스트는 별도로 값을 설정해 정상 동작 확인.
+- 상속 환경변수를 의도적으로 넣고 실행한 ./run.sh test: Loop 테스트 PASS, Memory 테스트 35개 전부 OK.
+- 이 Loop 테스트는 fake Codex 기반 테스트이며 실제 모델 E2E로 간주하지 않음.
+- 최종 git diff --exit-code: clean.
+- 현재 HEAD: 137226b.
+- 기존 untracked production-readonly-status-verification-\* 3개만 그대로 존재하며 새 artifact는 남기지 않음.
+- 별도 legacy-init 변경은 포함하지 않음.
+
+Reviewer/verifier의 독립 단계에서는 같은 계약을 별도로 재검증하면 됩니다.
+
+IMPLEMENTATION: COMPLETE

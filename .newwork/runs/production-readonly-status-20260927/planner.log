@@ -1,0 +1,1742 @@
+Reading additional input from stdin...
+2026-09-27T14:09:32.876255Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-27T14:09:32.876337Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-27T14:09:32.912177Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.916092Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.919582Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.922618Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.926405Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.929317Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.932254Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.935176Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.938042Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.940809Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.943676Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.946500Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.949994Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.952910Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.955802Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.958752Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.961680Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.964645Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.967640Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.970721Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.973597Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.976462Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.979414Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.982303Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.985209Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.988635Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.991891Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.995655Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:32.999551Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.004412Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.010661Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.014860Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.020070Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+OpenAI Codex v0.151.0
+--------
+workdir: /Users/youngjaeseo/work/newWork
+model: chatgpt-web/gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a0e333-1c9a-71b3-9c43-8b8369afdfe3
+--------
+user
+ROLE: planner
+TASK:
+Fix Memory status so it can be safely inspected from a read-only sandbox without weakening consistency or locking guarantees. Planner must first inspect scripts/newwork-memory.py and tests, and attempt ./run.sh memory status from its read-only sandbox to capture the pre-fix behavior. Analyze why status currently acquires the lock, whether locking is required for consistent concurrent reads, and design the smallest safe change. Prefer preserving coordination with mutation commands rather than removing synchronization. Implement only the planned scope and add focused regression coverage proving read-only status works while mutation commands retain their locking/write guarantees. Preserve event replay/idempotency, reconcile/checkpoint semantics, and existing contracts. Run the full Memory test suite and Loop Agent test suite. Reviewer must independently check diff, locking semantics, concurrency risks, scope, and tests. Verifier must independently run relevant checks including ./run.sh memory status from its read-only sandbox, full Memory tests, Loop tests, and confirm no regression to mutation/replay/reconcile semantics. Do not commit or push.
+
+Inspect the workspace and make a minimal implementation plan.
+Do not modify any file. Include acceptance checks and material risks.
+Your output will be handed to a separate implementer.
+2026-09-27T14:09:33.029059Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.034494Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.040730Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.047487Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.051555Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.056848Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.063492Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.069235Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.074653Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.078881Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.083188Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.087176Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.091244Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.095106Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.098753Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.101920Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-27T14:09:33.325487Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-27T14:09:33.325521Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-27T14:09:33.565816Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-27T14:09:33.566782Z  WARN codex_core::client: falling back to HTTP
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+codex
+기존 newWork의 Memory 계약과 이번 read-only status 문제를 함께 맞춰보겠습니다. 먼저 관련 메모리 기록을 짧게 확인한 뒤, 실제 스크립트·테스트와 read-only 실행 실패를 재현하고 최소 변경안만 정리하겠습니다.
+exec
+/bin/zsh -lc 'pwd && git status --short --branch && rg -n "lock|flock|status|reconcile|checkpoint|events.jsonl" scripts/newwork-memory.py tests run.sh' in /Users/youngjaeseo/work/newWork
+ succeeded in 0ms:
+/Users/youngjaeseo/work/newWork
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: error: couldn't create cache file '/tmp/xcrun_db-cu810w5o' (errno=Operation not permitted)
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: error: couldn't create cache file '/tmp/xcrun_db-5YTZITvm' (errno=Operation not permitted)
+## claude/loving-newton-BjOEj...origin/claude/loving-newton-BjOEj
+ M .newwork/FINDINGS.yaml
+ M .newwork/LESSONS.yaml
+ M .newwork/STATE.yaml
+ M .newwork/events.jsonl
+?? .newwork/runs/production-readonly-status-20260927/
+run.sh:49:    echo "  Memory: ./run.sh memory <init|start|end|reconcile|rebuild|...>"
+tests/test-loop-agent-poc.sh:109:grep -qx 'Final status: PASS' "$RUN_DIR/summary.txt"
+tests/test-loop-agent-poc.sh:143:grep -qx 'Final status: PASS' "$RETRY_RUN_DIR/summary.txt"
+tests/test-loop-agent-poc.sh:178:grep -qx 'Final status: FAIL' "$FAIL_RUN_DIR/summary.txt"
+tests/test-loop-agent-poc.sh:208:grep -qx 'Final status: FAIL' "$VERIFY_FAIL_RUN_DIR/summary.txt"
+tests/test-loop-agent-poc.sh:260:open_event_2="$("${MEMORY[@]}" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+tests/test-loop-agent-poc.sh:279:[[ "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["status"])' "$TMP_ROOT/no-result.json")" == "invalid_evidence" ]]
+tests/test-newwork-memory.py:77:            self.assertEqual(result["status"], "review_required")
+tests/test-newwork-memory.py:78:            self.assertEqual(self.lessons()["source"]["status"], "approved")
+tests/test-newwork-memory.py:95:        self.assertEqual(json.loads(result.stdout)["status"], "conflict")
+tests/test-newwork-memory.py:110:        self.assertEqual(json.loads(result.stdout)["status"], "invalid_evidence")
+tests/test-newwork-memory.py:113:        self.assertEqual(self.lessons()["uncertain"]["status"], "candidate")
+tests/test-newwork-memory.py:115:        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+tests/test-newwork-memory.py:116:        self.assertEqual(self.lessons()["uncertain"]["status"], "candidate")
+tests/test-newwork-memory.py:118:        self.assertEqual(self.lessons()["uncertain"]["status"], "rejected")
+tests/test-newwork-memory.py:123:        self.assertEqual((candidate["scope"], candidate["status"], candidate["effect"]["status"]),
+tests/test-newwork-memory.py:128:        self.assertEqual(self.lessons()["first"]["status"], "approved")
+tests/test-newwork-memory.py:130:        self.assertEqual(self.lessons()["first"]["status"], "withdrawn")
+tests/test-newwork-memory.py:135:        self.assertEqual(self.lessons()["old"]["status"], "replaced")
+tests/test-newwork-memory.py:137:        self.assertEqual(self.lessons()["replacement"]["status"], "approved")
+tests/test-newwork-memory.py:141:        self.assertEqual(self.lessons()["run-supported"]["status"], "candidate")
+tests/test-newwork-memory.py:152:        self.assertEqual(json.loads(result.stdout)["status"], "invalid_input")
+tests/test-newwork-memory.py:156:        self.assertEqual(json.loads(result.stdout)["status"], "invalid_evidence")
+tests/test-newwork-memory.py:161:        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+tests/test-newwork-memory.py:162:        self.assertEqual(self.lessons()["stale"]["status"], "candidate")
+tests/test-newwork-memory.py:170:        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+tests/test-newwork-memory.py:171:        self.assertIn(".newwork/runs/contrary/log.txt", json.loads(self.call("reconcile", ok=False).stdout)["stale_lesson_evidence"])
+tests/test-newwork-memory.py:172:        self.assertIn("retrospective.md", json.loads(self.call("status").stdout)["stale_lesson_evidence"])
+tests/test-newwork-memory.py:176:        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+tests/test-newwork-memory.py:177:        self.assertEqual(self.lessons()["stale"]["status"], "candidate")
+tests/test-newwork-memory.py:194:        self.assertEqual(self.lessons()["shared"]["status"], "approved")
+tests/test-newwork-memory.py:195:        self.assertNotIn("caller", (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8"))
+tests/test-newwork-memory.py:217:        self.assertEqual(json.loads(response.stdout)["status"], expected)
+tests/test-newwork-memory.py:291:        self.assertEqual(json.loads(closed.stdout)["status"], "ok")
+tests/test-newwork-memory.py:325:        self.assertEqual((rc, body["status"]), (0, "ok"))
+tests/test-newwork-memory.py:326:        self.assertNotIn("caller", (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8"))
+tests/test-newwork-memory.py:333:    def checkpoint_ready(self):
+tests/test-newwork-memory.py:335:        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+tests/test-newwork-memory.py:338:        self.call("accept-git", "Reviewed checkpoint files")
+tests/test-newwork-memory.py:341:    def assert_reconcile_status(self, expected):
+tests/test-newwork-memory.py:342:        result = self.call("reconcile", ok=expected == "ok")
+tests/test-newwork-memory.py:343:        self.assertEqual(json.loads(result.stdout)["status"], expected)
+tests/test-newwork-memory.py:364:        self.call("reconcile")
+tests/test-newwork-memory.py:367:        self.call("reconcile", ok=False)
+tests/test-newwork-memory.py:370:        self.call("reconcile")
+tests/test-newwork-memory.py:372:        result = self.call("reconcile", ok=False)
+tests/test-newwork-memory.py:380:        ledger = self.repo / ".newwork/events.jsonl"
+tests/test-newwork-memory.py:395:        self.call("reconcile", ok=False)
+tests/test-newwork-memory.py:398:        self.call("reconcile")
+tests/test-newwork-memory.py:407:            self.assertEqual(again["status"], "ok")
+tests/test-newwork-memory.py:418:        self.assertEqual((stale.returncode, json.loads(stale.stdout)["status"]), (10, "conflict"))
+tests/test-newwork-memory.py:419:        self.assertEqual(json.loads(self.call("resume", "s1", ok=False).stdout)["status"], "invalid_input")
+tests/test-newwork-memory.py:428:        self.assertEqual((stale.returncode, json.loads(stale.stdout)["status"]), (10, "conflict"))
+tests/test-newwork-memory.py:440:        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+tests/test-newwork-memory.py:449:    def test_status_codes_and_backend_independent_contract(self):
+tests/test-newwork-memory.py:452:        self.assertEqual(json.loads(self.call("start", "other", ok=False).stdout)["status"], "conflict")
+tests/test-newwork-memory.py:454:        self.assertEqual((invalid.returncode, json.loads(invalid.stdout)["status"]), (13, "invalid_evidence"))
+tests/test-newwork-memory.py:455:        self.assertEqual(json.loads(self.call("status").stdout)["active_session"], "same-session")
+tests/test-newwork-memory.py:456:        ledger = self.repo / ".newwork/events.jsonl"
+tests/test-newwork-memory.py:459:        corrupt = self.call("status", ok=False)
+tests/test-newwork-memory.py:460:        self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+tests/test-newwork-memory.py:470:            self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (10, "conflict"))
+tests/test-newwork-memory.py:472:        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+tests/test-newwork-memory.py:474:        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (13, "invalid_evidence"))
+tests/test-newwork-memory.py:485:        codex_status = caller("codex", "status")
+tests/test-newwork-memory.py:486:        claude_status = caller("claude", "status")
+tests/test-newwork-memory.py:487:        self.assertEqual((codex_status.returncode, json.loads(codex_status.stdout)),
+tests/test-newwork-memory.py:488:                         (claude_status.returncode, json.loads(claude_status.stdout)))
+tests/test-newwork-memory.py:490:        self.assertEqual((found.returncode, json.loads(found.stdout)["status"]), (0, "ok"))
+tests/test-newwork-memory.py:492:        self.assertEqual((ended.returncode, json.loads(ended.stdout)["status"]), (0, "ok"))
+tests/test-newwork-memory.py:493:        ledger = (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8")
+tests/test-newwork-memory.py:498:                         {".lock", "DECISIONS.md", "events.jsonl", "STATE.yaml", "FINDINGS.yaml",
+tests/test-newwork-memory.py:501:    def test_checkpoint_accepted_tree_direct_child_and_internal_record(self):
+tests/test-newwork-memory.py:502:        parent = self.checkpoint_ready()
+tests/test-newwork-memory.py:504:        self.git("commit", "-qm", "checkpoint")
+tests/test-newwork-memory.py:506:        self.assertEqual(self.git("status", "--porcelain"), "")
+tests/test-newwork-memory.py:507:        self.assert_reconcile_status("ok")
+tests/test-newwork-memory.py:508:        self.assertEqual(json.loads(self.call("status").stdout)["git_drift"], False)
+tests/test-newwork-memory.py:509:        self.assertEqual(self.git("show", "HEAD:.newwork/events.jsonl"),
+tests/test-newwork-memory.py:510:                         (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8").strip())
+tests/test-newwork-memory.py:511:        self.call("start", "after-checkpoint")
+tests/test-newwork-memory.py:513:    def test_checkpoint_during_active_session_allows_end(self):
+tests/test-newwork-memory.py:516:        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+tests/test-newwork-memory.py:520:        self.git("commit", "-qm", "checkpoint in session")
+tests/test-newwork-memory.py:524:    def test_checkpoint_rejects_extra_edit(self):
+tests/test-newwork-memory.py:525:        self.checkpoint_ready()
+tests/test-newwork-memory.py:529:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:531:    def test_checkpoint_rejects_unapproved_extra_file(self):
+tests/test-newwork-memory.py:532:        self.checkpoint_ready()
+tests/test-newwork-memory.py:536:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:538:    def test_checkpoint_rejects_partial_commit(self):
+tests/test-newwork-memory.py:540:        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+tests/test-newwork-memory.py:546:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:548:    def test_checkpoint_rejects_branch_change_and_unrelated_commit(self):
+tests/test-newwork-memory.py:549:        self.checkpoint_ready()
+tests/test-newwork-memory.py:551:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:553:    def test_checkpoint_rejects_unrelated_or_multi_commit(self):
+tests/test-newwork-memory.py:554:        self.checkpoint_ready()
+tests/test-newwork-memory.py:558:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:560:    def test_checkpoint_rejects_unrelated_parent_with_matching_files(self):
+tests/test-newwork-memory.py:561:        self.checkpoint_ready()
+tests/test-newwork-memory.py:567:        self.assertEqual(self.git("status", "--porcelain"), "")
+tests/test-newwork-memory.py:568:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:570:    def test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit(self):
+tests/test-newwork-memory.py:571:        self.checkpoint_ready()
+tests/test-newwork-memory.py:573:        self.git("commit", "-qm", "checkpoint")
+tests/test-newwork-memory.py:575:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:577:    def test_checkpoint_rejects_unapproved_human_memory_edit(self):
+tests/test-newwork-memory.py:578:        self.checkpoint_ready()
+tests/test-newwork-memory.py:582:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:584:    def test_checkpoint_accepts_reviewed_human_memory_edit(self):
+tests/test-newwork-memory.py:586:        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+tests/test-newwork-memory.py:591:        self.assert_reconcile_status("ok")
+tests/test-newwork-memory.py:594:        self.checkpoint_ready()
+tests/test-newwork-memory.py:595:        ledger = self.repo / ".newwork/events.jsonl"
+tests/test-newwork-memory.py:606:        self.assert_reconcile_status("review_required")
+tests/test-newwork-memory.py:608:    def test_checkpoint_without_acceptance_remains_review_required(self):
+tests/test-newwork-memory.py:612:        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+tests/test-newwork-memory.py:616:        self.assert_reconcile_status("review_required")
+scripts/newwork-memory.py:24:INTERNAL_PROJECTIONS = (".newwork/events.jsonl", ".newwork/STATE.yaml",
+scripts/newwork-memory.py:34:    def __init__(self, status, message, **details):
+scripts/newwork-memory.py:36:        self.status, self.details = status, details
+scripts/newwork-memory.py:39:def fail(status, message, **details):
+scripts/newwork-memory.py:40:    raise MemoryFailure(status, message, **details)
+scripts/newwork-memory.py:43:def reply(status="ok", **fields):
+scripts/newwork-memory.py:44:    print(canonical({"status": status, **fields}))
+scripts/newwork-memory.py:88:    excluded = [f":(exclude){name}" for name in (*INTERNAL_PROJECTIONS, ".newwork/.lock")]
+scripts/newwork-memory.py:126:def checkpoint_transition(root, events, recorded, current):
+scripts/newwork-memory.py:129:    acceptance = next((event for event in reversed(events) if event["type"] == "git_reconciled"
+scripts/newwork-memory.py:138:    if subprocess.run(["git", "-C", str(root), "status", "--porcelain=v1", "--untracked-files=all"],
+scripts/newwork-memory.py:156:    return recorded is not None and recorded != current and not checkpoint_transition(root, events, recorded, current)
+scripts/newwork-memory.py:169:def locked(base):
+scripts/newwork-memory.py:171:    with (base / ".lock").open("a+b") as handle:
+scripts/newwork-memory.py:172:        fcntl.flock(handle, fcntl.LOCK_EX)
+scripts/newwork-memory.py:177:    path = base / "events.jsonl"
+scripts/newwork-memory.py:205:    with (base / "events.jsonl").open("a", encoding="utf-8") as handle:
+scripts/newwork-memory.py:233:        elif kind == "git_reconciled":
+scripts/newwork-memory.py:242:            lessons["items"][data["id"]] = {**data, "status": "candidate",
+scripts/newwork-memory.py:247:            item["status"] = {"lesson_approved": "approved", "lesson_rejected": "rejected",
+scripts/newwork-memory.py:253:            old.update(status="replaced", replaced_by=data["replacement_id"], decision_reason=data["reason"],
+scripts/newwork-memory.py:255:            new.update(status="approved", replaces=data["id"], decision_reason=data["reason"],
+scripts/newwork-memory.py:319:    if ref["path"] in INTERNAL_PROJECTIONS or ref["path"] == ".newwork/.lock":
+scripts/newwork-memory.py:344:        if item["status"] in {"candidate", "approved"}:
+scripts/newwork-memory.py:423:    with locked(base):
+scripts/newwork-memory.py:425:            if (base / "events.jsonl").exists():
+scripts/newwork-memory.py:438:            (base / "events.jsonl").touch(exist_ok=False)
+scripts/newwork-memory.py:451:            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+scripts/newwork-memory.py:453:            status = "ok" if reusable else "review_required"
+scripts/newwork-memory.py:454:            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+scripts/newwork-memory.py:461:        if args.command in ("reconcile", "status"):
+scripts/newwork-memory.py:472:            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+scripts/newwork-memory.py:473:            reply(status, **result)
+scripts/newwork-memory.py:474:            if args.command == "reconcile" and status != "ok":
+scripts/newwork-memory.py:475:                return EXIT[status]
+scripts/newwork-memory.py:484:            append(base, events, "git_reconciled", {"git": observed, "reason": args.reason,
+scripts/newwork-memory.py:496:                fail("review_required", "Git state differs from last session; run reconcile and review before start")
+scripts/newwork-memory.py:510:                            not checkpoint_transition(root, events, state["last_git"], current))
+scripts/newwork-memory.py:540:                       "status": args.status, "evidence": refs}
+scripts/newwork-memory.py:546:            if args.status not in STATUSES:
+scripts/newwork-memory.py:547:                fail("invalid_input", "unknown finding status")
+scripts/newwork-memory.py:548:            if args.status in {"EVIDENCE_FOUND", "CONFIRMED", "REFUTED"} and not refs:
+scripts/newwork-memory.py:549:                fail("invalid_evidence", "this status requires at least one evidence file")
+scripts/newwork-memory.py:551:                                                     "status": args.status, "evidence": refs}, fingerprint)
+scripts/newwork-memory.py:584:                                                     "effect": {"status": args.effect, "note": args.effect_note}})
+scripts/newwork-memory.py:593:                if item["status"] != "candidate" or args.replacement:
+scripts/newwork-memory.py:596:                    if item["effect"]["status"] != "supported":
+scripts/newwork-memory.py:602:                if item["status"] != "approved" or args.replacement:
+scripts/newwork-memory.py:607:                if item["status"] != "approved" or replacement is None or replacement["status"] != "candidate":
+scripts/newwork-memory.py:609:                if replacement["effect"]["status"] != "supported":
+scripts/newwork-memory.py:631:    for name in ("init", "rebuild", "reconcile", "status", "accept-git", "start", "end", "interrupt", "request-confirmation",
+scripts/newwork-memory.py:649:            cmd.add_argument("status", choices=sorted(STATUSES))
+scripts/newwork-memory.py:671:        reply(exc.status, message=str(exc), **exc.details)
+scripts/newwork-memory.py:672:        return EXIT[exc.status]
+
+codex
+메모리 레지스트리 조회는 현재 연결의 보안 상태 판정 오류로 실행되지 않았습니다. 저장소 자체는 별도로 읽을 수 있는지 확인하면서, 이번 계획에 필요한 현재 코드와 테스트를 직접 근거로 잡겠습니다.
+exec
+/bin/zsh -lc "./run.sh memory status; sed -n '150,230p' scripts/newwork-memory.py; sed -n '400,505p' scripts/newwork-memory.py; sed -n '430,525p' tests/test-newwork-memory.py; sed -n '1,110p' tests/test-newwork-memory.py" in /Users/youngjaeseo/work/newWork
+ succeeded in 138ms:
+{"message":"[Errno 1] Operation not permitted: '/Users/youngjaeseo/work/newWork/.newwork/.lock'","status":"io_error"}
+        if committed.returncode or committed.stdout != current_bytes:
+            return False
+    return True
+
+
+def git_drift(root, events, recorded, current):
+    return recorded is not None and recorded != current and not checkpoint_transition(root, events, recorded, current)
+
+
+def root_for(path):
+    root = Path(path).resolve()
+    result = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                            capture_output=True, text=True, check=True)
+    if root != Path(result.stdout.strip()).resolve():
+        fail("invalid_input", "--root must be the Git repository root")
+    return root
+
+
+@contextmanager
+def locked(base):
+    base.mkdir(exist_ok=True)
+    with (base / ".lock").open("a+b") as handle:
+        fcntl.flock(handle, fcntl.LOCK_EX)
+        yield
+
+
+def read_events(base):
+    path = base / "events.jsonl"
+    if not path.exists():
+        fail("invalid_input", "Memory Foundation not initialized; run init")
+    events = []
+    previous = "0" * 64
+    with path.open(encoding="utf-8") as handle:
+        for number, line in enumerate(handle, 1):
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError as exc:
+                fail("ledger_corrupt", f"invalid event line {number}: {exc}")
+            checksum = event.pop("hash", None)
+            if event.get("seq") != number or event.get("prev_hash") != previous or checksum != digest(event):
+                fail("ledger_corrupt", f"event chain mismatch at line {number}")
+            event["hash"] = checksum
+            events.append(event)
+            previous = checksum
+    if not events or events[0]["type"] != "initialized":
+        fail("ledger_corrupt", "event ledger has no initialization event")
+    return events
+
+
+def append(base, events, kind, data, fingerprint=None):
+    event = {"seq": len(events) + 1, "at": now(), "type": kind, "data": data,
+             "prev_hash": events[-1]["hash"] if events else "0" * 64}
+    if fingerprint:
+        event["request_fingerprint"] = fingerprint
+    event["hash"] = digest(event)
+    with (base / "events.jsonl").open("a", encoding="utf-8") as handle:
+        handle.write(canonical(event) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    events.append(event)
+
+
+def project(events):
+    state = {"schema": SCHEMA, "event_seq": 0, "active_session": None, "next_start": "",
+             "open_tasks": {}, "pending_confirmations": {}, "last_git": None}
+    findings = {"schema": SCHEMA, "event_seq": 0, "items": {}}
+    lessons = {"schema": SCHEMA, "event_seq": 0, "items": {}}
+    for event in events:
+        data, kind = event["data"], event["type"]
+        state["event_seq"] = findings["event_seq"] = lessons["event_seq"] = event["seq"]
+        if kind == "session_started":
+            state["active_session"] = data["id"]
+            state["last_git"] = data["git"]
+        elif kind == "session_ended":
+            state["active_session"] = None
+            state["next_start"] = data["next_start"]
+            state["last_git"] = data["git"]
+        elif kind == "session_interrupted":
+            state["active_session"] = None
+        elif kind == "task_opened":
+            state["open_tasks"][data["id"]] = {**data, "open_event": event["seq"]}
+            fail("invalid_evidence", "verification evidence hash changed", path=proof["path"])
+    artifact = result.get("verifier_artifact")
+    if not isinstance(artifact, dict) or not isinstance(artifact.get("path"), str) or not isinstance(artifact.get("sha256"), str):
+        fail("invalid_evidence", "verification result requires a verifier artifact")
+    verifier = evidence(root, artifact["path"])
+    if not Path(verifier["path"]).is_relative_to(run_folder) or verifier["path"] == ref["path"]:
+        fail("invalid_evidence", "verifier artifact must belong to the same run")
+    try:
+        verifier_bytes = (root / verifier["path"]).read_bytes()
+        lines = verifier_bytes.decode("utf-8").splitlines()
+    except UnicodeError:
+        fail("invalid_evidence", "verifier artifact is not UTF-8 text")
+    if hashlib.sha256(verifier_bytes).hexdigest() != artifact["sha256"]:
+        fail("invalid_evidence", "verifier artifact hash changed", path=artifact["path"])
+    last = next((line for line in reversed(lines) if line.strip()), None)
+    if last != "VERDICT: PASS":
+        fail("conflict", "verifier artifact verdict is not PASS")
+    return ref, result
+
+
+def execute(args):
+    root = root_for(args.root)
+    base = root / ".newwork"
+    with locked(base):
+        if args.command == "init":
+            if (base / "events.jsonl").exists():
+                fail("conflict", "already initialized; existing ledger preserved")
+            existing = [name for name in ("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml", "DECISIONS.md")
+                        if (base / name).exists()]
+            if existing:
+                fail("conflict", "existing Memory Foundation files: " + ", ".join(existing))
+            (base / "incidents").mkdir(exist_ok=True)
+            (base / "runs").mkdir(exist_ok=True)
+            for folder in ("incidents", "runs"):
+                marker = base / folder / ".gitkeep"
+                if not marker.exists():
+                    marker.touch()
+            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet. See docs/decision-log.md for legacy history.\n", encoding="utf-8")
+            (base / "events.jsonl").touch(exist_ok=False)
+            events = []
+            append(base, events, "initialized", {"schema": SCHEMA})
+            projections(base, events)
+            reply(path=str(base), event_seq=1)
+            return
+        events = read_events(base)
+        state, findings, lessons = project(events)
+        if args.command == "lesson-check":
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            stale = changed_lesson_references(root, item)
+            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+                        and not stale)
+            status = "ok" if reusable else "review_required"
+            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+                  stale_evidence=stale)
+            return
+        if args.command == "rebuild":
+            projections(base, events)
+            reply(event_seq=len(events))
+            return
+        if args.command in ("reconcile", "status"):
+            mismatches = consistency(base, events)
+            current = git(root)
+            drift = git_drift(root, events, state["last_git"], current)
+            stale = stale_evidence(root, findings)
+            stale_lessons = stale_lesson_evidence(root, lessons)
+            result = {"snapshot_mismatches": mismatches, "git_drift": drift,
+                      "recorded_git": state["last_git"], "current_git": current,
+                      "active_session": state["active_session"], "event_seq": len(events),
+                      "pending_confirmations": state["pending_confirmations"],
+                      "stale_evidence": stale, "stale_lesson_evidence": stale_lessons}
+            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+            reply(status, **result)
+            if args.command == "reconcile" and status != "ok":
+                return EXIT[status]
+            return
+        if consistency(base, events):
+            fail("review_required", "snapshot differs from ledger; run rebuild before recording new events")
+        if args.command == "accept-git":
+            observed = git(root)
+            identity = accepted_tree_identity(root)
+            if git(root) != observed:
+                fail("review_required", "Git worktree changed while recording acceptance")
+            append(base, events, "git_reconciled", {"git": observed, "reason": args.reason,
+                                                    "accepted_change_identity": identity})
+        elif args.command == "start":
+            request = {"id": args.id}
+            prior, fingerprint = retry(events, state, findings, "start", request)
+            if prior:
+                reply(event_seq=prior["seq"], active_session=state["active_session"], replayed=True)
+                return
+            if state["active_session"] is not None:
+                fail("conflict", "session already active", active_session=state["active_session"])
+            current = git(root)
+            if git_drift(root, events, state["last_git"], current):
+                fail("review_required", "Git state differs from last session; run reconcile and review before start")
+            append(base, events, "session_started", {"id": args.id, "git": current}, fingerprint)
+        elif args.command == "end":
+            request = {"id": args.id, "next_start": args.next_start}
+            prior, fingerprint = retry(events, state, findings, "end", request)
+            if prior:
+                reply(event_seq=prior["seq"], active_session=state["active_session"], replayed=True)
+                return
+            require_session(state)
+            if state["active_session"] != args.id:
+
+    def test_end_review_keeps_active_until_head_and_evidence_accepted(self):
+        self.call("init")
+        self.call("start", "s1")
+        self.call("finding", "f1", "claim", "EVIDENCE_FOUND", "--evidence", "README.md")
+        (self.repo / "README.md").write_text("changed\n", encoding="utf-8")
+        subprocess.run(["git", "-C", str(self.repo), "add", "README.md"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "commit", "-qm", "changed"], check=True)
+        result = self.call("end", "s1", "--next-start", "Next", ok=False)
+        self.assertEqual(result.returncode, 11)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertEqual(self.state()["active_session"], "s1")
+        self.call("accept-git", "Reviewed new HEAD")
+        result = self.call("end", "s1", "--next-start", "Next", ok=False)
+        self.assertEqual(json.loads(result.stdout)["stale_evidence"], ["README.md"])
+        self.call("finding", "f1", "claim", "EVIDENCE_FOUND", "--evidence", "README.md")
+        self.call("end", "s1", "--next-start", "Next")
+        self.assertIsNone(self.state()["active_session"])
+
+    def test_status_codes_and_backend_independent_contract(self):
+        self.call("init")
+        self.call("start", "same-session")  # Codex and Claude both use this command.
+        self.assertEqual(json.loads(self.call("start", "other", ok=False).stdout)["status"], "conflict")
+        invalid = self.call("finding", "f", "claim", "CONFIRMED", ok=False)
+        self.assertEqual((invalid.returncode, json.loads(invalid.stdout)["status"]), (13, "invalid_evidence"))
+        self.assertEqual(json.loads(self.call("status").stdout)["active_session"], "same-session")
+        ledger = self.repo / ".newwork/events.jsonl"
+        with ledger.open("a", encoding="utf-8") as handle:
+            handle.write("broken\n")
+        corrupt = self.call("status", ok=False)
+        self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+
+    def test_ordinary_errors_are_not_ledger_corruption(self):
+        self.call("init")
+        self.call("start", "s1")
+        cases = (("request-confirmation", "q1", "Question?"),
+                 ("open-task", "t1", "Task"))
+        for command in cases:
+            self.call(*command)
+            result = self.call(*command, ok=False)
+            self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (10, "conflict"))
+        result = self.call("close-task", "missing", ok=False)
+        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+        result = self.call("finding", "f", "claim", "CONFIRMED", "--evidence", "../missing", ok=False)
+        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (13, "invalid_evidence"))
+
+    def test_codex_claude_share_run_sh_contract(self):
+        def caller(name, *command):
+            return subprocess.run([str(self.repo / "run.sh"), "memory", *command], cwd=self.repo,
+                                  env={**os.environ, "NEWWORK_TEST_CALLER": name},
+                                  capture_output=True, text=True)
+
+        self.assertEqual(caller("codex", "init").returncode, 0)
+        started = caller("codex", "start", "shared")
+        self.assertEqual(started.returncode, 0)
+        codex_status = caller("codex", "status")
+        claude_status = caller("claude", "status")
+        self.assertEqual((codex_status.returncode, json.loads(codex_status.stdout)),
+                         (claude_status.returncode, json.loads(claude_status.stdout)))
+        found = caller("claude", "finding", "fact", "proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+        self.assertEqual((found.returncode, json.loads(found.stdout)["status"]), (0, "ok"))
+        ended = caller("claude", "end", "shared", "--next-start", "Next")
+        self.assertEqual((ended.returncode, json.loads(ended.stdout)["status"]), (0, "ok"))
+        ledger = (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8")
+        state = self.state()
+        self.assertNotIn("caller", ledger + json.dumps(state))
+        self.assertEqual(state["active_session"], None)
+        self.assertEqual({p.name for p in (self.repo / ".newwork").iterdir()},
+                         {".lock", "DECISIONS.md", "events.jsonl", "STATE.yaml", "FINDINGS.yaml",
+                          "LESSONS.yaml", "incidents", "runs"})
+
+    def test_checkpoint_accepted_tree_direct_child_and_internal_record(self):
+        parent = self.checkpoint_ready()
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint")
+        self.assertEqual(self.git("rev-parse", "HEAD^"), parent)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assert_reconcile_status("ok")
+        self.assertEqual(json.loads(self.call("status").stdout)["git_drift"], False)
+        self.assertEqual(self.git("show", "HEAD:.newwork/events.jsonl"),
+                         (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8").strip())
+        self.call("start", "after-checkpoint")
+
+    def test_checkpoint_during_active_session_allows_end(self):
+        self.call("init")
+        self.call("start", "active")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("reviewed in session\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed active session changes")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint in session")
+        self.call("end", "active", "--next-start", "Next")
+        self.assertIsNone(self.state()["active_session"])
+
+    def test_checkpoint_rejects_extra_edit(self):
+        self.checkpoint_ready()
+#!/usr/bin/env python3
+"""Memory Foundation acceptance tests in disposable Git repositories."""
+
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "newwork-memory.py"
+RUN = SCRIPT.parents[1] / "run.sh"
+
+
+class MemoryTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.repo = Path(self.tmp.name)
+        subprocess.run(["git", "init", "-q", str(self.repo)], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.name", "Test"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.email", "test@example.invalid"], check=True)
+        (self.repo / "README.md").write_text("proof\n", encoding="utf-8")
+        (self.repo / "scripts").mkdir()
+        shutil.copy2(SCRIPT, self.repo / "scripts/newwork-memory.py")
+        shutil.copy2(RUN, self.repo / "run.sh")
+        subprocess.run(["git", "-C", str(self.repo), "add", "README.md", "run.sh", "scripts/newwork-memory.py"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "commit", "-qm", "initial"], check=True)
+
+    def call(self, *args, ok=True):
+        result = subprocess.run([sys.executable, str(SCRIPT), "--root", str(self.repo), *args],
+                                capture_output=True, text=True)
+        if ok:
+            self.assertEqual(result.returncode, 0, result.stderr)
+        else:
+            self.assertNotEqual(result.returncode, 0, result.stdout)
+        return result
+
+    def state(self):
+        return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
+
+    def lessons(self):
+        return json.loads((self.repo / ".newwork/LESSONS.yaml").read_text(encoding="utf-8"))["items"]
+
+    def lesson_fixture(self):
+        self.call("init")
+        self.call("start", "lesson-session")
+        (self.repo / "retrospective.md").write_text("Keep: verify changes.\n", encoding="utf-8")
+        self.call("finding", "proof", "README is proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+
+    def propose_lesson(self, lesson_id, effect="supported", *extra):
+        return self.call("lesson-propose", lesson_id, "Verify changes before closing work",
+                         "--source", "retrospective.md", "--support", "README.md",
+                         "--effect", effect, "--effect-note", "Reviewed the recorded result", *extra)
+
+    def check_lesson(self, lesson_id):
+        return json.loads(self.call("lesson-check", lesson_id).stdout)
+
+    def test_project_lesson_live_reuse_requires_current_references(self):
+        self.lesson_fixture()
+        contrary = self.repo / ".newwork/runs/contrary/log.txt"
+        contrary.parent.mkdir(parents=True)
+        contrary.write_text("Counterexample\n", encoding="utf-8")
+        self.propose_lesson("source", "supported", "--contradict", ".newwork/runs/contrary/log.txt")
+        self.call("lesson-decide", "source", "approve", "--reason", "Reviewed")
+        self.assertEqual(self.lessons()["source"]["reuse_policy"], "live_freshness_check_required")
+        self.assertTrue(self.check_lesson("source")["reusable"])
+        for path in (self.repo / "retrospective.md", self.repo / "README.md", contrary):
+            original = path.read_bytes()
+            path.write_bytes(original + b"changed\n")
+            result = self.check_lesson("source")
+            self.assertFalse(result["reusable"])
+            self.assertEqual(result["status"], "review_required")
+            self.assertEqual(self.lessons()["source"]["status"], "approved")
+            path.write_bytes(original)
+        contrary.unlink()
+        self.assertFalse(self.check_lesson("source")["reusable"])
+        contrary.write_text("Counterexample\n", encoding="utf-8")
+        self.assertTrue(self.check_lesson("source")["reusable"])
+
+    def test_project_lesson_replacement_reuse_chain(self):
+        self.lesson_fixture()
+        for lesson_id in ("withdrawn", "a", "b", "c"):
+            self.propose_lesson(lesson_id)
+        self.call("lesson-decide", "withdrawn", "approve", "--reason", "Reviewed")
+        self.call("lesson-decide", "withdrawn", "withdraw", "--reason", "Retired")
+        self.assertFalse(self.check_lesson("withdrawn")["reusable"])
+        self.call("lesson-decide", "a", "approve", "--reason", "Reviewed")
+        result = self.call("lesson-decide", "a", "replace", "--replacement", "a",
+                           "--reason", "Self", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "conflict")
+        self.call("lesson-decide", "a", "replace", "--replacement", "b", "--reason", "Better")
+        self.assertFalse(self.check_lesson("a")["reusable"])
+        self.assertTrue(self.check_lesson("b")["reusable"])
+        self.call("lesson-decide", "b", "replace", "--replacement", "c", "--reason", "Best")
+        self.assertEqual([self.check_lesson(item)["reusable"] for item in ("a", "b", "c")],
+                         [False, False, True])
+        (self.repo / "README.md").write_text("changed\n", encoding="utf-8")
+        self.assertFalse(self.check_lesson("c")["reusable"])
+
+    def test_project_lesson_lifecycle_and_projection_rebuild(self):
+        self.lesson_fixture()
+        before = self.state()["event_seq"]
+        result = self.call("lesson-propose", "source-only", "Claim", "--source", "retrospective.md",
+                           "--effect", "supported", "--effect-note", "one recollection", ok=False)
+        self.assertEqual(json.loads(result.stdout)["status"], "invalid_evidence")
+
+codex
+현재 작업트리는 이미 .newwork 내부 상태 파일과 한 개의 run 디렉터리가 변경된 상태입니다. 이번 요청은 계획 전용이므로 건드리지 않고, 이 상태 그대로 memory status의 read-only 실패 지점과 lock 진입 구조를 확인하겠습니다.
+exec
+/bin/zsh -lc "sed -n '230,430p' tests/test-newwork-memory.py; sed -n '505,700p' tests/test-newwork-memory.py; sed -n '230,410p' scripts/newwork-memory.py; sed -n '505,690p' scripts/newwork-memory.py; sed -n '1,100p' run.sh; rg -n \"test-newwork-memory|loop-agent|memory.*test|unittest|flock|concurr|parallel\" README.md docs scripts tests run.sh" in /Users/youngjaeseo/work/newWork
+ succeeded in 0ms:
+        verifier.write_text("Details changed\nVERDICT: PASS\n", encoding="utf-8")
+        body = json.loads((self.repo / tampered).read_text(encoding="utf-8"))
+        body["evidence"][0]["sha256"] = hashlib.sha256(verifier.read_bytes()).hexdigest()
+        (self.repo / tampered).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", tampered)
+        other = self.result(run_id="other-run")
+        wrong_run = self.result(run_id="wrong-run")
+        body = json.loads((self.repo / wrong_run).read_text(encoding="utf-8"))
+        body["verifier_artifact"] = json.loads((self.repo / other).read_text(encoding="utf-8"))["verifier_artifact"]
+        (self.repo / wrong_run).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", wrong_run)
+        escaped = self.result(run_id="escaped")
+        body = json.loads((self.repo / escaped).read_text(encoding="utf-8"))
+        body["verifier_artifact"]["path"] = ".newwork/runs/escaped/../../DECISIONS.md"
+        (self.repo / escaped).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", escaped)
+        symlinked = self.result(run_id="symlinked")
+        alias = self.repo / ".newwork/runs/symlinked/alias.md"
+        alias.symlink_to(self.repo / ".newwork/runs/other-run/verifier.md")
+        body = json.loads((self.repo / symlinked).read_text(encoding="utf-8"))
+        body["verifier_artifact"]["path"] = ".newwork/runs/symlinked/alias.md"
+        (self.repo / symlinked).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", symlinked)
+        omitted = self.result(run_id="omitted-verifier")
+        body = json.loads((self.repo / omitted).read_text(encoding="utf-8"))
+        body.pop("verifier_artifact")
+        (self.repo / omitted).write_text(json.dumps(body), encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", omitted)
+        missing = self.result(run_id="missing-verifier")
+        body = json.loads((self.repo / missing).read_text(encoding="utf-8"))
+        separate_proof = self.repo / ".newwork/runs/missing-verifier/reviewer.md"
+        separate_proof.write_text("Review passed\n", encoding="utf-8")
+        body["evidence"] = [{"path": ".newwork/runs/missing-verifier/reviewer.md",
+                             "sha256": hashlib.sha256(separate_proof.read_bytes()).hexdigest()}]
+        (self.repo / missing).write_text(json.dumps(body), encoding="utf-8")
+        (self.repo / ".newwork/runs/missing-verifier/verifier.md").unlink()
+        self.assert_close_rejected("invalid_evidence", missing)
+        good = self.result(run_id="valid-verifier", verifier_text="Details\n\nVERDICT: PASS\n\n")
+        self.call("close-task", "task-1", "--result", good)
+
+    def test_completion_gate_rejections_preserve_open_task(self):
+        self.call("init")
+        self.call("start", "session-1")
+        opened = self.call("open-task", "task-1", "Verify").stdout
+        seq = json.loads(opened)["event_seq"]
+        self.assertEqual(self.state()["open_tasks"]["task-1"]["open_event"], seq)
+        self.assert_close_rejected("invalid_evidence", ".newwork/runs/missing/verification-result.json")
+        self.assert_close_rejected("conflict", self.result(run_id="fail", verdict="FAIL"))
+        path = self.result(run_id="missing-proof")
+        (self.repo / ".newwork/runs/missing-proof/verifier.md").unlink()
+        self.assert_close_rejected("invalid_evidence", path)
+        self.assert_close_rejected("invalid_evidence", self.result(run_id="bad-hash", evidence_hash="0" * 64))
+        self.assert_close_rejected("conflict", self.result(task_id="other", open_event=seq, run_id="wrong-task"))
+        self.assert_close_rejected("conflict", self.result(run_id="wrong-generation", open_event=seq - 1))
+        self.assert_close_rejected("invalid_evidence", "../outside/verification-result.json")
+        self.assert_close_rejected("invalid_evidence", self.result(run_id="outside-proof", evidence_path="../outside"))
+        outside = self.repo / "result.json"
+        outside.write_text("{}", encoding="utf-8")
+        self.assert_close_rejected("invalid_evidence", "result.json")
+        good = self.result(run_id="good")
+        closed = self.call("close-task", "task-1", "--result", good)
+        self.assertEqual(json.loads(closed.stdout)["status"], "ok")
+        self.assertNotIn("task-1", self.state()["open_tasks"])
+        self.call("rebuild")
+        self.assertNotIn("task-1", self.state()["open_tasks"])
+
+    def test_completion_gate_rejects_old_and_consumed_run(self):
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("open-task", "task-1", "First")
+        old = self.result(run_id="old")
+        self.call("close-task", "task-1", "--result", old)
+        self.call("open-task", "task-1", "Second")
+        self.assert_close_rejected("conflict", old)
+        rewritten = json.loads((self.repo / old).read_text(encoding="utf-8"))
+        rewritten["task_open_event"] = self.state()["open_tasks"]["task-1"]["open_event"]
+        (self.repo / old).write_text(json.dumps(rewritten), encoding="utf-8")
+        self.assert_close_rejected("conflict", old)
+
+    def test_completion_gate_survives_crash_and_is_caller_independent(self):
+        def caller(name, *command):
+            result = subprocess.run([str(self.repo / "run.sh"), "memory", *command], cwd=self.repo,
+                                    env={**os.environ, "NEWWORK_TEST_CALLER": name},
+                                    capture_output=True, text=True)
+            return result.returncode, json.loads(result.stdout)
+
+        self.assertEqual(caller("codex", "init")[0], 0)
+        self.assertEqual(caller("codex", "start", "session-1")[0], 0)
+        self.assertEqual(caller("codex", "open-task", "task-1", "Crash recovery")[0], 0)
+        generation = self.state()["open_tasks"]["task-1"]["open_event"]
+        self.assertEqual(caller("codex", "interrupt", "session-1", "crash")[0], 0)
+        self.assertEqual(caller("claude", "start", "session-2")[0], 0)
+        self.assertEqual(self.state()["open_tasks"]["task-1"]["open_event"], generation)
+        proof = self.result(run_id="recovered")
+        rc, body = caller("claude", "close-task", "task-1", "--result", proof)
+        self.assertEqual((rc, body["status"]), (0, "ok"))
+        self.assertNotIn("caller", (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8"))
+        self.assertNotIn("caller", json.dumps(self.state()))
+
+    def git(self, *args):
+        return subprocess.run(["git", "-C", str(self.repo), *args], check=True,
+                              capture_output=True, text=True).stdout.strip()
+
+    def checkpoint_ready(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("approved change\n", encoding="utf-8")
+        parent = self.git("rev-parse", "HEAD")
+        self.call("accept-git", "Reviewed checkpoint files")
+        return parent
+
+    def assert_reconcile_status(self, expected):
+        result = self.call("reconcile", ok=expected == "ok")
+        self.assertEqual(json.loads(result.stdout)["status"], expected)
+        self.assertEqual(result.returncode, 0 if expected == "ok" else 11)
+
+    def test_session_rebuild_confirmation_and_evidence(self):
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("open-task", "task-1", "Inspect proof")
+        self.call("request-confirmation", "choice-1", "Approve change?")
+        self.call("finding", "fact-1", "README says proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+        self.assertEqual(self.state()["pending_confirmations"]["choice-1"]["question"], "Approve change?")
+        findings = json.loads((self.repo / ".newwork/FINDINGS.yaml").read_text(encoding="utf-8"))
+        evidence = findings["items"]["fact-1"]["evidence"][0]
+        self.assertEqual(evidence["sha256"], hashlib.sha256(b"proof\n").hexdigest())
+        self.call("end", "session-1", "--next-start", "Review choice-1")
+        self.assertIsNone(self.state()["active_session"])
+        self.assertEqual(self.state()["next_start"], "Review choice-1")
+        self.call("start", "session-2")
+        self.call("resolve-confirmation", "choice-1", "Approved")
+        self.call("close-task", "task-1", "--result", self.result())
+        self.call("end", "session-2", "--next-start", "Continue")
+        self.assertFalse(self.state()["pending_confirmations"])
+        self.call("reconcile")
+        before = self.state()
+        (self.repo / ".newwork/STATE.yaml").write_text("{}\n", encoding="utf-8")
+        self.call("reconcile", ok=False)
+        self.call("rebuild")
+        self.assertEqual(before, self.state())
+        self.call("reconcile")
+        (self.repo / "README.md").write_text("changed proof\n", encoding="utf-8")
+        result = self.call("reconcile", ok=False)
+        self.assertIn('"stale_evidence":["README.md"]', result.stdout)
+
+    def test_invalid_evidence_and_corrupt_ledger_fail_closed(self):
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("finding", "fact", "No proof", "CONFIRMED", ok=False)
+        self.call("finding", "fact", "Outside", "EVIDENCE_FOUND", "--evidence", "../outside", ok=False)
+        ledger = self.repo / ".newwork/events.jsonl"
+        with ledger.open("a", encoding="utf-8") as handle:
+            handle.write('{"seq":999}\n')
+        self.call("rebuild", ok=False)
+
+    def test_git_drift_and_existing_files(self):
+        (self.repo / ".newwork").mkdir()
+        (self.repo / ".newwork/STATE.yaml").write_text("personal\n", encoding="utf-8")
+        self.call("init", ok=False)
+        self.assertEqual((self.repo / ".newwork/STATE.yaml").read_text(), "personal\n")
+        (self.repo / ".newwork/STATE.yaml").unlink()
+        self.call("init")
+        self.call("start", "session-1")
+        self.call("end", "session-1", "--next-start", "Next")
+        (self.repo / "README.md").write_text("changed\n", encoding="utf-8")
+        self.call("reconcile", ok=False)
+        self.call("start", "session-2", ok=False)
+        self.call("accept-git", "Reviewed README edit")
+        self.call("reconcile")
+        self.call("start", "session-2")
+
+    def test_common_idempotency_and_crash_interrupt(self):
+        self.call("init")
+        for command in (("start", "s1"),
+                        ("finding", "f1", "claim", "EVIDENCE_FOUND", "--evidence", "README.md")):
+            first = json.loads(self.call(*command).stdout)
+            again = json.loads(self.call(*command).stdout)
+            self.assertEqual(again["status"], "ok")
+            self.assertTrue(again["replayed"])
+            self.assertEqual(first["event_seq"], again["event_seq"])
+        self.assertEqual(self.state()["active_session"], "s1")
+        for command in (("interrupt", "s1", "agent crash"), ("start", "s2"),
+                        ("end", "s2", "--next-start", "Next")):
+            first = json.loads(self.call(*command).stdout)
+            again = json.loads(self.call(*command).stdout)
+            self.assertTrue(again["replayed"])
+            self.assertEqual(first["event_seq"], again["event_seq"])
+        stale = self.call("interrupt", "s1", "agent crash", ok=False)
+        self.assertEqual((stale.returncode, json.loads(stale.stdout)["status"]), (10, "conflict"))
+        self.assertEqual(json.loads(self.call("resume", "s1", ok=False).stdout)["status"], "invalid_input")
+
+    def test_stale_end_replay_after_next_session_starts(self):
+        self.call("init")
+        self.call("start", "s1")
+        self.call("end", "s1", "--next-start", "Next")
+        self.assertTrue(json.loads(self.call("end", "s1", "--next-start", "Next").stdout)["replayed"])
+        self.call("start", "s2")
+        stale = self.call("end", "s1", "--next-start", "Next", ok=False)
+        self.assertEqual((stale.returncode, json.loads(stale.stdout)["status"]), (10, "conflict"))
+        self.assertEqual(self.state()["active_session"], "s2")
+
+        self.assertEqual(self.git("rev-parse", "HEAD^"), parent)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assert_reconcile_status("ok")
+        self.assertEqual(json.loads(self.call("status").stdout)["git_drift"], False)
+        self.assertEqual(self.git("show", "HEAD:.newwork/events.jsonl"),
+                         (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8").strip())
+        self.call("start", "after-checkpoint")
+
+    def test_checkpoint_during_active_session_allows_end(self):
+        self.call("init")
+        self.call("start", "active")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("reviewed in session\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed active session changes")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint in session")
+        self.call("end", "active", "--next-start", "Next")
+        self.assertIsNone(self.state()["active_session"])
+
+    def test_checkpoint_rejects_extra_edit(self):
+        self.checkpoint_ready()
+        (self.repo / "README.md").write_text("unapproved edit\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "unapproved")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unapproved_extra_file(self):
+        self.checkpoint_ready()
+        (self.repo / "extra.txt").write_text("unapproved\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "extra file")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_partial_commit(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("approved\n", encoding="utf-8")
+        (self.repo / "second.txt").write_text("approved too\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed both files")
+        self.git("add", "README.md")
+        self.git("commit", "-qm", "partial")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_branch_change_and_unrelated_commit(self):
+        self.checkpoint_ready()
+        self.git("switch", "-q", "-c", "unexpected")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unrelated_or_multi_commit(self):
+        self.checkpoint_ready()
+        self.git("commit", "--allow-empty", "-qm", "unrelated")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "approved files later")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unrelated_parent_with_matching_files(self):
+        self.checkpoint_ready()
+        self.git("add", "-A")
+        tree = self.git("write-tree")
+        unrelated = self.git("commit-tree", tree, "-m", "unrelated root")
+        branch = self.git("branch", "--show-current")
+        self.git("update-ref", f"refs/heads/{branch}", unrelated)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit(self):
+        self.checkpoint_ready()
+        self.git("add", "-A")
+        self.git("commit", "-qm", "checkpoint")
+        (self.repo / "README.md").write_text("post-commit change\n", encoding="utf-8")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_rejects_unapproved_human_memory_edit(self):
+        self.checkpoint_ready()
+        (self.repo / ".newwork/DECISIONS.md").write_text("# Unapproved decision\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "memory change")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_accepts_reviewed_human_memory_edit(self):
+        self.call("init")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / ".newwork/DECISIONS.md").write_text("# Reviewed decision\n", encoding="utf-8")
+        self.call("accept-git", "Reviewed decision")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "reviewed memory file")
+        self.assert_reconcile_status("ok")
+
+    def test_legacy_acceptance_without_identity_is_not_retroactive(self):
+        self.checkpoint_ready()
+        ledger = self.repo / ".newwork/events.jsonl"
+        lines = ledger.read_text(encoding="utf-8").splitlines()
+        last = json.loads(lines[-1])
+        last["data"].pop("accepted_change_identity")
+        last.pop("hash")
+        last["hash"] = hashlib.sha256(json.dumps(last, ensure_ascii=False, sort_keys=True,
+                                                  separators=(",", ":")).encode("utf-8")).hexdigest()
+        lines[-1] = json.dumps(last, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        ledger.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "legacy acceptance")
+        self.assert_reconcile_status("review_required")
+
+    def test_checkpoint_without_acceptance_remains_review_required(self):
+        self.call("init")
+        self.call("start", "baseline")
+        self.call("end", "baseline", "--next-start", "Next")
+        (self.repo / ".newwork/.gitignore").write_text(".lock\n", encoding="utf-8")
+        (self.repo / "README.md").write_text("not reviewed\n", encoding="utf-8")
+        self.git("add", "-A")
+        self.git("commit", "-qm", "unaccepted")
+        self.assert_reconcile_status("review_required")
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+            state["open_tasks"][data["id"]] = {**data, "open_event": event["seq"]}
+        elif kind == "task_closed":
+            state["open_tasks"].pop(data["id"], None)
+        elif kind == "git_reconciled":
+            state["last_git"] = data["git"]
+        elif kind == "confirmation_requested":
+            state["pending_confirmations"][data["id"]] = data
+        elif kind == "confirmation_resolved":
+            state["pending_confirmations"].pop(data["id"], None)
+        elif kind == "finding_recorded":
+            findings["items"][data["id"]] = data
+        elif kind == "lesson_proposed":
+            lessons["items"][data["id"]] = {**data, "status": "candidate",
+                                            "reuse_policy": "live_freshness_check_required",
+                                            "proposed_event": event["seq"]}
+        elif kind in {"lesson_approved", "lesson_rejected", "lesson_withdrawn"}:
+            item = lessons["items"][data["id"]]
+            item["status"] = {"lesson_approved": "approved", "lesson_rejected": "rejected",
+                              "lesson_withdrawn": "withdrawn"}[kind]
+            item["decision_reason"] = data["reason"]
+            item["decision_event"] = event["seq"]
+        elif kind == "lesson_replaced":
+            old, new = lessons["items"][data["id"]], lessons["items"][data["replacement_id"]]
+            old.update(status="replaced", replaced_by=data["replacement_id"], decision_reason=data["reason"],
+                       decision_event=event["seq"])
+            new.update(status="approved", replaces=data["id"], decision_reason=data["reason"],
+                       decision_event=event["seq"])
+        else:
+            if kind != "initialized":
+                fail("ledger_corrupt", f"unknown event type: {kind}")
+    return state, findings, lessons
+
+
+def write_json(path, value):
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
+        temp = Path(handle.name)
+        json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temp, path)
+
+
+def projections(base, events):
+    values = project(events)
+    for name, value in zip(("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml"), values):
+        write_json(base / name, value)
+    return values
+
+
+def consistency(base, events):
+    expected = project(events)
+    mismatches = []
+    for name, value in zip(("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml"), expected):
+        try:
+            actual = json.loads((base / name).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            actual = None
+        if actual != value:
+            mismatches.append(name)
+    return mismatches
+
+
+def evidence(root, supplied):
+    path = (root / supplied).resolve()
+    if not path.is_relative_to(root) or not path.is_file():
+        fail("invalid_evidence", "evidence must be an existing file inside the repository", path=supplied)
+    relative = path.relative_to(root).as_posix()
+    if relative.startswith(".git/") or relative == ".git":
+        fail("invalid_evidence", "Git internals cannot be evidence", path=supplied)
+    return {"path": relative, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+
+
+def stale_evidence(root, findings):
+    stale = []
+    for item in findings["items"].values():
+        for ref in item["evidence"]:
+            try:
+                current = evidence(root, ref["path"])
+            except MemoryFailure:
+                stale.append(ref["path"])
+                continue
+            if current["sha256"] != ref["sha256"]:
+                stale.append(ref["path"])
+    return sorted(set(stale))
+
+
+def lesson_reference(root, supplied):
+    ref = evidence(root, supplied)
+    if ref["path"] in INTERNAL_PROJECTIONS or ref["path"] == ".newwork/.lock":
+        fail("invalid_evidence", "Memory ledger and snapshots cannot be lesson evidence")
+    return ref
+
+
+def lesson_references(item):
+    return [item["source"], *item["supporting"], *item["contradictory"]]
+
+
+def changed_lesson_references(root, item):
+    stale = []
+    for ref in lesson_references(item):
+        try:
+            current = lesson_reference(root, ref["path"])
+        except MemoryFailure:
+            stale.append(ref["path"])
+            continue
+        if current != ref:
+            stale.append(ref["path"])
+    return sorted(set(stale))
+
+
+def stale_lesson_evidence(root, lessons):
+    stale = []
+    for item in lessons["items"].values():
+        if item["status"] in {"candidate", "approved"}:
+            stale.extend(changed_lesson_references(root, item))
+    return sorted(set(stale))
+
+
+def require_fresh_lesson(root, item):
+    stale = changed_lesson_references(root, item)
+    if stale:
+        fail("review_required", "lesson source or evidence changed; candidate preserved", stale_evidence=stale)
+
+
+def lesson_support_is_recorded(ref, findings):
+    if any(ref in item["evidence"] for item in findings["items"].values()):
+        return True
+    parts = Path(ref["path"]).parts
+    return len(parts) >= 4 and parts[:2] == (".newwork", "runs")
+
+
+def require_session(state):
+    if state["active_session"] is None:
+        fail("conflict", "start a session first")
+
+
+def verification_result(root, events, supplied, task_id, open_event):
+    ref = evidence(root, supplied)
+    parts = Path(ref["path"]).parts
+    if len(parts) != 4 or parts[:2] != (".newwork", "runs") or parts[3] != "verification-result.json":
+        fail("invalid_evidence", "result must be under .newwork/runs/<run-id>/verification-result.json")
+    if any(item["type"] == "task_closed" and item["data"].get("result", {}).get("path") == ref["path"]
+           for item in events):
+        fail("conflict", "verification result was already consumed")
+    try:
+        content = (root / ref["path"]).read_bytes()
+        result = json.loads(content.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeError):
+        fail("invalid_evidence", "verification result is not valid JSON")
+    ref["sha256"] = hashlib.sha256(content).hexdigest()
+    if not isinstance(result, dict) or type(result.get("schema_version")) is not int or result["schema_version"] != 1:
+        fail("invalid_evidence", "unsupported verification result schema")
+    if result.get("run_id") != parts[2] or not parts[2] or result.get("task_id") != task_id:
+        fail("conflict", "verification result belongs to another run or task")
+    if type(result.get("task_open_event")) is not int or result["task_open_event"] != open_event:
+        fail("conflict", "verification result belongs to another task lifecycle")
+    if result.get("verdict") != "PASS":
+        fail("conflict", "verification verdict is not PASS")
+    run_folder = Path(".newwork/runs") / parts[2]
+    proofs = result.get("evidence")
+    if not isinstance(proofs, list) or not proofs:
+        fail("invalid_evidence", "verification result requires evidence")
+    for proof in proofs:
+        if not isinstance(proof, dict) or not isinstance(proof.get("path"), str) or not isinstance(proof.get("sha256"), str):
+            fail("invalid_evidence", "invalid verification evidence entry")
+        current = evidence(root, proof["path"])
+        if not Path(current["path"]).is_relative_to(run_folder) or current["path"] == ref["path"]:
+            fail("invalid_evidence", "verification evidence must belong to the same run")
+        if current["sha256"] != proof["sha256"]:
+            fail("invalid_evidence", "verification evidence hash changed", path=proof["path"])
+    artifact = result.get("verifier_artifact")
+    if not isinstance(artifact, dict) or not isinstance(artifact.get("path"), str) or not isinstance(artifact.get("sha256"), str):
+        fail("invalid_evidence", "verification result requires a verifier artifact")
+    verifier = evidence(root, artifact["path"])
+    if not Path(verifier["path"]).is_relative_to(run_folder) or verifier["path"] == ref["path"]:
+        fail("invalid_evidence", "verifier artifact must belong to the same run")
+    try:
+        verifier_bytes = (root / verifier["path"]).read_bytes()
+        lines = verifier_bytes.decode("utf-8").splitlines()
+    except UnicodeError:
+            if state["active_session"] != args.id:
+                fail("conflict", "end session id does not match active session")
+            current = git(root)
+            head_changed = ((current["branch"], current["head"]) !=
+                            (state["last_git"]["branch"], state["last_git"]["head"]) and
+                            not checkpoint_transition(root, events, state["last_git"], current))
+            stale = stale_evidence(root, findings)
+            if head_changed or stale:
+                fail("review_required", "Git HEAD or evidence changed; active session preserved",
+                     active_session=args.id, head_changed=head_changed, stale_evidence=stale)
+            append(base, events, "session_ended", {"id": args.id,
+                                                   "next_start": args.next_start, "git": current}, fingerprint)
+        elif args.command == "interrupt":
+            request = {"id": args.id, "reason": args.reason}
+            prior, fingerprint = retry(events, state, findings, "interrupt", request)
+            if prior:
+                reply(event_seq=prior["seq"], active_session=state["active_session"], replayed=True)
+                return
+            require_session(state)
+            if state["active_session"] != args.id:
+                fail("conflict", "session id does not match active session")
+            append(base, events, "session_interrupted", request, fingerprint)
+        elif args.command == "request-confirmation":
+            require_session(state)
+            if args.id in state["pending_confirmations"]:
+                fail("conflict", "confirmation id already pending")
+            append(base, events, "confirmation_requested", {"id": args.id, "question": args.question})
+        elif args.command == "resolve-confirmation":
+            require_session(state)
+            if args.id not in state["pending_confirmations"]:
+                fail("invalid_input", "confirmation id is not pending")
+            append(base, events, "confirmation_resolved", {"id": args.id, "answer": args.answer})
+        elif args.command == "finding":
+            refs = [evidence(root, item) for item in args.evidence]
+            request = {"session_id": state["active_session"], "id": args.id, "claim": args.claim,
+                       "status": args.status, "evidence": refs}
+            prior, fingerprint = retry(events, state, findings, "finding", request)
+            if prior:
+                reply(event_seq=prior["seq"], active_session=state["active_session"], replayed=True)
+                return
+            require_session(state)
+            if args.status not in STATUSES:
+                fail("invalid_input", "unknown finding status")
+            if args.status in {"EVIDENCE_FOUND", "CONFIRMED", "REFUTED"} and not refs:
+                fail("invalid_evidence", "this status requires at least one evidence file")
+            append(base, events, "finding_recorded", {"id": args.id, "claim": args.claim,
+                                                     "status": args.status, "evidence": refs}, fingerprint)
+        elif args.command == "open-task":
+            require_session(state)
+            if args.id in state["open_tasks"]:
+                fail("conflict", "task id already open")
+            append(base, events, "task_opened", {"id": args.id, "title": args.title})
+        elif args.command == "close-task":
+            require_session(state)
+            if args.id not in state["open_tasks"]:
+                fail("invalid_input", "task id is not open")
+            ref, result = verification_result(root, events, args.result, args.id,
+                                              state["open_tasks"][args.id]["open_event"])
+            append(base, events, "task_closed", {"id": args.id, "task_open_event": result["task_open_event"],
+                                                 "result": ref, "run_id": result["run_id"],
+                                                 "evidence": result["evidence"]})
+        elif args.command == "lesson-propose":
+            require_session(state)
+            if not args.id.strip() or not args.claim.strip() or not args.effect_note.strip():
+                fail("invalid_input", "lesson id, claim, and effect note must be non-empty")
+            if args.id in lessons["items"]:
+                fail("conflict", "lesson id already exists")
+            if not args.support:
+                fail("invalid_evidence", "a separate finding or run evidence file is required")
+            source = lesson_reference(root, args.source)
+            supporting = [lesson_reference(root, path) for path in args.support]
+            contradictory = [lesson_reference(root, path) for path in args.contradict]
+            if any(ref["path"] == source["path"] for ref in supporting):
+                fail("invalid_evidence", "source alone cannot support a lesson")
+            if not any(lesson_support_is_recorded(ref, findings) for ref in supporting):
+                fail("invalid_evidence", "at least one supporting reference must be a finding or run artifact")
+            append(base, events, "lesson_proposed", {"id": args.id, "scope": args.scope, "claim": args.claim,
+                                                     "source": source, "supporting": supporting,
+                                                     "contradictory": contradictory,
+                                                     "effect": {"status": args.effect, "note": args.effect_note}})
+        elif args.command == "lesson-decide":
+            require_session(state)
+            if not args.reason.strip():
+                fail("invalid_input", "lesson decision reason must be non-empty")
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            if args.action in {"approve", "reject"}:
+                if item["status"] != "candidate" or args.replacement:
+                    fail("conflict", "decision requires a candidate and no replacement id")
+                if args.action == "approve":
+                    if item["effect"]["status"] != "supported":
+                        fail("review_required", "effect is not supported; candidate preserved")
+                    require_fresh_lesson(root, item)
+                kind = "lesson_approved" if args.action == "approve" else "lesson_rejected"
+                append(base, events, kind, {"id": args.id, "reason": args.reason})
+            elif args.action == "withdraw":
+                if item["status"] != "approved" or args.replacement:
+                    fail("conflict", "withdrawal requires an approved lesson and no replacement id")
+                append(base, events, "lesson_withdrawn", {"id": args.id, "reason": args.reason})
+            elif args.action == "replace":
+                replacement = lessons["items"].get(args.replacement)
+                if item["status"] != "approved" or replacement is None or replacement["status"] != "candidate":
+                    fail("conflict", "replacement requires approved old and candidate new lessons")
+                if replacement["effect"]["status"] != "supported":
+                    fail("review_required", "replacement effect is not supported")
+                require_fresh_lesson(root, replacement)
+                append(base, events, "lesson_replaced", {"id": args.id, "replacement_id": args.replacement,
+                                                         "reason": args.reason})
+        else:
+            fail("invalid_input", "unsupported command")
+        projections(base, events)
+        reply(event_seq=len(events), active_session=project(events)[0]["active_session"],
+                         pending_confirmations=project(events)[0]["pending_confirmations"],
+                         open_tasks=project(events)[0]["open_tasks"],
+                         next_start=project(events)[0]["next_start"])
+
+
+def main():
+    class JsonParser(argparse.ArgumentParser):
+        def error(self, message):
+            fail("invalid_input", message)
+
+    parser = JsonParser(description=__doc__)
+    parser.add_argument("--root", default=".")
+    sub = parser.add_subparsers(dest="command", required=True)
+    for name in ("init", "rebuild", "reconcile", "status", "accept-git", "start", "end", "interrupt", "request-confirmation",
+                 "resolve-confirmation", "finding", "open-task", "close-task", "lesson-propose", "lesson-decide",
+                 "lesson-check"):
+        cmd = sub.add_parser(name)
+        if name in ("start", "end", "interrupt", "request-confirmation", "resolve-confirmation", "finding", "open-task", "close-task", "lesson-propose", "lesson-decide", "lesson-check"):
+            cmd.add_argument("id")
+        if name == "end":
+            cmd.add_argument("--next-start", required=True)
+        if name == "accept-git":
+            cmd.add_argument("reason")
+        if name == "interrupt":
+            cmd.add_argument("reason")
+        if name == "request-confirmation":
+            cmd.add_argument("question")
+        if name == "resolve-confirmation":
+            cmd.add_argument("answer")
+        if name == "finding":
+            cmd.add_argument("claim")
+            cmd.add_argument("status", choices=sorted(STATUSES))
+            cmd.add_argument("--evidence", action="append", default=[])
+        if name == "open-task":
+            cmd.add_argument("title")
+        if name == "close-task":
+            cmd.add_argument("--result", required=True)
+        if name == "lesson-propose":
+            cmd.add_argument("claim")
+            cmd.add_argument("--scope", choices=["project"], default="project")
+            cmd.add_argument("--source", required=True)
+            cmd.add_argument("--support", action="append", default=[])
+            cmd.add_argument("--contradict", action="append", default=[])
+            cmd.add_argument("--effect", choices=sorted(LESSON_EFFECTS), required=True)
+            cmd.add_argument("--effect-note", required=True)
+        if name == "lesson-decide":
+            cmd.add_argument("action", choices=["approve", "reject", "withdraw", "replace"])
+            cmd.add_argument("--reason", required=True)
+            cmd.add_argument("--replacement")
+    try:
+        args = parser.parse_args()
+        return execute(args) or 0
+    except MemoryFailure as exc:
+        reply(exc.status, message=str(exc), **exc.details)
+        return EXIT[exc.status]
+    except (ValueError, KeyError, TypeError, AttributeError) as exc:
+        reply("ledger_corrupt", message=str(exc))
+        return EXIT["ledger_corrupt"]
+    except (OSError, subprocess.CalledProcessError) as exc:
+        reply("io_error", message=str(exc))
+        return EXIT["io_error"]
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── 프로젝트 루트 기준으로 실행 ──────────────────────────────────────────────
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# ── 환경 변수 로드 (.env 파일이 있으면 불러옴) ────────────────────────────────
+if [ -f ".env" ]; then
+  # shellcheck disable=SC2046
+  export $(grep -v '^#' .env | grep -v '^$' | xargs)
+fi
+
+# ── 필수 환경 변수 체크 ────────────────────────────────────────────────────────
+# 필요한 변수가 있으면 아래에 추가:
+# : "${MY_VAR:?MY_VAR is required. .env.example 을 참고하세요}"
+
+# ── 의존성 설치 (필요한 섹션만 주석 해제) ────────────────────────────────────
+# Node.js
+# if [ -f "package.json" ]; then
+#   echo "[setup] npm install..."
+#   npm install --silent
+# fi
+
+# Python
+# if [ -f "requirements.txt" ]; then
+#   echo "[setup] pip install..."
+#   pip install -r requirements.txt -q
+# fi
+
+# ── 실행 ──────────────────────────────────────────────────────────────────────
+case "${1:-}" in
+  loop-poc)
+    shift
+    exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
+    ;;
+  memory)
+    shift
+    exec python3 "$SCRIPT_DIR/scripts/newwork-memory.py" --root "$SCRIPT_DIR" "$@"
+    ;;
+  test)
+    shift
+    "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    exec python3 "$SCRIPT_DIR/tests/test-newwork-memory.py"
+    ;;
+  "")
+    echo "run.sh: 실행 명령을 아래에 채워주세요."
+    echo '  PoC: ./run.sh loop-poc "할 일" [workspace]'
+    echo "  Memory: ./run.sh memory <init|start|end|reconcile|rebuild|...>"
+    echo "  테스트: ./run.sh test"
+    ;;
+  *)
+    echo "run.sh: 알 수 없는 명령: $1" >&2
+    echo "  지원: loop-poc, memory, test" >&2
+    exit 2
+    ;;
+esac
+README.md:15:| `scripts/loop-agent-poc.sh` | planner → implementer → reviewer → verifier 최소 실행 PoC |
+README.md:16:| `tests/test-loop-agent-poc.sh` | PoC 순서·sandbox·gate 테스트 |
+README.md:81:PoC는 독립 Codex 세션으로 네 역할을 실행한다. reviewer FAIL은 기본 최대 2회 implementer 재작업으로 되돌리고, 실행 통계는 artifact의 `summary.txt`에 남긴다. reviewer/verifier가 PASS를 반환해야 완료된다. 자세한 내용은 `docs/2026-09-24_loop-agent-poc.md` 참고.
+run.sh:35:    exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
+run.sh:43:    "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+run.sh:44:    exec python3 "$SCRIPT_DIR/tests/test-newwork-memory.py"
+run.sh:54:    echo "  지원: loop-poc, memory, test" >&2
+scripts/loop-agent-poc.sh:84:  RUN_DIR="$(mktemp -d "${TMPDIR:-/tmp}/newwork-loop-agent-poc.XXXXXX")"
+tests/test-newwork-memory.py:11:import unittest
+tests/test-newwork-memory.py:19:class MemoryTests(unittest.TestCase):
+tests/test-newwork-memory.py:620:    unittest.main(verbosity=2)
+tests/test-loop-agent-poc.sh:5:TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/newwork-loop-agent-test.XXXXXX")"
+tests/test-loop-agent-poc.sh:287:echo "[test] loop-agent PoC PASS"
+scripts/newwork-memory.py:172:        fcntl.flock(handle, fcntl.LOCK_EX)
+docs/decision-log.md:19:- **2026-09-24** · `planner → implementer → reviewer → verifier` 최소 Loop Agent PoC 추가 · 기존 `run.sh` 단일 진입점과 별도 에이전트 교차 검증 원칙을 실행 가능한 흐름으로 연결 · `scripts/loop-agent-poc.sh`, `tests/test-loop-agent-poc.sh`, `docs/2026-09-24_loop-agent-poc.md`
+docs/newwork-v2-migration.md:9:현재 저장소에는 템플릿과 `docs/decision-log.md`가 있으나, 루트의 실제 `plan.md`, `todo.md`, `work.md`, `history.md`는 없다. `scripts/loop-agent-poc.sh`에는 이미 reviewer 제한 재시도와 telemetry가 있다. v2 Phase 2는 이 기존 PoC를 호출하거나 수정하지 않는다.
+docs/newwork-v2-migration.md:24:| 기존 PoC `scripts/loop-agent-poc.sh` | v2 Inner Loop | 유지 | 이미 존재하는 기능이나 Phase 1–2에 포함하지 않는다. v2 인터페이스 연결은 Phase 3로 남긴다. |
+
+exec
+/bin/zsh -lc "git diff -- scripts/newwork-memory.py tests/test-newwork-memory.py tests/test-loop-agent-poc.sh; nl -ba scripts/newwork-memory.py | sed -n '160,215p'; nl -ba scripts/newwork-memory.py | sed -n '418,490p'; nl -ba tests/test-newwork-memory.py | sed -n '440,505p'; nl -ba run.sh | sed -n '30,48p'" in /Users/youngjaeseo/work/newWork
+ succeeded in 0ms:
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: error: couldn't create cache file '/tmp/xcrun_db-YOSv1jS7' (errno=Operation not permitted)
+git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+git: error: couldn't create cache file '/tmp/xcrun_db-cWsuBfoR' (errno=Operation not permitted)
+   160	    root = Path(path).resolve()
+   161	    result = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+   162	                            capture_output=True, text=True, check=True)
+   163	    if root != Path(result.stdout.strip()).resolve():
+   164	        fail("invalid_input", "--root must be the Git repository root")
+   165	    return root
+   166	
+   167	
+   168	@contextmanager
+   169	def locked(base):
+   170	    base.mkdir(exist_ok=True)
+   171	    with (base / ".lock").open("a+b") as handle:
+   172	        fcntl.flock(handle, fcntl.LOCK_EX)
+   173	        yield
+   174	
+   175	
+   176	def read_events(base):
+   177	    path = base / "events.jsonl"
+   178	    if not path.exists():
+   179	        fail("invalid_input", "Memory Foundation not initialized; run init")
+   180	    events = []
+   181	    previous = "0" * 64
+   182	    with path.open(encoding="utf-8") as handle:
+   183	        for number, line in enumerate(handle, 1):
+   184	            try:
+   185	                event = json.loads(line)
+   186	            except json.JSONDecodeError as exc:
+   187	                fail("ledger_corrupt", f"invalid event line {number}: {exc}")
+   188	            checksum = event.pop("hash", None)
+   189	            if event.get("seq") != number or event.get("prev_hash") != previous or checksum != digest(event):
+   190	                fail("ledger_corrupt", f"event chain mismatch at line {number}")
+   191	            event["hash"] = checksum
+   192	            events.append(event)
+   193	            previous = checksum
+   194	    if not events or events[0]["type"] != "initialized":
+   195	        fail("ledger_corrupt", "event ledger has no initialization event")
+   196	    return events
+   197	
+   198	
+   199	def append(base, events, kind, data, fingerprint=None):
+   200	    event = {"seq": len(events) + 1, "at": now(), "type": kind, "data": data,
+   201	             "prev_hash": events[-1]["hash"] if events else "0" * 64}
+   202	    if fingerprint:
+   203	        event["request_fingerprint"] = fingerprint
+   204	    event["hash"] = digest(event)
+   205	    with (base / "events.jsonl").open("a", encoding="utf-8") as handle:
+   206	        handle.write(canonical(event) + "\n")
+   207	        handle.flush()
+   208	        os.fsync(handle.fileno())
+   209	    events.append(event)
+   210	
+   211	
+   212	def project(events):
+   213	    state = {"schema": SCHEMA, "event_seq": 0, "active_session": None, "next_start": "",
+   214	             "open_tasks": {}, "pending_confirmations": {}, "last_git": None}
+   215	    findings = {"schema": SCHEMA, "event_seq": 0, "items": {}}
+   418	
+   419	
+   420	def execute(args):
+   421	    root = root_for(args.root)
+   422	    base = root / ".newwork"
+   423	    with locked(base):
+   424	        if args.command == "init":
+   425	            if (base / "events.jsonl").exists():
+   426	                fail("conflict", "already initialized; existing ledger preserved")
+   427	            existing = [name for name in ("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml", "DECISIONS.md")
+   428	                        if (base / name).exists()]
+   429	            if existing:
+   430	                fail("conflict", "existing Memory Foundation files: " + ", ".join(existing))
+   431	            (base / "incidents").mkdir(exist_ok=True)
+   432	            (base / "runs").mkdir(exist_ok=True)
+   433	            for folder in ("incidents", "runs"):
+   434	                marker = base / folder / ".gitkeep"
+   435	                if not marker.exists():
+   436	                    marker.touch()
+   437	            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet. See docs/decision-log.md for legacy history.\n", encoding="utf-8")
+   438	            (base / "events.jsonl").touch(exist_ok=False)
+   439	            events = []
+   440	            append(base, events, "initialized", {"schema": SCHEMA})
+   441	            projections(base, events)
+   442	            reply(path=str(base), event_seq=1)
+   443	            return
+   444	        events = read_events(base)
+   445	        state, findings, lessons = project(events)
+   446	        if args.command == "lesson-check":
+   447	            item = lessons["items"].get(args.id)
+   448	            if item is None:
+   449	                fail("invalid_input", "lesson id does not exist")
+   450	            stale = changed_lesson_references(root, item)
+   451	            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+   452	                        and not stale)
+   453	            status = "ok" if reusable else "review_required"
+   454	            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+   455	                  stale_evidence=stale)
+   456	            return
+   457	        if args.command == "rebuild":
+   458	            projections(base, events)
+   459	            reply(event_seq=len(events))
+   460	            return
+   461	        if args.command in ("reconcile", "status"):
+   462	            mismatches = consistency(base, events)
+   463	            current = git(root)
+   464	            drift = git_drift(root, events, state["last_git"], current)
+   465	            stale = stale_evidence(root, findings)
+   466	            stale_lessons = stale_lesson_evidence(root, lessons)
+   467	            result = {"snapshot_mismatches": mismatches, "git_drift": drift,
+   468	                      "recorded_git": state["last_git"], "current_git": current,
+   469	                      "active_session": state["active_session"], "event_seq": len(events),
+   470	                      "pending_confirmations": state["pending_confirmations"],
+   471	                      "stale_evidence": stale, "stale_lesson_evidence": stale_lessons}
+   472	            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+   473	            reply(status, **result)
+   474	            if args.command == "reconcile" and status != "ok":
+   475	                return EXIT[status]
+   476	            return
+   477	        if consistency(base, events):
+   478	            fail("review_required", "snapshot differs from ledger; run rebuild before recording new events")
+   479	        if args.command == "accept-git":
+   480	            observed = git(root)
+   481	            identity = accepted_tree_identity(root)
+   482	            if git(root) != observed:
+   483	                fail("review_required", "Git worktree changed while recording acceptance")
+   484	            append(base, events, "git_reconciled", {"git": observed, "reason": args.reason,
+   485	                                                    "accepted_change_identity": identity})
+   486	        elif args.command == "start":
+   487	            request = {"id": args.id}
+   488	            prior, fingerprint = retry(events, state, findings, "start", request)
+   489	            if prior:
+   490	                reply(event_seq=prior["seq"], active_session=state["active_session"], replayed=True)
+   440	        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+   441	        self.assertEqual(self.state()["active_session"], "s1")
+   442	        self.call("accept-git", "Reviewed new HEAD")
+   443	        result = self.call("end", "s1", "--next-start", "Next", ok=False)
+   444	        self.assertEqual(json.loads(result.stdout)["stale_evidence"], ["README.md"])
+   445	        self.call("finding", "f1", "claim", "EVIDENCE_FOUND", "--evidence", "README.md")
+   446	        self.call("end", "s1", "--next-start", "Next")
+   447	        self.assertIsNone(self.state()["active_session"])
+   448	
+   449	    def test_status_codes_and_backend_independent_contract(self):
+   450	        self.call("init")
+   451	        self.call("start", "same-session")  # Codex and Claude both use this command.
+   452	        self.assertEqual(json.loads(self.call("start", "other", ok=False).stdout)["status"], "conflict")
+   453	        invalid = self.call("finding", "f", "claim", "CONFIRMED", ok=False)
+   454	        self.assertEqual((invalid.returncode, json.loads(invalid.stdout)["status"]), (13, "invalid_evidence"))
+   455	        self.assertEqual(json.loads(self.call("status").stdout)["active_session"], "same-session")
+   456	        ledger = self.repo / ".newwork/events.jsonl"
+   457	        with ledger.open("a", encoding="utf-8") as handle:
+   458	            handle.write("broken\n")
+   459	        corrupt = self.call("status", ok=False)
+   460	        self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+   461	
+   462	    def test_ordinary_errors_are_not_ledger_corruption(self):
+   463	        self.call("init")
+   464	        self.call("start", "s1")
+   465	        cases = (("request-confirmation", "q1", "Question?"),
+   466	                 ("open-task", "t1", "Task"))
+   467	        for command in cases:
+   468	            self.call(*command)
+   469	            result = self.call(*command, ok=False)
+   470	            self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (10, "conflict"))
+   471	        result = self.call("close-task", "missing", ok=False)
+   472	        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+   473	        result = self.call("finding", "f", "claim", "CONFIRMED", "--evidence", "../missing", ok=False)
+   474	        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (13, "invalid_evidence"))
+   475	
+   476	    def test_codex_claude_share_run_sh_contract(self):
+   477	        def caller(name, *command):
+   478	            return subprocess.run([str(self.repo / "run.sh"), "memory", *command], cwd=self.repo,
+   479	                                  env={**os.environ, "NEWWORK_TEST_CALLER": name},
+   480	                                  capture_output=True, text=True)
+   481	
+   482	        self.assertEqual(caller("codex", "init").returncode, 0)
+   483	        started = caller("codex", "start", "shared")
+   484	        self.assertEqual(started.returncode, 0)
+   485	        codex_status = caller("codex", "status")
+   486	        claude_status = caller("claude", "status")
+   487	        self.assertEqual((codex_status.returncode, json.loads(codex_status.stdout)),
+   488	                         (claude_status.returncode, json.loads(claude_status.stdout)))
+   489	        found = caller("claude", "finding", "fact", "proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+   490	        self.assertEqual((found.returncode, json.loads(found.stdout)["status"]), (0, "ok"))
+   491	        ended = caller("claude", "end", "shared", "--next-start", "Next")
+   492	        self.assertEqual((ended.returncode, json.loads(ended.stdout)["status"]), (0, "ok"))
+   493	        ledger = (self.repo / ".newwork/events.jsonl").read_text(encoding="utf-8")
+   494	        state = self.state()
+   495	        self.assertNotIn("caller", ledger + json.dumps(state))
+   496	        self.assertEqual(state["active_session"], None)
+   497	        self.assertEqual({p.name for p in (self.repo / ".newwork").iterdir()},
+   498	                         {".lock", "DECISIONS.md", "events.jsonl", "STATE.yaml", "FINDINGS.yaml",
+   499	                          "LESSONS.yaml", "incidents", "runs"})
+   500	
+   501	    def test_checkpoint_accepted_tree_direct_child_and_internal_record(self):
+   502	        parent = self.checkpoint_ready()
+   503	        self.git("add", "-A")
+   504	        self.git("commit", "-qm", "checkpoint")
+   505	        self.assertEqual(self.git("rev-parse", "HEAD^"), parent)
+    30	
+    31	# ── 실행 ──────────────────────────────────────────────────────────────────────
+    32	case "${1:-}" in
+    33	  loop-poc)
+    34	    shift
+    35	    exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
+    36	    ;;
+    37	  memory)
+    38	    shift
+    39	    exec python3 "$SCRIPT_DIR/scripts/newwork-memory.py" --root "$SCRIPT_DIR" "$@"
+    40	    ;;
+    41	  test)
+    42	    shift
+    43	    "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    44	    exec python3 "$SCRIPT_DIR/tests/test-newwork-memory.py"
+    45	    ;;
+    46	  "")
+    47	    echo "run.sh: 실행 명령을 아래에 채워주세요."
+    48	    echo '  PoC: ./run.sh loop-poc "할 일" [workspace]'
+
+codex
+확인 결과, 수정 방향은 작게 잡을 수 있습니다. 파일은 수정하지 않았습니다.
+
+현재 실패는 재현됐습니다:
+
+```
+./run.sh memory status
+→ {"message":"[Errno 1] Operation not permitted: '.../.newwork/.lock'","status":"io_error"}
+```
+
+원인은 scripts/newwork-memory.py (line 168)의 locked()가 모든 명령에 대해 .lock을 a+b로 열고 LOCK\_EX를 획득하기 때문입니다. status도 execute() (line 420) 진입 즉시 이 경로를 타므로, 실제 데이터는 전혀 수정하지 않아도 read-only sandbox에서 실패합니다.
+
+다만 lock 자체를 제거하면 안 됩니다. mutation 명령은 events.jsonl append 후 projection 파일을 갱신하므로, lock 없이 status가 동시에 읽으면 새 ledger와 이전 STATE/FINDINGS/LESSONS를 섞어 읽어 가짜 snapshot\_mismatches를 보고할 수 있습니다. 따라서 writer와의 동기화는 유지해야 합니다.
+
+최소 구현 계획은 다음입니다.
+
+1. locked()에 shared/read-only 모드를 추가합니다.
+   
+   - 기존 mutation 경로: .lock을 a+b로 열고 LOCK\_EX 유지.
+   - status만: 기존 .lock을 rb로 열고 LOCK\_SH.
+   - read-only 경로에서는 .newwork나 .lock을 만들지 않습니다.
+   - 초기화되지 않은 저장소라면 기존 계약에 맞게 invalid\_input으로 처리하고, status 실행 자체가 파일을 생성하지 않게 합니다.
+2. execute() (line 423)에서 오직 status만 shared lock을 선택합니다.
+   
+   - reconcile, lesson-check, rebuild, accept-git, session/finding/task/lesson mutation은 이번 변경 범위에서 건드리지 않습니다.
+   - replay/idempotency, checkpoint/reconcile 판단, projection 생성 코드도 변경하지 않습니다.
+3. tests/test-newwork-memory.py (line 449)에 집중 회귀 테스트를 추가합니다.
+   
+   - 초기화 후 .lock을 쓰기 불가능하게 만들어도 status가 성공하고 ledger/projection 내용이 변하지 않는지 확인.
+   - exclusive writer lock이 잡힌 동안 status가 기다렸다가 lock 해제 후 정상 완료되는지 확인하여 synchronization을 제거하지 않았음을 증명.
+   - 반대로 shared lock이 잡힌 동안 start 같은 mutation이 진행되지 않고, 해제 후 정상적으로 event를 기록하는지 확인해 writer가 계속 LOCK\_EX임을 검증.
+   - 기존 corrupt-ledger/status 계약 테스트는 그대로 통과해야 합니다.
+
+Acceptance checks:
+
+```
+./run.sh memory status          # 실제 read-only sandbox에서 성공
+python3 tests/test-newwork-memory.py
+tests/test-loop-agent-poc.sh
+# 또는 전체 통합 확인
+./run.sh test
+```
+
+추가로 replay/idempotency, reconcile, checkpoint 관련 기존 테스트가 전부 그대로 통과해야 하며, mutation 후 events.jsonl과 projections의 일관성도 유지되어야 합니다.
+
+주요 위험은 두 가지입니다. shared lock을 생략하면 concurrent writer 중간 상태를 관찰할 수 있고, 반대로 read-only status에서 .lock 생성이나 write-open을 조금이라도 남기면 현재 sandbox 실패가 재발합니다. 또한 이 lock은 Memory 명령끼리만 조정하므로 외부에서 직접 Git/worktree를 바꾸는 것까지 원자적으로 막는 장치는 아닙니다. 이는 기존 계약 그대로입니다.
+
+현재 작업트리는 .newwork/\*에 기존 변경사항이 있지만, 이번 대상인 scripts/newwork-memory.py와 테스트 파일들의 diff는 비어 있습니다. 구현자는 그 기존 .newwork 변경을 건드리지 않는 것이 안전합니다.
+tokens used
+167,278
+확인 결과, 수정 방향은 작게 잡을 수 있습니다. 파일은 수정하지 않았습니다.
+
+현재 실패는 재현됐습니다:
+
+```
+./run.sh memory status
+→ {"message":"[Errno 1] Operation not permitted: '.../.newwork/.lock'","status":"io_error"}
+```
+
+원인은 scripts/newwork-memory.py (line 168)의 locked()가 모든 명령에 대해 .lock을 a+b로 열고 LOCK\_EX를 획득하기 때문입니다. status도 execute() (line 420) 진입 즉시 이 경로를 타므로, 실제 데이터는 전혀 수정하지 않아도 read-only sandbox에서 실패합니다.
+
+다만 lock 자체를 제거하면 안 됩니다. mutation 명령은 events.jsonl append 후 projection 파일을 갱신하므로, lock 없이 status가 동시에 읽으면 새 ledger와 이전 STATE/FINDINGS/LESSONS를 섞어 읽어 가짜 snapshot\_mismatches를 보고할 수 있습니다. 따라서 writer와의 동기화는 유지해야 합니다.
+
+최소 구현 계획은 다음입니다.
+
+1. locked()에 shared/read-only 모드를 추가합니다.
+   
+   - 기존 mutation 경로: .lock을 a+b로 열고 LOCK\_EX 유지.
+   - status만: 기존 .lock을 rb로 열고 LOCK\_SH.
+   - read-only 경로에서는 .newwork나 .lock을 만들지 않습니다.
+   - 초기화되지 않은 저장소라면 기존 계약에 맞게 invalid\_input으로 처리하고, status 실행 자체가 파일을 생성하지 않게 합니다.
+2. execute() (line 423)에서 오직 status만 shared lock을 선택합니다.
+   
+   - reconcile, lesson-check, rebuild, accept-git, session/finding/task/lesson mutation은 이번 변경 범위에서 건드리지 않습니다.
+   - replay/idempotency, checkpoint/reconcile 판단, projection 생성 코드도 변경하지 않습니다.
+3. tests/test-newwork-memory.py (line 449)에 집중 회귀 테스트를 추가합니다.
+   
+   - 초기화 후 .lock을 쓰기 불가능하게 만들어도 status가 성공하고 ledger/projection 내용이 변하지 않는지 확인.
+   - exclusive writer lock이 잡힌 동안 status가 기다렸다가 lock 해제 후 정상 완료되는지 확인하여 synchronization을 제거하지 않았음을 증명.
+   - 반대로 shared lock이 잡힌 동안 start 같은 mutation이 진행되지 않고, 해제 후 정상적으로 event를 기록하는지 확인해 writer가 계속 LOCK\_EX임을 검증.
+   - 기존 corrupt-ledger/status 계약 테스트는 그대로 통과해야 합니다.
+
+Acceptance checks:
+
+```
+./run.sh memory status          # 실제 read-only sandbox에서 성공
+python3 tests/test-newwork-memory.py
+tests/test-loop-agent-poc.sh
+# 또는 전체 통합 확인
+./run.sh test
+```
+
+추가로 replay/idempotency, reconcile, checkpoint 관련 기존 테스트가 전부 그대로 통과해야 하며, mutation 후 events.jsonl과 projections의 일관성도 유지되어야 합니다.
+
+주요 위험은 두 가지입니다. shared lock을 생략하면 concurrent writer 중간 상태를 관찰할 수 있고, 반대로 read-only status에서 .lock 생성이나 write-open을 조금이라도 남기면 현재 sandbox 실패가 재발합니다. 또한 이 lock은 Memory 명령끼리만 조정하므로 외부에서 직접 Git/worktree를 바꾸는 것까지 원자적으로 막는 장치는 아닙니다. 이는 기존 계약 그대로입니다.
+
+현재 작업트리는 .newwork/\*에 기존 변경사항이 있지만, 이번 대상인 scripts/newwork-memory.py와 테스트 파일들의 diff는 비어 있습니다. 구현자는 그 기존 .newwork 변경을 건드리지 않는 것이 안전합니다.

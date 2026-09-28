@@ -1,0 +1,1104 @@
+Reading additional input from stdin...
+2026-09-28T06:21:53.154283Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:21:53.154352Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:21:53.191506Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.195131Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.198152Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.201198Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.204139Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.207105Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.210058Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.213019Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.216051Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.219112Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.222167Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.225101Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.228014Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.230947Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.233957Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.237008Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.240024Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.242914Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.245738Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.248642Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.251578Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.254489Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.257350Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.260870Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+OpenAI Codex v0.151.0
+--------
+workdir: /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+model: chatgpt-web/gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a0e6ad-5061-7e01-8045-67c4dadc871f
+--------
+user
+ROLE: implementer
+TASK:
+Verify existing read-only status plus test isolation only; legacy init excluded. NO source/Memory/history/config/security modifications or commit/push. Be focused: read scripts/newwork-memory.py lock and status sections, four lock tests, tests/test-loop-agent-poc.sh unset and bound-path cases. Implementer verify existing code using four lock tests plus ./run.sh test with injected parent task environment. Reviewer/verifier independently inspect actual command outputs in current run logs, unchanged code hashes and read-only acceptance checks. Read-only roles cannot create temp dirs: do NOT repeatedly run write-requiring tests in read-only sandbox; report this limit and validate real implementer test output with source checks, not unsupported claims. Do not inspect unrelated work or old memories. Keep role final report under 150 words. CRITICAL OUTPUT PROTOCOL: emit required IMPLEMENTATION or VERDICT line as the absolute final line, plain text. No code fences, no trailing blank line, no characters after final word COMPLETE/PASS/FAIL/BLOCKED. The prior run was correctly rejected for two blank lines after VERDICT: PASS; do not repeat that format error. Never edit existing run artifacts to satisfy protocol. Actual planner->implementer->reviewer->verifier must execute and agree before result production.
+
+PLANNER OUTPUT:
+<planner>
+계획:
+
+- Implementer: 기존 코드 무수정 상태에서 지정된 4개 lock 테스트만 실행하고, parent LOOP\_AGENT\_POC\_\* 3개 환경변수를 주입한 채 ./run.sh test 실행. legacy init 제외.
+- 확인 대상: status는 기존 .lock을 rb + LOCK\_SH, mutation은 a+b + LOCK\_EX; loop 테스트 시작 시 3개 inherited 변수를 즉시 unset하고 bound-path 케이스에서만 재설정.
+- Acceptance: 4 tests PASS, 전체 test PASS, git diff --exit-code 성공, source/test SHA-256 불변, commit/push 없음.
+- Reviewer/verifier: implementer의 실제 로그를 독립 검토하고 소스 계약과 대조. read-only 환경에서는 temp-dir 필요 테스트를 재실행하지 않음.
+- 위험: 이전 ...-03은 reviewer 출력 뒤 공백 때문에 verifier 0회로 종료됨. 이번에는 최종 프로토콜 줄 뒤 아무 문자도 두지 않아야 함.
+
+IMPLEMENTATION: COMPLETE
+</planner>
+
+REVIEW FEEDBACK FROM PREVIOUS ATTEMPT:
+<review-feedback>
+None. This is the first implementation attempt.
+</review-feedback>
+
+Implement the task with the smallest reasonable change inside the workspace.
+If review feedback is present, address that feedback before reporting completion.
+Follow repository rules. Run focused checks if possible.
+Do not commit or push.
+End with exactly one of these lines:
+IMPLEMENTATION: COMPLETE
+IMPLEMENTATION: BLOCKED
+2026-09-28T06:21:53.265694Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.270755Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.275937Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.281317Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.286792Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.294509Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.299125Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.304025Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.308006Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.311798Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.315466Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.319275Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.322698Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.326174Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.329418Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.332380Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.335281Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.338222Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.341132Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.344066Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.347055Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.350031Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.353000Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.355981Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.359040Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back
+2026-09-28T06:21:53.545394Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:21:53.545421Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-28T06:21:53.756414Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-28T06:21:53.756528Z  WARN codex_core::client: falling back to HTTP
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+exec
+/bin/zsh -lc "pwd
+git status --short --branch
+git diff --exit-code
+rg -n \"LOCK_SH|LOCK_EX|LOCK_NB|status|flock|\\.lock\" scripts/newwork-memory.py
+rg -n \"lock|LOCK_SH|LOCK_EX|status\" tests scripts -g '*test*' -g '*.sh' -g '*.py'
+rg -n \"LOOP_AGENT_POC_|unset|bound|RUN_DIR|ARTIFACT\" tests/test-loop-agent-poc.sh
+shasum -a 256 scripts/newwork-memory.py tests/test-loop-agent-poc.sh" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 8ms:
+1794a487a1ba5128ab9a449205bfcce41f2e062951f024f27168c44aba856cab  scripts/newwork-memory.py
+ad0c8a3b695771de81197ab2ffb39e47781527c3e79aa95b53050f0297e703de  tests/test-loop-agent-poc.sh
+
+exec
+/bin/zsh -lc "sed -n '150,190p' scripts/newwork-memory.py
+sed -n '425,490p' scripts/newwork-memory.py
+sed -n '440,525p' tests/test-newwork-memory.py
+sed -n '1,30p' tests/test-loop-agent-poc.sh
+sed -n '235,295p' tests/test-loop-agent-poc.sh
+sed -n '1,220p' run.sh" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+        if committed.returncode or committed.stdout != current_bytes:
+            return False
+    return True
+
+
+def git_drift(root, events, recorded, current):
+    return recorded is not None and recorded != current and not checkpoint_transition(root, events, recorded, current)
+
+
+def root_for(path):
+    root = Path(path).resolve()
+    result = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                            capture_output=True, text=True, check=True)
+    if root != Path(result.stdout.strip()).resolve():
+        fail("invalid_input", "--root must be the Git repository root")
+    return root
+
+
+@contextmanager
+def locked(base, shared=False):
+    lock = base / ".lock"
+    if shared:
+        if not lock.is_file():
+            fail("invalid_input", "Memory Foundation not initialized; run init")
+        mode, operation = "rb", fcntl.LOCK_SH
+    else:
+        base.mkdir(exist_ok=True)
+        mode, operation = "a+b", fcntl.LOCK_EX
+    with lock.open(mode) as handle:
+        fcntl.flock(handle, operation)
+        yield
+
+
+def read_events(base):
+    path = base / "events.jsonl"
+    if not path.exists():
+        fail("invalid_input", "Memory Foundation not initialized; run init")
+    events = []
+    previous = "0" * 64
+    with path.open(encoding="utf-8") as handle:
+        for number, line in enumerate(handle, 1):
+
+
+def execute(args):
+    root = root_for(args.root)
+    base = root / ".newwork"
+    with locked(base, shared=args.command == "status"):
+        if args.command == "init":
+            if (base / "events.jsonl").exists():
+                fail("conflict", "already initialized; existing ledger preserved")
+            existing = [name for name in ("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml", "DECISIONS.md")
+                        if (base / name).exists()]
+            if existing:
+                fail("conflict", "existing Memory Foundation files: " + ", ".join(existing))
+            (base / "incidents").mkdir(exist_ok=True)
+            (base / "runs").mkdir(exist_ok=True)
+            for folder in ("incidents", "runs"):
+                marker = base / folder / ".gitkeep"
+                if not marker.exists():
+                    marker.touch()
+            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet. See docs/decision-log.md for legacy history.\n", encoding="utf-8")
+            (base / "events.jsonl").touch(exist_ok=False)
+            events = []
+            append(base, events, "initialized", {"schema": SCHEMA})
+            projections(base, events)
+            reply(path=str(base), event_seq=1)
+            return
+        events = read_events(base)
+        state, findings, lessons = project(events)
+        if args.command == "lesson-check":
+            item = lessons["items"].get(args.id)
+            if item is None:
+                fail("invalid_input", "lesson id does not exist")
+            stale = changed_lesson_references(root, item)
+            reusable = (item["status"] == "approved" and item["effect"]["status"] == "supported"
+                        and not stale)
+            status = "ok" if reusable else "review_required"
+            reply(status, lesson_id=args.id, decision=item["status"], reusable=reusable,
+                  stale_evidence=stale)
+            return
+        if args.command == "rebuild":
+            projections(base, events)
+            reply(event_seq=len(events))
+            return
+        if args.command in ("reconcile", "status"):
+            mismatches = consistency(base, events)
+            current = git(root)
+            drift = git_drift(root, events, state["last_git"], current)
+            stale = stale_evidence(root, findings)
+            stale_lessons = stale_lesson_evidence(root, lessons)
+            result = {"snapshot_mismatches": mismatches, "git_drift": drift,
+                      "recorded_git": state["last_git"], "current_git": current,
+                      "active_session": state["active_session"], "event_seq": len(events),
+                      "pending_confirmations": state["pending_confirmations"],
+                      "stale_evidence": stale, "stale_lesson_evidence": stale_lessons}
+            status = "review_required" if mismatches or drift or stale or stale_lessons else "ok"
+            reply(status, **result)
+            if args.command == "reconcile" and status != "ok":
+                return EXIT[status]
+            return
+        if consistency(base, events):
+            fail("review_required", "snapshot differs from ledger; run rebuild before recording new events")
+        if args.command == "accept-git":
+            observed = git(root)
+            identity = accepted_tree_identity(root)
+            if git(root) != observed:
+                fail("review_required", "Git worktree changed while recording acceptance")
+        self.assertEqual(result.returncode, 11)
+        self.assertEqual(json.loads(result.stdout)["status"], "review_required")
+        self.assertEqual(self.state()["active_session"], "s1")
+        self.call("accept-git", "Reviewed new HEAD")
+        result = self.call("end", "s1", "--next-start", "Next", ok=False)
+        self.assertEqual(json.loads(result.stdout)["stale_evidence"], ["README.md"])
+        self.call("finding", "f1", "claim", "EVIDENCE_FOUND", "--evidence", "README.md")
+        self.call("end", "s1", "--next-start", "Next")
+        self.assertIsNone(self.state()["active_session"])
+
+    def test_status_codes_and_backend_independent_contract(self):
+        self.call("init")
+        self.call("start", "same-session")  # Codex and Claude both use this command.
+        self.assertEqual(json.loads(self.call("start", "other", ok=False).stdout)["status"], "conflict")
+        invalid = self.call("finding", "f", "claim", "CONFIRMED", ok=False)
+        self.assertEqual((invalid.returncode, json.loads(invalid.stdout)["status"]), (13, "invalid_evidence"))
+        self.assertEqual(json.loads(self.call("status").stdout)["active_session"], "same-session")
+        ledger = self.repo / ".newwork/events.jsonl"
+        with ledger.open("a", encoding="utf-8") as handle:
+            handle.write("broken\n")
+        corrupt = self.call("status", ok=False)
+        self.assertEqual((corrupt.returncode, json.loads(corrupt.stdout)["status"]), (12, "ledger_corrupt"))
+
+    def test_status_uses_read_only_shared_lock_without_writing_memory(self):
+        self.call("init")
+        base = self.repo / ".newwork"
+        lock = base / ".lock"
+        observed = {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()}
+        lock.chmod(0o444)
+        try:
+            result = json.loads(self.call("status").stdout)
+        finally:
+            lock.chmod(0o644)
+        self.assertEqual(result["status"], "ok")
+        self.assertEqual(observed, {path.name: path.read_bytes() for path in base.iterdir() if path.is_file()})
+
+    def test_uninitialized_status_does_not_create_memory_files(self):
+        result = self.call("status", ok=False)
+        self.assertEqual((result.returncode, json.loads(result.stdout)["status"]), (2, "invalid_input"))
+        self.assertFalse((self.repo / ".newwork").exists())
+
+    def test_status_waits_for_exclusive_writer_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("a+b") as handle:
+            fcntl.flock(handle, fcntl.LOCK_EX)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "status"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "status bypassed the writer lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["status"], "ok")
+
+    def test_mutation_waits_for_shared_status_lock(self):
+        self.call("init")
+        lock = self.repo / ".newwork/.lock"
+        with lock.open("rb") as handle:
+            fcntl.flock(handle, fcntl.LOCK_SH)
+            process = subprocess.Popen([sys.executable, str(SCRIPT), "--root", str(self.repo), "start", "blocked-writer"],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                process.communicate(timeout=0.2)
+                blocked = False
+            except subprocess.TimeoutExpired:
+                blocked = True
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            stdout, stderr = process.communicate(timeout=2)
+        self.assertTrue(blocked, "mutation no longer requires the exclusive lock")
+        self.assertEqual(process.returncode, 0, stderr)
+        self.assertEqual(json.loads(stdout)["active_session"], "blocked-writer")
+
+    def test_ordinary_errors_are_not_ledger_corruption(self):
+        self.call("init")
+        self.call("start", "s1")
+        cases = (("request-confirmation", "q1", "Question?"),
+                 ("open-task", "t1", "Task"))
+        for command in cases:
+            self.call(*command)
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Each test supplies its own optional result context, never the parent Loop's.
+unset LOOP_AGENT_POC_TASK_ID LOOP_AGENT_POC_TASK_OPEN_EVENT LOOP_AGENT_POC_RUN_DIR
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/newwork-loop-agent-test.XXXXXX")"
+trap 'rm -rf "$TMP_ROOT"' EXIT
+
+WORKSPACE="$TMP_ROOT/workspace"
+RUN_DIR="$TMP_ROOT/run"
+FAKE_CODEX="$TMP_ROOT/fake-codex"
+mkdir -p "$WORKSPACE" "$RUN_DIR"
+
+cat > "$FAKE_CODEX" <<'FAKE'
+#!/usr/bin/env bash
+set -euo pipefail
+
+sandbox=""
+workspace=""
+output=""
+prompt="${*: -1}"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    exec|--ephemeral) shift ;;
+    -s) sandbox="$2"; shift 2 ;;
+    -C) workspace="$2"; shift 2 ;;
+    -o) output="$2"; shift 2 ;;
+[[ ! -e "$STALE_RUN_DIR/verifier.md" ]]
+[[ ! -e "$STALE_RUN_DIR/verifier.log" ]]
+
+echo "[test] stale artifact gate PASS"
+
+BOUND_WORKSPACE="$TMP_ROOT/bound-workspace"
+mkdir -p "$BOUND_WORKSPACE"
+git -C "$BOUND_WORKSPACE" init -q
+git -C "$BOUND_WORKSPACE" config user.name Test
+git -C "$BOUND_WORKSPACE" config user.email test@example.invalid
+printf '%s\n' baseline > "$BOUND_WORKSPACE/README.md"
+git -C "$BOUND_WORKSPACE" add README.md
+git -C "$BOUND_WORKSPACE" commit -qm baseline
+MEMORY=(python3 "$ROOT_DIR/scripts/newwork-memory.py" --root "$BOUND_WORKSPACE")
+"${MEMORY[@]}" init > /dev/null
+"${MEMORY[@]}" start session-1 > /dev/null
+open_json="$("${MEMORY[@]}" open-task task-1 'Verify result')"
+open_event="$(printf '%s' "$open_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+set +e
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$TMP_ROOT/invalid-bound-run" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Reject result outside the task workspace' "$BOUND_WORKSPACE" \
+  >"$TMP_ROOT/invalid-bound-path.out" 2>&1
+invalid_bound_rc=$?
+set -e
+[[ "$invalid_bound_rc" -eq 2 ]]
+grep -qx '\[loop-poc\] result run directory must be workspace/.newwork/runs/<run-id>' "$TMP_ROOT/invalid-bound-path.out"
+[[ ! -e "$TMP_ROOT/invalid-bound-run" ]]
+[[ ! -e "$BOUND_WORKSPACE/calls.log" ]]
+echo "[test] invalid task-bound production path rejected PASS"
+BOUND_RUN="$BOUND_WORKSPACE/.newwork/runs/run-1"
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE"
+[[ -f "$BOUND_RUN/verification-result.json" ]]
+"${MEMORY[@]}" close-task task-1 --result .newwork/runs/run-1/verification-result.json > /dev/null
+
+"${MEMORY[@]}" open-task task-2 'Retry exhausted' > /dev/null
+open_event_2="$("${MEMORY[@]}" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+BOUND_FAIL_RUN="$BOUND_WORKSPACE/.newwork/runs/run-2"
+set +e
+FAKE_REVIEW_FAIL=1 LOOP_AGENT_POC_MAX_RETRIES=0 \
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$BOUND_FAIL_RUN" \
+LOOP_AGENT_POC_TASK_ID=task-2 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event_2" \
+  "$ROOT_DIR/run.sh" loop-poc 'Create result.txt containing exactly LOOP POC OK' "$BOUND_WORKSPACE" > /dev/null 2>&1
+bound_fail_rc=$?
+set -e
+[[ "$bound_fail_rc" -ne 0 ]]
+[[ -f "$BOUND_FAIL_RUN/summary.txt" ]]
+[[ ! -e "$BOUND_FAIL_RUN/verification-result.json" ]]
+set +e
+"${MEMORY[@]}" close-task task-2 --result .newwork/runs/run-2/verification-result.json > "$TMP_ROOT/no-result.json"
+close_fail_rc=$?
+set -e
+[[ "$close_fail_rc" -eq 13 ]]
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── 프로젝트 루트 기준으로 실행 ──────────────────────────────────────────────
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# ── 환경 변수 로드 (.env 파일이 있으면 불러옴) ────────────────────────────────
+if [ -f ".env" ]; then
+  # shellcheck disable=SC2046
+  export $(grep -v '^#' .env | grep -v '^$' | xargs)
+fi
+
+# ── 필수 환경 변수 체크 ────────────────────────────────────────────────────────
+# 필요한 변수가 있으면 아래에 추가:
+# : "${MY_VAR:?MY_VAR is required. .env.example 을 참고하세요}"
+
+# ── 의존성 설치 (필요한 섹션만 주석 해제) ────────────────────────────────────
+# Node.js
+# if [ -f "package.json" ]; then
+#   echo "[setup] npm install..."
+#   npm install --silent
+# fi
+
+# Python
+# if [ -f "requirements.txt" ]; then
+#   echo "[setup] pip install..."
+#   pip install -r requirements.txt -q
+# fi
+
+# ── 실행 ──────────────────────────────────────────────────────────────────────
+case "${1:-}" in
+  loop-poc)
+    shift
+    exec "$SCRIPT_DIR/scripts/loop-agent-poc.sh" "$@"
+    ;;
+  memory)
+    shift
+    exec python3 "$SCRIPT_DIR/scripts/newwork-memory.py" --root "$SCRIPT_DIR" "$@"
+    ;;
+  test)
+    shift
+    "$SCRIPT_DIR/tests/test-loop-agent-poc.sh" "$@"
+    exec python3 "$SCRIPT_DIR/tests/test-newwork-memory.py"
+    ;;
+  "")
+    echo "run.sh: 실행 명령을 아래에 채워주세요."
+    echo '  PoC: ./run.sh loop-poc "할 일" [workspace]'
+    echo "  Memory: ./run.sh memory <init|start|end|reconcile|rebuild|...>"
+    echo "  테스트: ./run.sh test"
+    ;;
+  *)
+    echo "run.sh: 알 수 없는 명령: $1" >&2
+    echo "  지원: loop-poc, memory, test" >&2
+    exit 2
+    ;;
+esac
+
+exec
+/bin/zsh -lc "rg -n '"'^class .*Test'"' tests/test-newwork-memory.py
+sed -n '1,80p' tests/test-newwork-memory.py" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+20:class MemoryTests(unittest.TestCase):
+#!/usr/bin/env python3
+"""Memory Foundation acceptance tests in disposable Git repositories."""
+
+import hashlib
+import fcntl
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "newwork-memory.py"
+RUN = SCRIPT.parents[1] / "run.sh"
+
+
+class MemoryTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.repo = Path(self.tmp.name)
+        subprocess.run(["git", "init", "-q", str(self.repo)], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.name", "Test"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "config", "user.email", "test@example.invalid"], check=True)
+        (self.repo / "README.md").write_text("proof\n", encoding="utf-8")
+        (self.repo / "scripts").mkdir()
+        shutil.copy2(SCRIPT, self.repo / "scripts/newwork-memory.py")
+        shutil.copy2(RUN, self.repo / "run.sh")
+        subprocess.run(["git", "-C", str(self.repo), "add", "README.md", "run.sh", "scripts/newwork-memory.py"], check=True)
+        subprocess.run(["git", "-C", str(self.repo), "commit", "-qm", "initial"], check=True)
+
+    def call(self, *args, ok=True):
+        result = subprocess.run([sys.executable, str(SCRIPT), "--root", str(self.repo), *args],
+                                capture_output=True, text=True)
+        if ok:
+            self.assertEqual(result.returncode, 0, result.stderr)
+        else:
+            self.assertNotEqual(result.returncode, 0, result.stdout)
+        return result
+
+    def state(self):
+        return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
+
+    def lessons(self):
+        return json.loads((self.repo / ".newwork/LESSONS.yaml").read_text(encoding="utf-8"))["items"]
+
+    def lesson_fixture(self):
+        self.call("init")
+        self.call("start", "lesson-session")
+        (self.repo / "retrospective.md").write_text("Keep: verify changes.\n", encoding="utf-8")
+        self.call("finding", "proof", "README is proof", "EVIDENCE_FOUND", "--evidence", "README.md")
+
+    def propose_lesson(self, lesson_id, effect="supported", *extra):
+        return self.call("lesson-propose", lesson_id, "Verify changes before closing work",
+                         "--source", "retrospective.md", "--support", "README.md",
+                         "--effect", effect, "--effect-note", "Reviewed the recorded result", *extra)
+
+    def check_lesson(self, lesson_id):
+        return json.loads(self.call("lesson-check", lesson_id).stdout)
+
+    def test_project_lesson_live_reuse_requires_current_references(self):
+        self.lesson_fixture()
+        contrary = self.repo / ".newwork/runs/contrary/log.txt"
+        contrary.parent.mkdir(parents=True)
+        contrary.write_text("Counterexample\n", encoding="utf-8")
+        self.propose_lesson("source", "supported", "--contradict", ".newwork/runs/contrary/log.txt")
+        self.call("lesson-decide", "source", "approve", "--reason", "Reviewed")
+        self.assertEqual(self.lessons()["source"]["reuse_policy"], "live_freshness_check_required")
+        self.assertTrue(self.check_lesson("source")["reusable"])
+        for path in (self.repo / "retrospective.md", self.repo / "README.md", contrary):
+            original = path.read_bytes()
+            path.write_bytes(original + b"changed\n")
+            result = self.check_lesson("source")
+            self.assertFalse(result["reusable"])
+            self.assertEqual(result["status"], "review_required")
+            self.assertEqual(self.lessons()["source"]["status"], "approved")
+            path.write_bytes(original)
+
+codex
+지정된 범위만 확인하겠습니다. 소스는 수정하지 않고, 실제 현재-run 출력·해시·read-only 계약을 근거로 implementer→reviewer→verifier 순서까지 검증하겠습니다.
+exec
+/bin/zsh -lc 'set -euo pipefail
+LOG_DIR="$(mktemp -d /private/tmp/newwork-status-verify.XXXXXX)"
+printf '"'%s\\n' \""'$LOG_DIR" > /private/tmp/newwork-status-verify.latest
+python3 tests/test-newwork-memory.py '"\\
+  MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory \\
+  MemoryTests.test_uninitialized_status_does_not_create_memory_files \\
+  MemoryTests.test_status_waits_for_exclusive_writer_lock \\
+  MemoryTests.test_mutation_waits_for_shared_status_lock \\
+  2>&1 | tee \""'$LOG_DIR/four-lock-tests.log"
+shasum -a 256 scripts/newwork-memory.py tests/test-loop-agent-poc.sh | tee "$LOG_DIR/hashes-before-full.log"
+LOOP_AGENT_POC_TASK_ID=parent-task '"\\
+LOOP_AGENT_POC_TASK_OPEN_EVENT=4242 \\
+LOOP_AGENT_POC_RUN_DIR=/private/tmp/parent-loop-run-should-not-be-used \\
+./run.sh test 2>&1 | tee \""'$LOG_DIR/full-test.log"
+shasum -a 256 scripts/newwork-memory.py tests/test-loop-agent-poc.sh | tee "$LOG_DIR/hashes-after-full.log"
+git diff --exit-code | tee "$LOG_DIR/git-diff.log"
+git status --short --branch | tee "$LOG_DIR/git-status.log"
+printf '"'LOG_DIR=%s\\n' \""'$LOG_DIR"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+printf '"'LOG_DIR=%s\\n' \""'$LOG_DIR"
+ps -ax -o pid=,stat=,command= | rg '"'test-newwork-memory.py|run.sh test|test-loop-agent-poc.sh' || true
+tail -n 80 \""'$LOG_DIR/four-lock-tests.log" 2>/dev/null || true
+tail -n 120 "$LOG_DIR/full-test.log" 2>/dev/null || true
+ls -l "$LOG_DIR"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+LOG_DIR=/private/tmp/newwork-status-verify.EHlxEC
+zsh:3: operation not permitted: ps
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.784s
+
+OK
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.wdw2N6/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... total 24
+-rw-r--r--@ 1 youngjaeseo  wheel   626 Sep 28 15:23 four-lock-tests.log
+-rw-r--r--@ 1 youngjaeseo  wheel  2990 Sep 28 15:24 full-test.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:23 hashes-before-full.log
+
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+if [ -f "$LOG_DIR/hashes-after-full.log" ]; then printf '"'COMPLETE\\n'; else printf 'RUNNING_OR_STOPPED_BEFORE_POSTCHECK\\n'; fi
+tail -n 80 \""'$LOG_DIR/full-test.log"
+ls -l "$LOG_DIR"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+RUNNING_OR_STOPPED_BEFORE_POSTCHECK
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.wdw2N6/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... total 24
+-rw-r--r--@ 1 youngjaeseo  wheel   626 Sep 28 15:23 four-lock-tests.log
+-rw-r--r--@ 1 youngjaeseo  wheel  3776 Sep 28 15:24 full-test.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:23 hashes-before-full.log
+
+codex
+소스 계약은 요청과 일치합니다: status는 기존 .lock을 rb + LOCK_SH, mutation은 a+b + LOCK_EX로 잡고, loop 테스트는 시작 즉시 상위 3개 환경변수를 unset합니다. 이제 지정 4개 lock 테스트와 상위 환경 주입 전체 테스트를 실제 실행합니다.
+collab: SpawnAgent
+2026-09-28T06:24:34.050599Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-28T06:24:34.052184Z  WARN codex_core::client: falling back to HTTP
+ succeeded in 48760ms:
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.784s
+
+OK
+1794a487a1ba5128ab9a449205bfcce41f2e062951f024f27168c44aba856cab  scripts/newwork-memory.py
+ad0c8a3b695771de81197ab2ffb39e47781527c3e79aa95b53050f0297e703de  tests/test-loop-agent-poc.sh
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.wdw2N6/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 43.840s
+
+OK
+1794a487a1ba5128ab9a449205bfcce41f2e062951f024f27168c44aba856cab  scripts/newwork-memory.py
+ad0c8a3b695771de81197ab2ffb39e47781527c3e79aa95b53050f0297e703de  tests/test-loop-agent-poc.sh
+## main
+?? .newwork/runs/production-readonly-status-verification-20260928-01/
+?? .newwork/runs/production-readonly-status-verification-20260928-02/
+?? .newwork/runs/production-readonly-status-verification-20260928-03/
+?? .newwork/runs/production-readonly-status-verification-20260928-04/
+LOG_DIR=/private/tmp/newwork-status-verify.EHlxEC
+
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+if [ -f "$LOG_DIR/hashes-after-full.log" ]; then printf '"'COMPLETE\\n'; else printf 'NOT_COMPLETE\\n'; fi
+tail -n 120 \""'$LOG_DIR/full-test.log"
+ls -l "$LOG_DIR"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+COMPLETE
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.wdw2N6/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.wdw2N6/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 43.840s
+
+OK
+total 48
+-rw-r--r--@ 1 youngjaeseo  wheel   626 Sep 28 15:23 four-lock-tests.log
+-rw-r--r--@ 1 youngjaeseo  wheel  5985 Sep 28 15:24 full-test.log
+-rw-r--r--@ 1 youngjaeseo  wheel     0 Sep 28 15:24 git-diff.log
+-rw-r--r--@ 1 youngjaeseo  wheel   288 Sep 28 15:24 git-status.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:24 hashes-after-full.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:23 hashes-before-full.log
+
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+cmp -s "$LOG_DIR/hashes-before-full.log" "$LOG_DIR/hashes-after-full.log" && printf '"'HASHES_UNCHANGED\\n'
+cat \""'$LOG_DIR/hashes-before-full.log"
+cat "$LOG_DIR/hashes-after-full.log"
+printf '"'GIT_DIFF_BYTES='; wc -c < \""'$LOG_DIR/git-diff.log"
+cat "$LOG_DIR/git-status.log"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+HASHES_UNCHANGED
+1794a487a1ba5128ab9a449205bfcce41f2e062951f024f27168c44aba856cab  scripts/newwork-memory.py
+ad0c8a3b695771de81197ab2ffb39e47781527c3e79aa95b53050f0297e703de  tests/test-loop-agent-poc.sh
+1794a487a1ba5128ab9a449205bfcce41f2e062951f024f27168c44aba856cab  scripts/newwork-memory.py
+ad0c8a3b695771de81197ab2ffb39e47781527c3e79aa95b53050f0297e703de  tests/test-loop-agent-poc.sh
+GIT_DIFF_BYTES=       0
+## main
+?? .newwork/runs/production-readonly-status-verification-20260928-01/
+?? .newwork/runs/production-readonly-status-verification-20260928-02/
+?? .newwork/runs/production-readonly-status-verification-20260928-03/
+?? .newwork/runs/production-readonly-status-verification-20260928-04/
+
+collab: SpawnAgent
+2026-09-28T06:25:25.255619Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-28T06:25:25.255796Z  WARN codex_core::client: falling back to HTTP
+collab: Wait
+exec
+/bin/zsh -lc 'set -euo pipefail
+LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+{
+  printf '"'PARENT_LOOP_AGENT_POC_TASK_ID=%s\\n' 'parent-task'
+  printf 'PARENT_LOOP_AGENT_POC_TASK_OPEN_EVENT=%s\\n' '4242'
+  printf 'PARENT_LOOP_AGENT_POC_RUN_DIR=%s\\n' '/private/tmp/parent-loop-run-should-not-be-used'
+  LOOP_AGENT_POC_TASK_ID=parent-task \\
+  LOOP_AGENT_POC_TASK_OPEN_EVENT=4242 \\
+  LOOP_AGENT_POC_RUN_DIR=/private/tmp/parent-loop-run-should-not-be-used \\
+  ./run.sh test
+} 2>&1 | tee \""'$LOG_DIR/full-test-with-parent-env.log"
+shasum -a 256 scripts/newwork-memory.py tests/test-loop-agent-poc.sh > "$LOG_DIR/hashes-final.log"
+git diff --exit-code > "$LOG_DIR/git-diff-final.log"
+printf '"'SECOND_FULL_TEST_COMPLETE\\n'" in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+collab: Wait
+ succeeded in 47288ms:
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.BEwjnZ/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.BEwjnZ/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.BEwjnZ/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 44.227s
+
+OK
+SECOND_FULL_TEST_COMPLETE
+
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+if [ -f "$LOG_DIR/hashes-final.log" ]; then printf '"'SECOND_COMPLETE\\n'; else printf 'SECOND_NOT_COMPLETE\\n'; fi
+tail -n 80 \""'$LOG_DIR/full-test-with-parent-env.log"
+ls -l "$LOG_DIR"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 0ms:
+SECOND_COMPLETE
+PARENT_LOOP_AGENT_POC_TASK_ID=parent-task
+PARENT_LOOP_AGENT_POC_TASK_OPEN_EVENT=4242
+PARENT_LOOP_AGENT_POC_RUN_DIR=/private/tmp/parent-loop-run-should-not-be-used
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.BEwjnZ/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.BEwjnZ/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.BEwjnZ/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 44.227s
+
+OK
+total 72
+-rw-r--r--@ 1 youngjaeseo  wheel   626 Sep 28 15:23 four-lock-tests.log
+-rw-r--r--@ 1 youngjaeseo  wheel  6148 Sep 28 15:27 full-test-with-parent-env.log
+-rw-r--r--@ 1 youngjaeseo  wheel  5985 Sep 28 15:24 full-test.log
+-rw-r--r--@ 1 youngjaeseo  wheel     0 Sep 28 15:27 git-diff-final.log
+-rw-r--r--@ 1 youngjaeseo  wheel     0 Sep 28 15:24 git-diff.log
+-rw-r--r--@ 1 youngjaeseo  wheel   288 Sep 28 15:24 git-status.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:24 hashes-after-full.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:23 hashes-before-full.log
+-rw-r--r--@ 1 youngjaeseo  wheel   187 Sep 28 15:27 hashes-final.log
+
+collab: SendInput
+2026-09-28T06:27:33.968010Z  WARN codex_core::hook_runtime: failed to resolve parent transcript path for subagent hook parent_thread_id=01a0e6ad-5061-7e01-8045-67c4dadc871f error=invalid thread-store request: no rollout found for thread id 01a0e6ad-5061-7e01-8045-67c4dadc871f
+collab: Wait
+collab: Wait
+collab: Wait
+collab: SendInput
+collab: Wait
+2026-09-28T06:29:49.373598Z  WARN codex_core::hook_runtime: failed to resolve parent transcript path for subagent hook parent_thread_id=01a0e6ad-5061-7e01-8045-67c4dadc871f error=invalid thread-store request: no rollout found for thread id 01a0e6ad-5061-7e01-8045-67c4dadc871f
+collab: SpawnAgent
+2026-09-28T06:30:01.330718Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 426 Upgrade Required, url: ws://127.0.0.1:17841/v1/responses
+2026-09-28T06:30:01.330849Z  WARN codex_core::client: falling back to HTTP
+collab: Wait
+collab: Wait
+2026-09-28T06:32:09.394373Z  WARN codex_core::hook_runtime: failed to resolve parent transcript path for subagent hook parent_thread_id=01a0e6ad-5061-7e01-8045-67c4dadc871f error=invalid thread-store request: no rollout found for thread id 01a0e6ad-5061-7e01-8045-67c4dadc871f
+exec
+/bin/zsh -lc 'LOG_DIR="$(cat /private/tmp/newwork-status-verify.latest)"
+shasum -a 256 scripts/newwork-memory.py tests/test-loop-agent-poc.sh
+git diff --exit-code
+printf '"'FINAL_TRACKED_DIFF_OK\\n'
+tail -n 8 \""'$LOG_DIR/full-test-with-parent-env.log"' in /private/tmp/newwork-autonomous-validation.oK9ZGi/status-only
+ succeeded in 21ms:
+FINAL_TRACKED_DIFF_OK
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 44.227s
+
+OK
+
+collab: Wait

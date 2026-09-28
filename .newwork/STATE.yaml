@@ -1,11 +1,11 @@
 {
   "active_session": null,
-  "event_seq": 24,
+  "event_seq": 25,
   "last_git": {
     "branch": "claude/loving-newton-BjOEj",
-    "dirty": false,
-    "head": "b89faef29506f5289774457e31d98f2e06a0494a",
-    "worktree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "dirty": true,
+    "head": "fd0af307ce23c9bc4c8e47a385419a4c17c78208",
+    "worktree_sha256": "6a6322a6fd84e137cd844798bdbc01fc921bde417aa93d5393ea3b24cff299b5"
   },
   "next_start": "Independently checkpoint isolation, read-only status and legacy assumption in a separate named checkout; preserve primary patches and stale Lesson",
   "open_tasks": {},

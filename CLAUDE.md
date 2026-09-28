@@ -260,6 +260,19 @@
   - **검증 시 비정상 입력도 테스트**: 정상 입력뿐 아니라 잘못된 입력·경계값·빈 값·중복 등으로도 동작을 확인한다.
 - 변경 후에는 포맷터/린트를 실행해 깨진 곳이 없는지 확인한다.
 
+### newWork autonomous contract — 명시적 요청 시
+
+작업 목표·범위·완료 기준과 자율 진행 권한이 정해진 task에만 적용한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
+
+- **계속**: 승인 범위 안에서 조사 → 재현/regression → 최소 수정 → 테스트 → 별도 Spec/Contract review → verifier → 근거 → 완료 검증까지 진행한다. 일반적인 테스트·reviewer·verifier FAIL마다 사용자 승인을 다시 기다리지 않는다. 6번의 막힘 규칙대로 가설·접근을 바꾸고 재검증하며, 같은 실패를 의미 없이 반복하지 않는다.
+- **기존 Loop 유지**: Loop의 retry 한도와 verifier FAIL 시 run 종료는 바꾸지 않는다. 필요한 후속 검증은 새 run ID로 수행하고 과거 FAIL artifact는 보존한다. 실제 모델 실행 전 로그인·runtime 접근 가능 여부를 확인하며, 인증·권한 실패를 코드 실패나 PASS로 재해석하지 않는다.
+- **역할·근거 경계**: 각 역할은 할당된 범위와 현재 run 근거만 검증한다. 외부 Loop가 독립 reviewer/verifier를 제공하면 같은 검토를 내부에 다시 위임하지 않는다. 읽기 전용 역할에서 실행하지 못한 검사는 미검증으로 남기며, 다른 역할의 실제 로그를 검토한 것과 직접 실행한 것을 구분한다.
+- **human gate**: 로그인/credential, 새 권한 또는 sandbox/security 완화, 미확정 요구사항·설계 선택 또는 승인된 계약 변경, 파괴적 Git 또는 patch 손실 위험, Lesson approve/reject/effect 변경, release merge 또는 remote push, 근거 없이 PASS해야 하는 상황에서는 멈추고 사용자 결정을 받는다. 자율 진행 요청 자체는 이 권한을 확대하지 않는다.
+- **기존 Memory 재사용**: Memory가 연결된 프로젝트에서는 newWork 본체의 `docs/newwork-v2-session-contract.md`를 따라 LEVEL 1/LEVEL 0, completion gate와 정상 task/session 종료를 사용한다. 원장은 수정하지 않고 새 사실만 기록한다. 7번에 따라 local checkpoint까지 명시적으로 승인된 경우에만 whole-tree acceptance와 clean-tree 검증을 충족해 실행한다. Memory가 연결되지 않았다면 임의 초기화하지 않는다.
+- **pointer**: 실행·retry의 상세 기준은 newWork 본체의 `docs/2026-09-24_loop-agent-poc.md`, Lesson 재사용은 `docs/newwork-v2-project-lesson-contract.md`를 따른다. 새 Skill/command나 별도 상태 파일은 필요하지 않다. 실사용 근거는 `.newwork/runs/production-readonly-status-verification-20260928-05/`와 `.newwork/runs/readonly-status-continuation-20260928-03/autonomous-evaluation.md`이며, 이 한 번의 실행을 일반적 성공 보장이나 Lesson 승인으로 확대하지 않는다.
+
+목표·범위가 이미 정해졌다면: “이 task를 newWork autonomous contract에 따라 진행하고, human gate가 필요한 경우에만 멈춰.”
+
 ## 7. 커밋 / PR 규칙 (Commit & PR)
 
 - 커밋 메시지는 명확하고 설명적으로 쓴다.

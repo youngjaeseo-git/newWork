@@ -441,7 +441,7 @@ def execute(args):
                 marker = base / folder / ".gitkeep"
                 if not marker.exists():
                     marker.touch()
-            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet. See docs/decision-log.md for legacy history.\n", encoding="utf-8")
+            (base / "DECISIONS.md").write_text("# Decisions\n\nNo v2 decisions recorded yet.\n", encoding="utf-8")
             (base / "events.jsonl").touch(exist_ok=False)
             events = []
             append(base, events, "initialized", {"schema": SCHEMA})

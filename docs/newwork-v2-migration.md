@@ -17,7 +17,7 @@
 | `todo.md` 양식 | `STATE.open_tasks`와 중복 | 자동생성 후보 | v2가 실제 프로젝트에 적용되면 STATE에서 대시보드를 생성한다. 지금은 템플릿을 보존한다. |
 | `work.md` 양식 | `events.jsonl`과 중복 | 자동생성 후보 | 원장은 event로 두고 사람이 읽는 체크리스트는 파생 뷰로 검토한다. 기존 체크박스는 자동 이관하지 않는다. |
 | `history.md` 양식 | `events.jsonl`과 중복 | 유지 후 통합 후보 | 주간 서술은 사건 원장과 다르다. 후속 단계에서 event 요약으로 대체 가능한지 판단한다. |
-| `docs/decision-log.md`, `templates/decision-log.md` | `DECISIONS.md` | 유지, 새 항목은 통합 대상 | 과거 결정을 새 파일로 복사하지 않는다. v2 파일은 기존 로그를 링크하고 향후 결정의 기록 형식은 Phase 3 전에 정한다. |
+| `docs/decision-log.md`, `templates/decision-log.md` | `DECISIONS.md` | 유지, 새 항목은 통합 대상 | 과거 결정을 새 파일로 복사하지 않는다. 필요한 기존 로그는 사람이 명시적으로 링크하며, `memory init`은 legacy 문서 유무와 관계없이 중립 문구만 생성한다. 향후 결정의 기록 형식은 Phase 3 전에 정한다. |
 | `templates/troubleshooting.md` | `.newwork/incidents/` | 유지 | 양식은 사건별 파일에 재사용 가능. 기존 로그를 자동 이동하지 않는다. |
 | `templates/retrospective.md` | `RETROSPECTIVE.md`, `LESSONS.yaml` | 유지 | 회고 원문과 재사용 교훈은 분리한다. 교훈 승격은 Phase 4 이후. |
 | `CLAUDE.md` 13번 Lessons Learned | `.newwork/LESSONS.yaml` | 유지, 향후 중복 검토 | 사용자 승인 교훈을 기계적으로 복제하지 않는다. Phase 4에서 범위와 효과 근거를 붙여 이관한다. |

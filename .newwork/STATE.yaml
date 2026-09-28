@@ -1,11 +1,11 @@
 {
   "active_session": null,
-  "event_seq": 16,
+  "event_seq": 17,
   "last_git": {
     "branch": "checkpoint/memory-cleanup-20260928",
     "dirty": true,
-    "head": "734759432d1b9044e2b2cd4482fdc4b6ace6180c",
-    "worktree_sha256": "4168fc32d76be67aa90434f2683263604521067427647744e06934a1d811cb5b"
+    "head": "4401dde6446b7fac984f3f7d82fffe899c1d7fa0",
+    "worktree_sha256": "1832f6829a4cabd9c7e33636c47e2b23194dabae8ef56623886b29d23cebb997"
   },
   "next_start": "사용자가 contract-review-before-checkpoint-v1 후보 근거와 effect를 검토하고 승인·거부·보류를 결정",
   "open_tasks": {},

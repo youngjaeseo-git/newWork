@@ -1,0 +1,8 @@
+test_init_without_legacy_document_has_neutral_decisions (__main__.MemoryTests.test_init_without_legacy_document_has_neutral_decisions) ... ok
+test_init_preserves_legacy_document_without_linking_it (__main__.MemoryTests.test_init_preserves_legacy_document_without_linking_it) ... ok
+test_init_preserves_existing_foundation_files (__main__.MemoryTests.test_init_preserves_existing_foundation_files) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.978s
+
+OK

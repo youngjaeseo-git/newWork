@@ -44,6 +44,37 @@ class MemoryTests(unittest.TestCase):
     def state(self):
         return json.loads((self.repo / ".newwork/STATE.yaml").read_text(encoding="utf-8"))
 
+    def test_init_without_legacy_document_has_neutral_decisions(self):
+        self.call("init")
+        self.assertFalse((self.repo / "docs/decision-log.md").exists())
+        self.assertEqual((self.repo / ".newwork/DECISIONS.md").read_text(encoding="utf-8"),
+                         "# Decisions\n\nNo v2 decisions recorded yet.\n")
+
+    def test_init_preserves_legacy_document_without_linking_it(self):
+        legacy = self.repo / "docs/decision-log.md"
+        legacy.parent.mkdir()
+        original = b"# Existing decisions\n\nKeep this history unchanged.\n"
+        legacy.write_bytes(original)
+        self.call("init")
+        self.assertEqual(legacy.read_bytes(), original)
+        self.assertEqual((self.repo / ".newwork/DECISIONS.md").read_text(encoding="utf-8"),
+                         "# Decisions\n\nNo v2 decisions recorded yet.\n")
+
+    def test_init_preserves_existing_foundation_files(self):
+        base = self.repo / ".newwork"
+        base.mkdir()
+        for name in ("STATE.yaml", "FINDINGS.yaml", "LESSONS.yaml", "DECISIONS.md"):
+            with self.subTest(name=name):
+                existing = base / name
+                original = b"User-owned contents\n"
+                existing.write_bytes(original)
+                result = self.call("init", ok=False)
+                self.assertEqual(result.returncode, 10)
+                self.assertEqual(json.loads(result.stdout)["status"], "conflict")
+                self.assertEqual(existing.read_bytes(), original)
+                self.assertFalse((base / "events.jsonl").exists())
+                existing.unlink()
+
     def lessons(self):
         return json.loads((self.repo / ".newwork/LESSONS.yaml").read_text(encoding="utf-8"))["items"]
 

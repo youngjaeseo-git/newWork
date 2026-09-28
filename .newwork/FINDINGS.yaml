@@ -1,5 +1,5 @@
 {
-  "event_seq": 14,
+  "event_seq": 15,
   "items": {
     "contract-review-regressions-20260927": {
       "claim": "회귀 테스트는 오래된 replay, Git checkpoint transition, verifier JSON/artifact 불일치, 승인 후 stale Lesson 재사용 경계를 검증하며 계약 문서는 해당 의미를 설명한다. 테스트 통과 이전의 발견 시점과 정량적 효과는 별도로 입증되지 않았다.",

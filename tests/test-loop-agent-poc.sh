@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Each test supplies its own optional result context, never the parent Loop's.
+unset LOOP_AGENT_POC_TASK_ID LOOP_AGENT_POC_TASK_OPEN_EVENT LOOP_AGENT_POC_RUN_DIR
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/newwork-loop-agent-test.XXXXXX")"
 trap 'rm -rf "$TMP_ROOT"' EXIT
@@ -247,6 +250,20 @@ MEMORY=(python3 "$ROOT_DIR/scripts/newwork-memory.py" --root "$BOUND_WORKSPACE")
 "${MEMORY[@]}" start session-1 > /dev/null
 open_json="$("${MEMORY[@]}" open-task task-1 'Verify result')"
 open_event="$(printf '%s' "$open_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["event_seq"])')"
+set +e
+LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
+LOOP_AGENT_POC_RUN_DIR="$TMP_ROOT/invalid-bound-run" \
+LOOP_AGENT_POC_TASK_ID=task-1 \
+LOOP_AGENT_POC_TASK_OPEN_EVENT="$open_event" \
+  "$ROOT_DIR/run.sh" loop-poc 'Reject result outside the task workspace' "$BOUND_WORKSPACE" \
+  >"$TMP_ROOT/invalid-bound-path.out" 2>&1
+invalid_bound_rc=$?
+set -e
+[[ "$invalid_bound_rc" -eq 2 ]]
+grep -qx '\[loop-poc\] result run directory must be workspace/.newwork/runs/<run-id>' "$TMP_ROOT/invalid-bound-path.out"
+[[ ! -e "$TMP_ROOT/invalid-bound-run" ]]
+[[ ! -e "$BOUND_WORKSPACE/calls.log" ]]
+echo "[test] invalid task-bound production path rejected PASS"
 BOUND_RUN="$BOUND_WORKSPACE/.newwork/runs/run-1"
 LOOP_AGENT_POC_CODEX_BIN="$FAKE_CODEX" \
 LOOP_AGENT_POC_RUN_DIR="$BOUND_RUN" \

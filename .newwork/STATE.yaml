@@ -1,13 +1,13 @@
 {
   "active_session": null,
-  "event_seq": 18,
+  "event_seq": 23,
   "last_git": {
-    "branch": "checkpoint/memory-cleanup-20260928",
+    "branch": "claude/loving-newton-BjOEj",
     "dirty": true,
-    "head": "2f52a97c4c6f5fcdd678dc6458f02d6e9c8a362e",
-    "worktree_sha256": "93addf94a08a675c2a65434750d9332bc740996e23a59a9f1bb0d1fc25cfc97a"
+    "head": "8cbec09c57ef423ff116bbe5b7e037a3cf9dfdee",
+    "worktree_sha256": "bb5f76fd6881c13b86e6815843abfd1c4aaa013e733a5a2121e2ef3a9971f2c0"
   },
-  "next_start": "사용자가 contract-review-before-checkpoint-v1 후보 근거와 effect를 검토하고 승인·거부·보류를 결정",
+  "next_start": "Independently checkpoint isolation, read-only status and legacy assumption in a separate named checkout; preserve primary patches and stale Lesson",
   "open_tasks": {},
   "pending_confirmations": {},
   "schema": 1

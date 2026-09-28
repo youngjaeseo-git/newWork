@@ -1,6 +1,59 @@
 {
-  "event_seq": 18,
+  "event_seq": 23,
   "items": {
+    "autonomous-role-evidence-boundary-20260928": {
+      "claim": "Actual runs showed strict output formatting, role capability and duplicate nested review costs; focused invocation boundaries recovered without production contract changes or a new framework.",
+      "evidence": [
+        {
+          "path": ".newwork/runs/readonly-status-continuation-20260928-03/autonomous-evaluation.md",
+          "sha256": "b69a5a2b5cee27ac4d43b9f9b23c51df04f3269deb0d7d0df3bbea9552a3266a"
+        },
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-03/summary.txt",
+          "sha256": "ad9a1ef759589c2bf66346019a14df97e71f4d71fa984a283d778e2088b690b1"
+        },
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-04/summary.txt",
+          "sha256": "f89b9c8389be2276abb6383b9dcfc9e4a86475999a0d988fe5a266eecad7e9d3"
+        },
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-05/summary.txt",
+          "sha256": "26a39cbb25cb2c7debd30884aab77a80509abf8fe71f36545da57a41fb5da3ac"
+        }
+      ],
+      "id": "autonomous-role-evidence-boundary-20260928",
+      "status": "CONFIRMED"
+    },
+    "autonomous-runtime-preflight-20260928": {
+      "claim": "Actual-model runtime preflight can separate environment and authentication failures from implementation role failures; feature not implemented.",
+      "evidence": [
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-02/continuation-observations.md",
+          "sha256": "2e1f2e6164f93fa6410a9bba145a6cad2fd7c403b84859bee07a9a4deddff31c"
+        },
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-02/summary.txt",
+          "sha256": "a3c123c5f7c98f17f137d06ea2d8d6d2c696279ffad28ffcc35bc8bc55dde314"
+        }
+      ],
+      "id": "autonomous-runtime-preflight-20260928",
+      "status": "CONFIRMED"
+    },
+    "autonomous-whole-tree-checkpoint-20260928": {
+      "claim": "Whole-tree acceptance makes independent checkpointing impossible in the current checkout while distinct legacy-init hunks remain uncommitted; acceptance contract unchanged.",
+      "evidence": [
+        {
+          "path": ".newwork/runs/production-readonly-status-verification-20260928-02/continuation-observations.md",
+          "sha256": "2e1f2e6164f93fa6410a9bba145a6cad2fd7c403b84859bee07a9a4deddff31c"
+        },
+        {
+          "path": "scripts/newwork-memory.py",
+          "sha256": "4bf48c4d5894699b816bdb88419c0e2860d8229ab8fc2763a05b61ed8e444aaa"
+        }
+      ],
+      "id": "autonomous-whole-tree-checkpoint-20260928",
+      "status": "CONFIRMED"
+    },
     "contract-review-regressions-20260927": {
       "claim": "회귀 테스트는 오래된 replay, Git checkpoint transition, verifier JSON/artifact 불일치, 승인 후 stale Lesson 재사용 경계를 검증하며 계약 문서는 해당 의미를 설명한다. 테스트 통과 이전의 발견 시점과 정량적 효과는 별도로 입증되지 않았다.",
       "evidence": [

@@ -1,13 +1,13 @@
 {
   "active_session": null,
-  "event_seq": 25,
+  "event_seq": 31,
   "last_git": {
     "branch": "claude/loving-newton-BjOEj",
     "dirty": true,
-    "head": "fd0af307ce23c9bc4c8e47a385419a4c17c78208",
-    "worktree_sha256": "6a6322a6fd84e137cd844798bdbc01fc921bde417aa93d5393ea3b24cff299b5"
+    "head": "255d149b7d2322bddf4135eee87ffcbbe1ad0a88",
+    "worktree_sha256": "6cba6facf166a733e66305e781d74746529b7f567865c6c0ef4bba74a8455624"
   },
-  "next_start": "Independently checkpoint isolation, read-only status and legacy assumption in a separate named checkout; preserve primary patches and stale Lesson",
+  "next_start": "Use Task Intake Gate for the next explicitly requested task; preserve candidate/inconclusive stale Lesson and require human decisions for material ambiguity",
   "open_tasks": {},
   "pending_confirmations": {},
   "schema": 1

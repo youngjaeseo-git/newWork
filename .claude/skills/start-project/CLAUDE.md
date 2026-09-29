@@ -16,16 +16,21 @@
 
 - 답변은 **한국어**로 한다.
 - 결론을 먼저 말하고, 근거는 그 뒤에 둔다.
-- 불확실하면 추측하지 말고 먼저 확인 질문을 한다.
+- 불확실한 요구는 2번 Task Intake Gate에 따라 확인하며, 근거 없이 추측하지 않는다.
 - **능동 제안**: 사용자가 반복적·수동적으로 하는 작업(스크린샷 전달, 값 복사, 로그 붙여넣기 등)을 발견하면, 자동화·단축 방법을 **즉시 먼저 제안**한다.
 - **세션 시작 점검**: 세션 시작 시 1회, 직전 작업 방식에서 비효율 후보가 보이면 언급한다.
 <!-- 작성: 그 외 소통 선호 (예: 길게 설명 vs 요약, 이모지 사용 여부 등) -->
 
 ## 2. 작업을 시작하기 전 (Before starting)
 
-- 코드를 바꾸기 전에 관련 파일·맥락을 먼저 파악한다.
-- 요구사항이 모호하면 임의로 정하지 말고 선택지를 제시한다.
-- 큰 작업은 먼저 계획을 세우고 합의한 뒤 진행한다.
+### Task Intake Gate
+
+- 먼저 관련 코드, 기존 결정(DECISIONS/spec/Memory), 기획·설계, 현재 상태와 convention에서 답을 찾는다. 이미 확정된 내용을 재질문하지 않는다.
+- 요청의 **Goal / Success criteria / Scope / Constraints / Open decisions**를 내부적으로 복원해 충분성을 확인한다. 매 task마다 별도 문서·표·질문을 만들도록 강제하지 않는다.
+- **Blocking ambiguity**: 사용자 경험·제품 동작, 성공 기준, 큰 범위, 되돌리기 비싼 architecture/data model, 기존 확정 결정과의 충돌, 사용자 취향이 필요한 UX/게임 체감, 정보 부족으로 무엇을 만드는지가 달라지는 미확정 선택이다. 남아 있으면 필요한 read-only 조사까지만 하고 구현 전에 사용자 결정을 받는다.
+- 질문에는 **확인된 사실 → 남은 결정 → 최대 2~3개의 실제 선택지와 핵심 차이 → 권장안과 이유(있다면)**를 담는다. 막연한 “어떻게 할까요?”나 질문 개수 quota는 두지 않는다.
+- **Non-blocking ambiguity**: 이름·작은 파일 배치·되돌리기 쉬운 내부 방식 등 결과와 scope를 바꾸지 않는 세부사항은 기존 convention과 최소 변경 원칙으로 스스로 결정한다. 필요한 중요한 선택만 작업 근거에 남긴다.
+- 큰 작업은 계획을 세우되, 계획에 blocking ambiguity가 남을 때만 사용자 결정을 받는다. 이미 승인된 계획을 반복 승인받지 않는다.
 <!-- 작성: 작업 착수 전 내가 항상 확인받고 싶은 것 -->
 
 ## 3. 프로젝트 진행 관리 (Project Tracking)
@@ -88,7 +93,7 @@
 ### 각 파일 규칙
 - **brainstorming.md** — 사용자 말을 가공 없이 기록. 나중에 plan.md 를 작성할 때 참고 원본이 된다. 내용을 덮어쓰지 않는다.
 - **plan.md** — 프로젝트 시작 시 작성. `전체 목표 → 마일스톤 → 주간 계획` 순으로. 맨 위에 "현재 상태" 요약을 둔다. **확정된 결정은 "확정 결정" 절에 기록**해 같은 논의를 반복하지 않는다.
-- **todo.md** — `계획 대비 +N일 빠름 / -N일 늦음`, `현재 구간: N주차 / 마일스톤 X` 처럼 진척 상태를 한눈에 보이게 한다. (거시 관점) 아직 정하지 못한 것은 **"결정 필요" 절에 옵션과 장단점을 적고 "보류"로 표시**한다 — 임의로 정하지 않는다.
+- **todo.md** — `계획 대비 +N일 빠름 / -N일 늦음`, `현재 구간: N주차 / 마일스톤 X` 처럼 진척 상태를 한눈에 보이게 한다. (거시 관점) 2번의 blocking ambiguity가 남은 결정은 **"결정 필요" 절에 옵션과 장단점을 적고 "보류"로 표시**한다 — 임의로 정하지 않는다.
 - **work.md** — 지금 할 일과 끝낸 일을 체크박스(`- [ ]` / `- [x]`)로 관리하고, 진행하면서 바로바로 반영한다. (미시 관점)
 - **history.md** — 매주 끝에 그 주에 한 일을 3~5줄로 요약해 누적한다. 과거 기록은 지우지 않는다.
 - **docs/** — 산출물은 `docs/YYYY-MM-DD_제목.md` 형식으로 저장한다 (날짜를 앞에 두면 시간순 정렬됨).
@@ -262,16 +267,16 @@
 
 ### newWork autonomous contract — 명시적 요청 시
 
-작업 목표·범위·완료 기준과 자율 진행 권한이 정해진 task에만 적용한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
+먼저 2번 Task Intake Gate를 거쳐 목표·범위·완료 기준을 확인하고, blocking ambiguity가 없으면 승인된 자율 진행 범위에서 계속한다. blocking ambiguity가 남으면 사용자 결정 후 계속한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
 
 - **계속**: 승인 범위 안에서 조사 → 재현/regression → 최소 수정 → 테스트 → 별도 Spec/Contract review → verifier → 근거 → 완료 검증까지 진행한다. 일반적인 테스트·reviewer·verifier FAIL마다 사용자 승인을 다시 기다리지 않는다. 6번의 막힘 규칙대로 가설·접근을 바꾸고 재검증하며, 같은 실패를 의미 없이 반복하지 않는다.
 - **기존 Loop 유지**: Loop의 retry 한도와 verifier FAIL 시 run 종료는 바꾸지 않는다. 필요한 후속 검증은 새 run ID로 수행하고 과거 FAIL artifact는 보존한다. 실제 모델 실행 전 로그인·runtime 접근 가능 여부를 확인하며, 인증·권한 실패를 코드 실패나 PASS로 재해석하지 않는다.
 - **역할·근거 경계**: 각 역할은 할당된 범위와 현재 run 근거만 검증한다. 외부 Loop가 독립 reviewer/verifier를 제공하면 같은 검토를 내부에 다시 위임하지 않는다. 읽기 전용 역할에서 실행하지 못한 검사는 미검증으로 남기며, 다른 역할의 실제 로그를 검토한 것과 직접 실행한 것을 구분한다.
-- **human gate**: 로그인/credential, 새 권한 또는 sandbox/security 완화, 미확정 요구사항·설계 선택 또는 승인된 계약 변경, 파괴적 Git 또는 patch 손실 위험, Lesson approve/reject/effect 변경, release merge 또는 remote push, 근거 없이 PASS해야 하는 상황에서는 멈추고 사용자 결정을 받는다. 자율 진행 요청 자체는 이 권한을 확대하지 않는다.
+- **human gate**: 로그인/credential, 새 권한 또는 sandbox/security 완화, 2번의 blocking ambiguity 또는 승인된 계약 변경, 파괴적 Git 또는 patch 손실 위험, Lesson approve/reject/effect 변경, release merge 또는 remote push, 근거 없이 PASS해야 하는 상황에서는 멈추고 사용자 결정을 받는다. 자율 진행 요청 자체는 이 권한을 확대하지 않는다.
 - **기존 Memory 재사용**: Memory가 연결된 프로젝트에서는 newWork 본체의 `docs/newwork-v2-session-contract.md`를 따라 LEVEL 1/LEVEL 0, completion gate와 정상 task/session 종료를 사용한다. 원장은 수정하지 않고 새 사실만 기록한다. 7번에 따라 local checkpoint까지 명시적으로 승인된 경우에만 whole-tree acceptance와 clean-tree 검증을 충족해 실행한다. Memory가 연결되지 않았다면 임의 초기화하지 않는다.
 - **pointer**: 실행·retry의 상세 기준은 newWork 본체의 `docs/2026-09-24_loop-agent-poc.md`, Lesson 재사용은 `docs/newwork-v2-project-lesson-contract.md`를 따른다. 새 Skill/command나 별도 상태 파일은 필요하지 않다. 실사용 근거는 `.newwork/runs/production-readonly-status-verification-20260928-05/`와 `.newwork/runs/readonly-status-continuation-20260928-03/autonomous-evaluation.md`이며, 이 한 번의 실행을 일반적 성공 보장이나 Lesson 승인으로 확대하지 않는다.
 
-목표·범위가 이미 정해졌다면: “이 task를 newWork autonomous contract에 따라 진행하고, human gate가 필요한 경우에만 멈춰.”
+호출: “이 task를 newWork autonomous contract에 따라 진행하고, human gate가 필요한 경우에만 멈춰.”
 
 ## 7. 커밋 / PR 규칙 (Commit & PR)
 

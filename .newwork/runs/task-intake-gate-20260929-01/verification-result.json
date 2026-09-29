@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "run_id": "task-intake-gate-20260929-01",
+  "task_id": "autonomous-task-intake-gate-20260929",
+  "task_open_event": 27,
+  "verdict": "PASS",
+  "evidence": [
+    {"path": ".newwork/runs/task-intake-gate-20260929-01/scope.md", "sha256": "4b739770144740c53e22507873efbd7549ab5e98ab410083be6a33a966fd2d86"},
+    {"path": ".newwork/runs/task-intake-gate-20260929-01/tests.txt", "sha256": "9822b822b6be07a805deba7870c1a7c815d4483b9d57e3ed50866e98ba9b6b28"},
+    {"path": ".newwork/runs/task-intake-gate-20260929-01/review.md", "sha256": "f42d8f486801cb32f1aca4aa5384685e2627535c28afd7e1d692ffc3302be4c1"},
+    {"path": ".newwork/runs/task-intake-gate-20260929-01/verifier.md", "sha256": "02153b1a85a64dd707fb76b5f87d41cf617bec91ad2f4c67256370ef6d6aca0b"}
+  ],
+  "verifier_artifact": {"path": ".newwork/runs/task-intake-gate-20260929-01/verifier.md", "sha256": "02153b1a85a64dd707fb76b5f87d41cf617bec91ad2f4c67256370ef6d6aca0b"}
+}

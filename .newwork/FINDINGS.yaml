@@ -1,5 +1,5 @@
 {
-  "event_seq": 25,
+  "event_seq": 31,
   "items": {
     "autonomous-role-evidence-boundary-20260928": {
       "claim": "Actual runs showed strict output formatting, role capability and duplicate nested review costs; focused invocation boundaries recovered without production contract changes or a new framework.",
@@ -68,6 +68,17 @@
       ],
       "id": "contract-review-regressions-20260927",
       "status": "EVIDENCE_FOUND"
+    },
+    "task-intake-gate-static-review": {
+      "claim": "Independent final static intake contract review passed after correcting two conflicting approval rules; runtime compliance is not proven",
+      "evidence": [
+        {
+          "path": ".newwork/runs/task-intake-gate-20260929-01/review.md",
+          "sha256": "f42d8f486801cb32f1aca4aa5384685e2627535c28afd7e1d692ffc3302be4c1"
+        }
+      ],
+      "id": "task-intake-gate-static-review",
+      "status": "CONFIRMED"
     },
     "v2-spec-copy": {
       "claim": "v2 설계 원문이 docs/newwork-v2-spec.md로 보관됨",

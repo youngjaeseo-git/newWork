@@ -1,0 +1,75 @@
+# Actual main invocation: ./run.sh test
+# Exit code: 0
+# CLI regression suites; not a new production model Loop E2E.
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.enlcKR/run
+[test] normal path PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] reviewer requested rework; retry 1/2
+[loop-poc] implementer-2 (workspace-write)
+[loop-poc] reviewer-2 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T//newwork-loop-agent-test.enlcKR/retry-run
+[test] reviewer retry path PASS
+[test] reviewer retry limit PASS
+[test] verifier fail stops without retry PASS
+[test] stale artifact gate PASS
+[test] invalid task-bound production path rejected PASS
+[loop-poc] planner (read-only)
+[loop-poc] implementer-1 (workspace-write)
+[loop-poc] reviewer-1 (read-only)
+[loop-poc] verifier (read-only)
+[loop-poc] PASS
+[loop-poc] artifacts: /var/folders/cc/bswb9vss6395hzc8zbgqvz2c0000gn/T/newwork-loop-agent-test.enlcKR/bound-workspace/.newwork/runs/run-1
+[test] optional verification result and retry-limit gate PASS
+[test] loop-agent PoC PASS
+test_checkpoint_accepted_tree_direct_child_and_internal_record (__main__.MemoryTests.test_checkpoint_accepted_tree_direct_child_and_internal_record) ... ok
+test_checkpoint_accepts_reviewed_human_memory_edit (__main__.MemoryTests.test_checkpoint_accepts_reviewed_human_memory_edit) ... ok
+test_checkpoint_during_active_session_allows_end (__main__.MemoryTests.test_checkpoint_during_active_session_allows_end) ... ok
+test_checkpoint_rejects_branch_change_and_unrelated_commit (__main__.MemoryTests.test_checkpoint_rejects_branch_change_and_unrelated_commit) ... ok
+test_checkpoint_rejects_extra_edit (__main__.MemoryTests.test_checkpoint_rejects_extra_edit) ... ok
+test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_new_dirty_worktree_and_human_memory_edit) ... ok
+test_checkpoint_rejects_partial_commit (__main__.MemoryTests.test_checkpoint_rejects_partial_commit) ... ok
+test_checkpoint_rejects_unapproved_extra_file (__main__.MemoryTests.test_checkpoint_rejects_unapproved_extra_file) ... ok
+test_checkpoint_rejects_unapproved_human_memory_edit (__main__.MemoryTests.test_checkpoint_rejects_unapproved_human_memory_edit) ... ok
+test_checkpoint_rejects_unrelated_or_multi_commit (__main__.MemoryTests.test_checkpoint_rejects_unrelated_or_multi_commit) ... ok
+test_checkpoint_rejects_unrelated_parent_with_matching_files (__main__.MemoryTests.test_checkpoint_rejects_unrelated_parent_with_matching_files) ... ok
+test_checkpoint_without_acceptance_remains_review_required (__main__.MemoryTests.test_checkpoint_without_acceptance_remains_review_required) ... ok
+test_codex_claude_share_run_sh_contract (__main__.MemoryTests.test_codex_claude_share_run_sh_contract) ... ok
+test_common_idempotency_and_crash_interrupt (__main__.MemoryTests.test_common_idempotency_and_crash_interrupt) ... ok
+test_completion_gate_rejections_preserve_open_task (__main__.MemoryTests.test_completion_gate_rejections_preserve_open_task) ... ok
+test_completion_gate_rejects_old_and_consumed_run (__main__.MemoryTests.test_completion_gate_rejects_old_and_consumed_run) ... ok
+test_completion_gate_survives_crash_and_is_caller_independent (__main__.MemoryTests.test_completion_gate_survives_crash_and_is_caller_independent) ... ok
+test_end_review_keeps_active_until_head_and_evidence_accepted (__main__.MemoryTests.test_end_review_keeps_active_until_head_and_evidence_accepted) ... ok
+test_git_drift_and_existing_files (__main__.MemoryTests.test_git_drift_and_existing_files) ... ok
+test_init_preserves_existing_foundation_files (__main__.MemoryTests.test_init_preserves_existing_foundation_files) ... ok
+test_init_preserves_legacy_document_without_linking_it (__main__.MemoryTests.test_init_preserves_legacy_document_without_linking_it) ... ok
+test_init_without_legacy_document_has_neutral_decisions (__main__.MemoryTests.test_init_without_legacy_document_has_neutral_decisions) ... ok
+test_invalid_evidence_and_corrupt_ledger_fail_closed (__main__.MemoryTests.test_invalid_evidence_and_corrupt_ledger_fail_closed) ... ok
+test_legacy_acceptance_without_identity_is_not_retroactive (__main__.MemoryTests.test_legacy_acceptance_without_identity_is_not_retroactive) ... ok
+test_mutation_waits_for_shared_status_lock (__main__.MemoryTests.test_mutation_waits_for_shared_status_lock) ... ok
+test_ordinary_errors_are_not_ledger_corruption (__main__.MemoryTests.test_ordinary_errors_are_not_ledger_corruption) ... ok
+test_project_lesson_lifecycle_and_projection_rebuild (__main__.MemoryTests.test_project_lesson_lifecycle_and_projection_rebuild) ... ok
+test_project_lesson_live_reuse_requires_current_references (__main__.MemoryTests.test_project_lesson_live_reuse_requires_current_references) ... ok
+test_project_lesson_replacement_reuse_chain (__main__.MemoryTests.test_project_lesson_replacement_reuse_chain) ... ok
+test_project_lesson_same_contract_across_callers (__main__.MemoryTests.test_project_lesson_same_contract_across_callers) ... ok
+test_project_lesson_stale_references_and_scope_fail_closed (__main__.MemoryTests.test_project_lesson_stale_references_and_scope_fail_closed) ... ok
+test_session_rebuild_confirmation_and_evidence (__main__.MemoryTests.test_session_rebuild_confirmation_and_evidence) ... ok
+test_stale_end_replay_after_next_session_starts (__main__.MemoryTests.test_stale_end_replay_after_next_session_starts) ... ok
+test_status_codes_and_backend_independent_contract (__main__.MemoryTests.test_status_codes_and_backend_independent_contract) ... ok
+test_status_uses_read_only_shared_lock_without_writing_memory (__main__.MemoryTests.test_status_uses_read_only_shared_lock_without_writing_memory) ... ok
+test_status_waits_for_exclusive_writer_lock (__main__.MemoryTests.test_status_waits_for_exclusive_writer_lock) ... ok
+test_uninitialized_status_does_not_create_memory_files (__main__.MemoryTests.test_uninitialized_status_does_not_create_memory_files) ... ok
+test_verifier_artifact_consistency_gate (__main__.MemoryTests.test_verifier_artifact_consistency_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 64.325s
+
+OK

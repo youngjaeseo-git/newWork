@@ -1,13 +1,13 @@
 {
   "active_session": null,
-  "event_seq": 32,
+  "event_seq": 38,
   "last_git": {
     "branch": "claude/loving-newton-BjOEj",
-    "dirty": false,
-    "head": "7bb21c8c7d941949ee45050be4112f03dee344db",
-    "worktree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "dirty": true,
+    "head": "08252b7b2a7f343d352d00b1b8ca641d540be710",
+    "worktree_sha256": "4f96de04686ce0b228c594a0f9ca46df69ab8e3b0a3229d2b0e399b93bd7a8ea"
   },
-  "next_start": "Use Task Intake Gate for the next explicitly requested task; preserve candidate/inconclusive stale Lesson and require human decisions for material ambiguity",
+  "next_start": "Apply conditional Freshness Check only to relevant resumed, release, compatibility, SDK/API or security tasks; preserve stale candidate Lesson for human review",
   "open_tasks": {},
   "pending_confirmations": {},
   "schema": 1

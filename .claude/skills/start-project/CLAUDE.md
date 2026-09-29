@@ -31,6 +31,13 @@
 - 질문에는 **확인된 사실 → 남은 결정 → 최대 2~3개의 실제 선택지와 핵심 차이 → 권장안과 이유(있다면)**를 담는다. 막연한 “어떻게 할까요?”나 질문 개수 quota는 두지 않는다.
 - **Non-blocking ambiguity**: 이름·작은 파일 배치·되돌리기 쉬운 내부 방식 등 결과와 scope를 바꾸지 않는 세부사항은 기존 convention과 최소 변경 원칙으로 스스로 결정한다. 필요한 중요한 선택만 작업 근거에 남긴다.
 - 큰 작업은 계획을 세우되, 계획에 blocking ambiguity가 남을 때만 사용자 결정을 받는다. 이미 승인된 계획을 반복 승인받지 않는다.
+
+### Maintenance / Freshness Check (조건부)
+
+- Task Intake Gate로 repo·요청 맥락을 확인한 뒤 장기 중단 프로젝트 재개, release/store 제출, build/toolchain 호환성, 외부 SDK/API 직접 작업, dependency/security 작업, platform/store 요구 변경 가능성이 클 때만 확인한다. 무관한 일반 기능·문서·분석 작업은 건너뛴다.
+- 해당 stack의 현재 버전과 **현재 요구사항**만 확인한다. 모바일이면 Flutter/Dart, 주요 package, Gradle/Kotlin/JDK, target/compile SDK, iOS/Xcode 배포 요구, Firebase/AdMob 등 관련 SDK와 CI를 필요한 범위에서 살핀다. 웹·백엔드는 그 stack에 맞추고, platform/store 제출 요건은 공식 최신 자료로 확인한다.
+- 결과는 **REQUIRED**(빌드·보안·지원 종료·store/platform 요구), **RECOMMENDED**(가까운 deprecation/EOL), **OPTIONAL**(새 버전이나 이번 task와 무관), **AVOID FOR NOW**(이득보다 회귀·이관 비용이 큼)로 구분한다. REQUIRED가 아닌 업데이트는 원래 task를 막지 않는다.
+- 새 버전이 있다는 이유만으로 일괄 upgrade하지 않는다. 큰 migration이나 UX·제품 동작 변경이 필요하면 위 blocking ambiguity로 되돌린다. 실제 작업에 영향을 주는 REQUIRED/RECOMMENDED만 기존 계획·근거에 남기며, 매번 새 문서를 만들지 않는다.
 <!-- 작성: 작업 착수 전 내가 항상 확인받고 싶은 것 -->
 
 ## 3. 프로젝트 진행 관리 (Project Tracking)
@@ -161,12 +168,12 @@
   - 웹앱: Vercel / Netlify / Cloudflare Pages, 자체 서버(도커 등)
   - 데스크톱: 각 OS 스토어 / 직접 배포
 - **Play Store 배포 준비물 체크리스트**:
-  - Google Play 개발자 계정 (등록비 $25, 1회)
+  - Google Play 개발자 계정 (등록비·가입 요건은 제출 시점 공식 자료 확인)
   - 앱 서명 키 (Play App Signing 권장)
   - 스토어 등록 자료: 아이콘·스크린샷·짧은/긴 설명·기능 그래픽
   - 개인정보 처리방침 URL (필수)
   - 콘텐츠 등급 설문, 타깃 연령, 데이터 보안(Data safety) 양식
-  - 최신 타깃 API 레벨 충족
+  - 제출 시점의 공식 Play 요구사항(타깃 API 등) 확인·충족 (2번 Freshness Check)
   - 내부 테스트 → 비공개 테스트 → 단계적 출시 순서 권장
 - **출력** — 배포 계획·체크리스트는 `docs/YYYY-MM-DD_배포계획.md` 로 저장한다.
 
@@ -267,7 +274,7 @@
 
 ### newWork autonomous contract — 명시적 요청 시
 
-먼저 2번 Task Intake Gate를 거쳐 목표·범위·완료 기준을 확인하고, blocking ambiguity가 없으면 승인된 자율 진행 범위에서 계속한다. blocking ambiguity가 남으면 사용자 결정 후 계속한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
+먼저 2번 Task Intake Gate와 해당할 때만 Freshness Check를 거쳐 목표·범위·완료 기준을 확인하고, blocking ambiguity가 없으면 승인된 자율 진행 범위에서 계속한다. blocking ambiguity가 남으면 사용자 결정 후 계속한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
 
 - **계속**: 승인 범위 안에서 조사 → 재현/regression → 최소 수정 → 테스트 → 별도 Spec/Contract review → verifier → 근거 → 완료 검증까지 진행한다. 일반적인 테스트·reviewer·verifier FAIL마다 사용자 승인을 다시 기다리지 않는다. 6번의 막힘 규칙대로 가설·접근을 바꾸고 재검증하며, 같은 실패를 의미 없이 반복하지 않는다.
 - **기존 Loop 유지**: Loop의 retry 한도와 verifier FAIL 시 run 종료는 바꾸지 않는다. 필요한 후속 검증은 새 run ID로 수행하고 과거 FAIL artifact는 보존한다. 실제 모델 실행 전 로그인·runtime 접근 가능 여부를 확인하며, 인증·권한 실패를 코드 실패나 PASS로 재해석하지 않는다.

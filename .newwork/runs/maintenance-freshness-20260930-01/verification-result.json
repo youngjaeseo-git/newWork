@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "run_id": "maintenance-freshness-20260930-01",
+  "task_id": "maintenance-freshness-contract-20260930",
+  "task_open_event": 34,
+  "verdict": "PASS",
+  "evidence": [
+    {"path": ".newwork/runs/maintenance-freshness-20260930-01/scope.md", "sha256": "a5db51fb5b3c09aec831334e59994b1fbbf16da086588b389aabf93bbb99a42b"},
+    {"path": ".newwork/runs/maintenance-freshness-20260930-01/tests.txt", "sha256": "ce64b60ac363bcb36562ef42f0202c60bdfb5023d9e28d8d8dd73b36bd418a3b"},
+    {"path": ".newwork/runs/maintenance-freshness-20260930-01/review.md", "sha256": "cb505fca329ddac49c53a283e0b75923aebafe0eb79f5f65516375f41ad740a4"},
+    {"path": ".newwork/runs/maintenance-freshness-20260930-01/verifier.md", "sha256": "4b5a115d45e42fad69ebdea52dd5088976f0ba708df8cc10c3452c866c5b7745"}
+  ],
+  "verifier_artifact": {"path": ".newwork/runs/maintenance-freshness-20260930-01/verifier.md", "sha256": "4b5a115d45e42fad69ebdea52dd5088976f0ba708df8cc10c3452c866c5b7745"}
+}

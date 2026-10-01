@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "run_id": "experience-baseline-20261001-01",
+  "task_id": "experience-baseline-gate",
+  "task_open_event": 41,
+  "verdict": "PASS",
+  "evidence": [
+    {
+      "path": ".newwork/runs/experience-baseline-20261001-01/validation.md",
+      "sha256": "68e500e9ce5d28d7ba1b4975f8ce62ead813f1a5b4ab4b987fd0574181db2836"
+    }
+  ],
+  "verifier_artifact": {
+    "path": ".newwork/runs/experience-baseline-20261001-01/verifier.md",
+    "sha256": "d74629231bdab413cd6737161fa86a6e0b5dc848b562c2c19782f898e40298aa"
+  }
+}

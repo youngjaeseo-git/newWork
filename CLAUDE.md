@@ -38,6 +38,16 @@
 - 해당 stack의 현재 버전과 **현재 요구사항**만 확인한다. 모바일이면 Flutter/Dart, 주요 package, Gradle/Kotlin/JDK, target/compile SDK, iOS/Xcode 배포 요구, Firebase/AdMob 등 관련 SDK와 CI를 필요한 범위에서 살핀다. 웹·백엔드는 그 stack에 맞추고, platform/store 제출 요건은 공식 최신 자료로 확인한다.
 - 결과는 **REQUIRED**(빌드·보안·지원 종료·store/platform 요구), **RECOMMENDED**(가까운 deprecation/EOL), **OPTIONAL**(새 버전이나 이번 task와 무관), **AVOID FOR NOW**(이득보다 회귀·이관 비용이 큼)로 구분한다. REQUIRED가 아닌 업데이트는 원래 task를 막지 않는다.
 - 새 버전이 있다는 이유만으로 일괄 upgrade하지 않는다. 큰 migration이나 UX·제품 동작 변경이 필요하면 위 blocking ambiguity로 되돌린다. 실제 작업에 영향을 주는 REQUIRED/RECOMMENDED만 기존 계획·근거에 남기며, 매번 새 문서를 만들지 않는다.
+
+### Experience Baseline Gate (조건부)
+
+- Task Intake Gate의 목표·완료 기준에서 사람이 보고 듣고 조작하는 경험이 중요한 경우에만 적용한다. 일반 backend/CLI·무관한 문서 작업에는 visual/audio 질문을 추가하지 않는다. 이미 승인된 기준은 repo의 theme/token, component, spec, 결정 기록, audio map 등 **한 정본**에서 찾아 재사용한다.
+- 여러 화면·지역·asset으로 확대하기 전에 대표 경험 하나(앱 핵심 화면, 웹 핵심 flow, 게임 playable scene/레벨, 발표자료 대표 2~3장)를 검증한다. 기존 승인 기준이나 작은 내부 component는 재승인받지 않는다. 기준이 없고 확대 후 재작업이 큰 제품 경험 선택만 위 Task Intake의 blocking ambiguity로 다룬다.
+- 시각 기준이 필요하면 tone, 색·타이포·간격, 정보 위계·밀도, component·icon/illustration, 대비·가독성, 전경/배경과 motion 성격을 필요한 만큼 확인한다. UI는 기존 화면·navigation·interaction·control 위치와 피드백을 먼저 보고 재사용하며, 시선 흐름·조작 거리·touch target도 살핀다. 확정 후 유지 방법은 8번 Design Consistency를 따른다.
+- Motion은 상태 변화와 조작 이해를 우선해 duration·easing·transition·성공/오류 피드백을 일관되게 쓰고, 가독성·반응성·게임 조작을 해치지 않게 하며 reduced-motion을 고려한다. Sound가 중요한 경우에만 기존 asset·sound map·volume policy를 먼저 확인하고, 대표 경험에서 BGM/ambient/UI·action·success/failure/warning SFX의 분위기·음량·피드백 성격과 필요 시 haptic 관계를 맞춘 뒤 확장한다. 같은 의미의 동작은 같은 음향 언어를 따른다.
+- 앱/웹은 승인된 핵심 화면·flow의 언어를 확장한다. 게임은 core control/gameplay → 대표 playable scene의 visual·조작 피드백·sound → 실제 human playtest 순서로 보고, 재미가 확인되기 전 meta/shop/content/asset을 대량 확장하지 않는다. 테스트 PASS를 재미·몰입·game feel의 증명으로 말하지 않는다.
+- 새 결과는 가능하면 기존 기준과 실제 화면·기기·재생 결과를 나란히 비교한다. overflow, asset 경로, navigation/상태, audio 재생·volume, 성능, 접근성, screenshot·token 차이는 자동 검사할 수 있다. 미감·가독성 체감·조작감·motion 자연스러움·BGM 피로도는 자동 PASS로 확정하지 않는다. 제품 경험을 크게 바꾸거나 미승인 대표 기준을 넓히기 전 필요한 경우에만 화면/소리를 보여주고 최대 3~4개의 구체적 판단점을 묻는 human experience gate를 사용한다.
+- 회사 PPT·공식 자료는 회사 template/Slide Master·font·color·승인 예시·차트 관례를 먼저 찾고 **포맷 준수 → 사실·수치 정확성 → 메시지·가독성 → 시각 정리** 순으로 다룬다. 적용할 회사 기준을 찾지 못했고 선택에 따라 결과가 달라지면 확인을 받으며, 독자적 palette·gradient·card·장식으로 재디자인하지 않는다. 가능하면 한 슬라이드에 핵심 메시지 하나와 근거를 두고, 기술 상세는 청중에 맞춰 뒤로 배치한다. PPT의 text/table/chart/diagram/label은 특별한 이유가 없으면 수정 가능한 요소로 만든다. 회사 내부 데이터·로그·개인정보는 승인되지 않은 외부 서비스에 보내지 않고, 승인된 도구·저장소만 사용한다.
 <!-- 작성: 작업 착수 전 내가 항상 확인받고 싶은 것 -->
 
 ## 3. 프로젝트 진행 관리 (Project Tracking)
@@ -274,7 +284,7 @@
 
 ### newWork autonomous contract — 명시적 요청 시
 
-먼저 2번 Task Intake Gate와 해당할 때만 Freshness Check를 거쳐 목표·범위·완료 기준을 확인하고, blocking ambiguity가 없으면 승인된 자율 진행 범위에서 계속한다. blocking ambiguity가 남으면 사용자 결정 후 계속한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
+먼저 2번 Task Intake Gate와 해당할 때만 Freshness Check·Experience Baseline Gate를 거쳐 목표·범위·완료 기준을 확인하고, blocking ambiguity가 없으면 승인된 자율 진행 범위에서 계속한다. blocking ambiguity가 남으면 사용자 결정 후 계속한다. 이 절은 에이전트가 읽고 따르는 운영 규칙이며 자동 hook이나 새 실행 engine이 아니다. 자동으로 읽지 않는 에이전트에는 호출자가 이 절과 접근 가능한 newWork 본체 경로를 제공한다. 아래 `docs/`·`.newwork/` 참조는 본체 기준이며 export 패키지에 포함되지 않는다. 필요한 분기에서만 해당 자료를 읽는다.
 
 - **계속**: 승인 범위 안에서 조사 → 재현/regression → 최소 수정 → 테스트 → 별도 Spec/Contract review → verifier → 근거 → 완료 검증까지 진행한다. 일반적인 테스트·reviewer·verifier FAIL마다 사용자 승인을 다시 기다리지 않는다. 6번의 막힘 규칙대로 가설·접근을 바꾸고 재검증하며, 같은 실패를 의미 없이 반복하지 않는다.
 - **기존 Loop 유지**: Loop의 retry 한도와 verifier FAIL 시 run 종료는 바꾸지 않는다. 필요한 후속 검증은 새 run ID로 수행하고 과거 FAIL artifact는 보존한다. 실제 모델 실행 전 로그인·runtime 접근 가능 여부를 확인하며, 인증·권한 실패를 코드 실패나 PASS로 재해석하지 않는다.
@@ -308,14 +318,10 @@
 - 죽은 코드·미사용 import 는 남기지 않는다.
 
 ### 디자인 일관성 (Design Consistency)
-> 디자인을 확정한 뒤에는, 기능·페이지가 늘어나도 **새로 만든 화면이 기존과 똑같은 톤·색·간격**을 갖게 한다.
-> 화면이 추가될 때마다 디자인이 미묘하게 어긋나는 것을 막는다.
+> 2번에서 대표 experience 기준을 정한 뒤, 구현 중에는 승인된 언어를 재사용·유지한다.
 
-- **디자인 토큰을 한 곳에**: 색(팔레트)·폰트·간격·모서리 반경·그림자 등을 **중앙(테마/변수/토큰)** 에 정의하고, 화면에서는 그 토큰만 참조한다. 색·크기를 화면마다 **하드코딩하지 않는다.**
-- **새 페이지·컴포넌트는 먼저 기존 것을 본다**: 새 화면을 만들기 전에 **기존 화면·컴포넌트·토큰을 먼저 확인**하고 같은 컴포넌트·토큰을 재사용한다. (6번 Data-First 와 같은 결 — 추측으로 새 색/스타일을 만들지 않는다.)
-- **새 스타일은 임의로 추가하지 않는다**: 기존 토큰으로 안 되는 경우에만 토큰을 새로 정의해 **중앙에 추가**하고 그걸 참조한다. 일회성 인라인 색·폰트를 흩뿌리지 않는다.
-- **디자인 확정 시 기준을 문서화**: 확정된 팔레트·타이포·핵심 컴포넌트를 코드의 테마 파일이나 `docs/YYYY-MM-DD_디자인-가이드.md` 에 기록해 재현 가능하게 한다.
-- **확인 방법**: 새 화면을 추가하면 기존 화면과 **나란히 비교**(스크린샷 — `scripts/shot.sh` 활용)해 색·간격·폰트가 동일한지 점검한다.
+- 색·폰트·간격·모서리·그림자 등 기존 theme/token/component를 먼저 재사용한다. 화면별 하드코딩이나 임의의 새 스타일을 피하고, 필요한 새 기준만 기존 정본에 반영한다. 작은 프로젝트에 별도 디자인 시스템을 강제하지 않는다.
+- 새 화면은 기존 화면과 실제 결과(가능하면 스크린샷)를 나란히 비교해 tone·정보 위계·component·간격을 확인한다. 기준을 여러 문서에 복제하거나 새 가이드를 무조건 만들지 않는다.
 
 ## 9. 하지 말아야 할 것 (Do NOT)
 
@@ -346,7 +352,7 @@
 - [ ] 요구사항을 모두 만족했는가
 - [ ] 테스트/린트를 통과했는가
 - [ ] **잘못된 입력·예외 상황 처리가 적용됐는가** (입력 검증, 모든 분기, 예외 미삼킴)
-- [ ] **새 화면·컴포넌트가 기존 디자인 토큰(색·폰트·간격)을 따랐는가** (UI 작업 시)
+- [ ] **이번 task에 visual/UI/motion/audio가 포함되면** 기존 experience 기준을 따르고 필요한 자동 검증과 실제 체감 확인을 구분했는가 (2번·8번)
 - [ ] **별도 에이전트의 검토·검증을 거쳤는가** (`/code-review`, `/verify`)
 - [ ] 변경 범위가 의도한 것에만 한정됐는가
 - [ ] 진행 추적 파일(plan / todo / work / history)을 갱신했는가

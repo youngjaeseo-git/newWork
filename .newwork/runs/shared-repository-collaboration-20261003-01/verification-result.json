@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "run_id": "shared-repository-collaboration-20261003-01",
+  "task_id": "shared-repository-collaboration-contract",
+  "task_open_event": 46,
+  "verdict": "PASS",
+  "evidence": [
+    {
+      "path": ".newwork/runs/shared-repository-collaboration-20261003-01/validation.md",
+      "sha256": "7d0b824fd80608d7a71d4975b9d65f8919683e5f010f0d2936550d2593f588cf"
+    },
+    {
+      "path": ".newwork/runs/shared-repository-collaboration-20261003-01/verifier.md",
+      "sha256": "6348c967e34ea68985d0585a1c62bdf0866c6358111657c05f24edaf7ff6c89c"
+    }
+  ],
+  "verifier_artifact": {
+    "path": ".newwork/runs/shared-repository-collaboration-20261003-01/verifier.md",
+    "sha256": "6348c967e34ea68985d0585a1c62bdf0866c6358111657c05f24edaf7ff6c89c"
+  }
+}

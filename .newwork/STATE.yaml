@@ -1,13 +1,13 @@
 {
   "active_session": null,
-  "event_seq": 44,
+  "event_seq": 49,
   "last_git": {
     "branch": "claude/loving-newton-BjOEj",
     "dirty": true,
-    "head": "1ba82c2eeafcd7f3e98658666558e6bba66c968e",
-    "worktree_sha256": "6a4778ca885a14badde655ae4463c5b0ee8ebaa0f4e2b543931c2fc2c8ad05de"
+    "head": "1daca4dc577b0859fbb78ab2f9d4a081c589b0a0",
+    "worktree_sha256": "6bed47294eca3e61be3fc1593b2bf567ffce70392c882e23c561c867c270b4ef"
   },
-  "next_start": "Observe conditional Experience Baseline Gate in the next relevant project; preserve stale Lesson for human review",
+  "next_start": "Validate the shared-repository contract in a real two-person PR integration; preserve stale Lesson for human review.",
   "open_tasks": {},
   "pending_confirmations": {},
   "schema": 1

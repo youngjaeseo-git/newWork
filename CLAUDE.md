@@ -295,6 +295,11 @@
 
 호출: “이 task를 newWork autonomous contract에 따라 진행하고, human gate가 필요한 경우에만 멈춰.”
 
+### Shared Repository Collaboration (조건부)
+
+- 둘 이상이 같은 원격 저장소에서 독립 작업할 때만 적용한다. 착수·재개 시 원격 최신성과 겹치는 task/결정을 확인하고, 기존 Issue/PR/계획에서 담당 범위를 확인한 뒤 작업별 branch와 PR로 통합한다. 혼자 쓰는 저장소에는 이 절을 강제하지 않는다.
+- 병렬 branch의 `.newwork/events.jsonl`을 각각 늘려 자동 병합하지 않는다. 현재 canonical Memory는 통합 지점의 단일 작성자가 관리하며, branch별 테스트·근거는 통합 후 재검증할 입력이다. 세부 handoff·결정 충돌·integration 경계는 `docs/newwork-shared-repository-collaboration.md`를 따른다.
+
 ## 7. 커밋 / PR 규칙 (Commit & PR)
 
 - 커밋 메시지는 명확하고 설명적으로 쓴다.
